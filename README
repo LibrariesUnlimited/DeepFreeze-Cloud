@@ -1,1 +1,8 @@
 some content
+
+Scripts need to be hosted on a webserver currently.
+If hosted on IIS with Insight the IIS server will need to be configured to allow download of the required file types
+This can be done from MIME Type > Add > extension required and MIME Type is "application/octet-stream"
+
+
+This Scripts are all currently in the testing phase and should not be used in production until indicated.
