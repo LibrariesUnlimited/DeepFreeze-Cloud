@@ -1,3 +1,5 @@
+#Tested script but not through DeepFreeze Cloud
+
 #Import Fortiguard Certificates into Root Certificate Store
 
 #Download file to local machine

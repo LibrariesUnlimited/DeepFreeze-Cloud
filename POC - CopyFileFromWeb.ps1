@@ -1,3 +1,6 @@
+#This file is a Proof of Concept to show downloading of a file from the internet to local machine
+
+
 if(-not(Test-Path "C:\TeraTermTemp\")) {
 	New-Item "C:\TeraTermTemp\" -ItemType Directory -Force
 }

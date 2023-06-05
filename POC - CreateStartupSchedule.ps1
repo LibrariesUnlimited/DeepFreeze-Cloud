@@ -1,4 +1,9 @@
-﻿
+﻿#Successful script for Imaging a computer, the methodology required is because the build process will need to be completed on a network with DHCP which would not have the Proxy
+#this means the Admin account should not have proxy settings but the PublicUser account should so I couldn't use a "Computer Wide" proxy setting
+
+#This script creates a logon script ($script variable is content of powershell script) which is set as a Logon Scheduled Task for the publicuser account (which can be done when the user doesn't exist yet)
+#This will change settings so a neater version would then delete the scheduled task when completed ... that part is untested
+
 $script = @'
 $logfile = "C:\Windows\Temp\LogonScript.log"
 

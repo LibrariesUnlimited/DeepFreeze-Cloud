@@ -1,8 +1,19 @@
-some content
-
 Scripts need to be hosted on a webserver currently.
 If hosted on IIS with Insight the IIS server will need to be configured to allow download of the required file types
 This can be done from MIME Type > Add > extension required and MIME Type is "application/octet-stream"
 
+These Scripts are all currently in the testing phase and should not be used in production until indicated.
 
-This Scripts are all currently in the testing phase and should not be used in production until indicated.
+POC
+Proof of Concept scripts that will require correct usernames or file locations before use in a live enviroment
+
+UNTESTED
+POC Scripts which have not been fully tested for either Imaging or Maintenance Scripting
+ImportFilterCertificate - A working script when run manually, untested from Cloud
+UpdateOffice.bat - A script that cannot be tested until Office 2019 receives an update
+
+FAIL
+Scripts that didn't work for whatever reason, included as learning resource
+
+TEST
+Scripts used in the testing of DeepFreeze Cloud, included as learning resource

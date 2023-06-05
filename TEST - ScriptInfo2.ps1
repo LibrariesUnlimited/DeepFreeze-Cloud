@@ -1,4 +1,7 @@
-$logfile = "C:\Windows\temp\scriptingtest1_$(Get-Date -Format "dd-MM-yyyy").log"
+# Test script to identify DeepFreeze Cloud task processing order
+# Included in GitHub to show testing
+
+$logfile = "C:\Windows\temp\scriptingtest2_$(Get-Date -Format "dd-MM-yyyy").log"
 
 Write-Output "Starting script at $(Get-Date -Format "dd-MM-yyyy HH:mm:ss")..." | Out-File -FilePath $logfile -Append
 

@@ -1,3 +1,5 @@
+#This script is a Failure, it was a logon script which was downloaded by the CreateLogonScript.ps1 script which did not work.  
+
 Start-Transcript -path "C:\Windows\Temp\ProxyLogon.Log"
 
 $logfile = "C:\LogonScriptRunning.log"

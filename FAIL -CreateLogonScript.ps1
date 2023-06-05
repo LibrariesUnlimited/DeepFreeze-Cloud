@@ -1,3 +1,6 @@
+#This script failed to work due to the fact that the logon script details needed to be added to two locations in the Registry
+#This first HKLM was fine however it apparently also needed to be in HKCU for the login account which had not been created yet from the Install
+
 Start-Transcript -Path "C:\Windows\Temp\CreateLogonScript.log"
 
 $User = Get-LocalUser -Name LUTestUser | Select SID

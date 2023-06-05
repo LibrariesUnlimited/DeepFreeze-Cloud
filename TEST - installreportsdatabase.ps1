@@ -1,3 +1,6 @@
+#known successful script from Intune to test DeepFreeze Cloud powershell script process
+# Included in GitHub to show testing
+
 Start-Transcript -Path $(Join-Path $env:TEMP "InstallReportsDatabase.log")
 Write-Output "Transcript Started"
 
