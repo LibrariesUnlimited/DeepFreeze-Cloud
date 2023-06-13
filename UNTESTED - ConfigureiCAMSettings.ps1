@@ -65,7 +65,7 @@ Set-ItemProperty -Path $registryPath -Name "Close VNC" -Value 1 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Enable Application Focus Agent" -Value 1 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Focus Agent Timer Interval" -Value 320 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Hide On Screen IP Address" -Value 1 -Type DWord
-Set-ItemProperty -Path $registryPath -Name "Pause Adverts When Login Visible" -Value 0
+Set-ItemProperty -Path $registryPath -Name "Pause Adverts When Login Visible" -Value "0"
 Set-ItemProperty -Path $registryPath -Name "Show Shutdown On Login Box" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Login Box Shutdown Button Caption" -Value "Shutdown"
 Set-ItemProperty -Path $registryPath -Name "LDAP Server Address" -Value ""
