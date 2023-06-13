@@ -86,7 +86,19 @@ $adultApplicationsValues = @{
 $aduRegistryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU"
 $aduApplicationsRegistryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU\Applications"
 
-# this is very much a hack ... it can be tidied up with variables and made a function for each profile to be created
+# this is very much a hack ... it can be tidied up with variables and made a function for each profile to be created and remove the earlier bits by including it all in one install script
+if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\")){
+    New-Item -Path "HKLM:\SOFTWARE\" -Name "Insight Media"
+	New-Item -Path "HKLM:\SOFTWARE\Insight Media\" -Name "Cafe Client"
+	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\" -Name "Application Launcher"
+}
+if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\")){
+	New-Item -Path "HKLM:\SOFTWARE\Insight Media\" -Name "Cafe Client"
+	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\" -Name "Application Launcher"
+}
+if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\")){
+	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\" -Name "Application Launcher"
+}
 if(-not(Test-Path $aduRegistryPath)){
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\" -Name "ADU"
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU\" -Name "Applications"
