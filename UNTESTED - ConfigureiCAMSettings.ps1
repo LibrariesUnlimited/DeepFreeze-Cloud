@@ -10,6 +10,17 @@ if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Print Client\")){
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\" -Name "Print Client"
 }
 
+# Registry key/values for iCAM autorun
+$autorunValues = @{
+    "iCAMClient"="C:\Program Files (x86)\iCAM\Workstation Control\icamclient.exe"
+    "iCAMPrint"="C:\Program Files (X86)\iCAM\printer Control\prntray.exe"
+}
+$autorunPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
+
+$autorunValues.GetEnumerator() | ForEach-Object {
+    Set-ItemProperty -Path $autorunPath -Name $_.Key -Value $_.Value
+}
+
 $registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client"
 
 # Set the registry values
