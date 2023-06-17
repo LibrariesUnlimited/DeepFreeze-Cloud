@@ -1,3 +1,6 @@
+# List of Profiles, remember if a profile is added here it needs to be added to the switch statement below
+$profiles = @('ADC','ADU','CHC','CHI','Default','OOH','STC','STU')
+
 # Registry key/values for Adult Profiles
 $adultValues = @{
     "Use Proxy Server" = 1
@@ -218,7 +221,7 @@ $childValues = @{
 }
 
 # Registry key/values for Child Applications
-$filteredApplicationsValues = @{
+$childApplicationsValues = @{
     "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,125,260,0"
     "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,225,370,0"
     "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,225,260,0"
@@ -237,8 +240,7 @@ $filteredApplicationsValues = @{
 #then need set of registry paths for each profile in use (like $aduRegistryPath below)
 #then probably need to create each of those paths as I don't think the installer does
 
-$aduRegistryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU"
-$aduApplicationsRegistryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU\Applications"
+
 
 # this is very much a hack ... it can be tidied up with variables and made a function for each profile to be created and remove the earlier bits by including it all in one install script
 if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\")){
@@ -253,6 +255,11 @@ if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\")){
 if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\")){
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\" -Name "Application Launcher"
 }
+<#
+remove this is the SWITCH statement works
+#$aduRegistryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU"
+#$aduApplicationsRegistryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU\Applications"
+
 if(-not(Test-Path $aduRegistryPath)){
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\" -Name "ADU"
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU\" -Name "Applications"
@@ -266,6 +273,55 @@ $adultValues.GetEnumerator() | ForEach-Object {
 # Create ADU Applications registry entries
 $adultApplicationsValues.GetEnumerator() | ForEach-Object {
     Set-ItemProperty -Path $aduApplicationsRegistryPath -Name $_.Key -Value $_.Value
+}
+#>
+# @('ADC','ADU','CHC','CHI','Default','OOH','STC','STU') ADC and ADU and Default and OOH the same (all adult), CHC and CHI the same (all child), STC and STU the same (child filter) 
+switch ( $profiles ) {
+    {($_ -eq "ADC") -or ($_ -eq "ADU") -or ($_ -eq "Default") -or ($_ -eq "OOH")} 
+        {
+            if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_")){
+                New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\" -Name $_
+                New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\" -Name "Applications"
+            }
+
+            $adultValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_" -Name $_.Key -Value $_.Value
+            }
+
+            $adultApplicationsValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\Applications" -Name $_.Key -Value $_.Value
+            }
+        }
+    {($_ -eq "CHC") -or ($_ -eq "CHI")} 
+        {
+            if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_")){
+                New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\" -Name $_
+                New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\" -Name "Applications"
+            }
+
+            $childValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_" -Name $_.Key -Value $_.Value
+            }
+
+            $childApplicationsValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\Applications" -Name $_.Key -Value $_.Value
+            }            
+        }
+    {($_ -eq "STC") -or ($_ -eq "STU")} 
+        {
+            if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_")){
+                New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\" -Name $_
+                New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\" -Name "Applications"
+            }
+
+            $filteredValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_" -Name $_.Key -Value $_.Value
+            }
+
+            $filteredApplicationsValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\Applications" -Name $_.Key -Value $_.Value
+            }              
+        }
 }
 
 # Create Environment Profile
@@ -289,4 +345,4 @@ Set-ItemProperty -Path $registryPath -Name "Disable Mouse Right Click" -Value 0 
 
 # Create Monitor Settings (maybe)
 
-Write-Host "ADU registry entries created successfully."
+
