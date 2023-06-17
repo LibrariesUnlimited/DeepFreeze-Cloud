@@ -1,3 +1,5 @@
+# Server Address setting moved to Startup Script to take computer name
+
 if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\")){
     New-Item -Path "HKLM:\SOFTWARE\" -Name "Insight Media"
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\" -Name "Cafe Client"
@@ -24,7 +26,7 @@ $autorunValues.GetEnumerator() | ForEach-Object {
 $registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client"
 
 # Set the registry values
-Set-ItemProperty -Path $registryPath -Name "Server Address" -Value "10.0.132.10"
+#Set-ItemProperty -Path $registryPath -Name "Server Address" -Value "10.0.132.10"
 Set-ItemProperty -Path $registryPath -Name "iCAM Port" -Value 1456 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Force Reg Read For Primary Server" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Client Initialisation Delay Seconds" -Value 0 -Type DWord
@@ -75,7 +77,7 @@ Set-ItemProperty -Path $registryPath -Name "Bold Launcher Tabs" -Value 0 -Type D
 $registryPath = "HKLM:\SOFTWARE\Insight Media\Print Client"
 
 # Set the registry values
-Set-ItemProperty -Path $registryPath -Name "Server IP" -Value "10.0.132.10"
+#Set-ItemProperty -Path $registryPath -Name "Server IP" -Value "10.0.132.10"
 Set-ItemProperty -Path $registryPath -Name "Server Port" -Value "1457"
 Set-ItemProperty -Path $registryPath -Name "Server Password" -Value "&6:!!"
 Set-ItemProperty -Path $registryPath -Name "Connection Delay" -Value 1 -Type DWord
