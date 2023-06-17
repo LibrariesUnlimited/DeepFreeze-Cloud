@@ -236,12 +236,6 @@ $childApplicationsValues = @{
     "Audacity - Audio"="C:\Program Files (x86)\Audacity\audacity.exe,,,290,600,0"
 }
 
-# need same as above for Child (no internet access) and young person filtered profiles
-#then need set of registry paths for each profile in use (like $aduRegistryPath below)
-#then probably need to create each of those paths as I don't think the installer does
-
-
-
 # this is very much a hack ... it can be tidied up with variables and made a function for each profile to be created and remove the earlier bits by including it all in one install script
 if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\")){
     New-Item -Path "HKLM:\SOFTWARE\" -Name "Insight Media"
@@ -255,27 +249,8 @@ if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\")){
 if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\")){
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\" -Name "Application Launcher"
 }
-<#
-remove this is the SWITCH statement works
-#$aduRegistryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU"
-#$aduApplicationsRegistryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU\Applications"
 
-if(-not(Test-Path $aduRegistryPath)){
-	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\" -Name "ADU"
-	New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\ADU\" -Name "Applications"
-}
-
-# Create ADU registry entries
-$adultValues.GetEnumerator() | ForEach-Object {
-    Set-ItemProperty -Path $aduRegistryPath -Name $_.Key -Value $_.Value
-}
-
-# Create ADU Applications registry entries
-$adultApplicationsValues.GetEnumerator() | ForEach-Object {
-    Set-ItemProperty -Path $aduApplicationsRegistryPath -Name $_.Key -Value $_.Value
-}
-#>
-# @('ADC','ADU','CHC','CHI','Default','OOH','STC','STU') ADC and ADU and Default and OOH the same (all adult), CHC and CHI the same (all child), STC and STU the same (child filter) 
+#  ADC and ADU and Default and OOH the same (all adult), CHC and CHI the same (all child), STC and STU the same (child filter) 
 switch ( $profiles ) {
     {($_ -eq "ADC") -or ($_ -eq "ADU") -or ($_ -eq "Default") -or ($_ -eq "OOH")} 
         {
