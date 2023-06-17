@@ -284,12 +284,13 @@ switch ( $profiles ) {
                 New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\" -Name "Applications"
             }
 
+            $profileName = $_
             $adultValues.GetEnumerator() | ForEach-Object {
-                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_" -Name $_.Key -Value $_.Value
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName" -Name $_.Key -Value $_.Value
             }
 
             $adultApplicationsValues.GetEnumerator() | ForEach-Object {
-                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\Applications" -Name $_.Key -Value $_.Value
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
             }
         }
     {($_ -eq "CHC") -or ($_ -eq "CHI")} 
@@ -299,12 +300,13 @@ switch ( $profiles ) {
                 New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\" -Name "Applications"
             }
 
+            $profileName = $_
             $childValues.GetEnumerator() | ForEach-Object {
-                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_" -Name $_.Key -Value $_.Value
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName" -Name $_.Key -Value $_.Value
             }
 
             $childApplicationsValues.GetEnumerator() | ForEach-Object {
-                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\Applications" -Name $_.Key -Value $_.Value
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
             }            
         }
     {($_ -eq "STC") -or ($_ -eq "STU")} 
@@ -314,12 +316,13 @@ switch ( $profiles ) {
                 New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\" -Name "Applications"
             }
 
+            $profileName = $_
             $filteredValues.GetEnumerator() | ForEach-Object {
-                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_" -Name $_.Key -Value $_.Value
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName" -Name $_.Key -Value $_.Value
             }
 
             $filteredApplicationsValues.GetEnumerator() | ForEach-Object {
-                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$_\Applications" -Name $_.Key -Value $_.Value
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
             }              
         }
 }
