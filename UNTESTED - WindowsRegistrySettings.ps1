@@ -20,3 +20,6 @@ switch ($computerPrefix) {
         }
 }
 #>
+
+# Disable Firewall for printing (can we improve this and not have the firewall completely off?)
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
