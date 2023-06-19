@@ -1,12 +1,8 @@
-# UNTESTED - testing iCAMSiteSpecificIP script as startup 
-# also testing deleting startup task as part of script being run by startup task!
+# POC - iCAMSiteSpecificIP script as startup 
+# Will need to be added to other "in scheduled task" scripts to make one big script
 
 
 $script = @'
-$logfile = "C:\Windows\Temp\LogonScript.log"
-
-Write-Output "Script Running" | Out-File -FilePath $logfile -Append
-
 $printRegistryPath = "HKLM:\SOFTWARE\Insight Media\Print Client"
 $cafeRegistryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client"
 
@@ -289,10 +285,6 @@ switch ($computerPrefix) {
         Set-ItemProperty -Path $cafeRegistryPath -Name "Server Address" -Value "99.99.99.99"   
     }
 }
-
-Write-Output "Script Finished" | Out-File -FilePath $logfile -Append
-
-Unregister-ScheduledTask -TaskName "IP Startup" -Confirm:$False
 '@
 
 $path = "C:\Program Files\Libraries Unlimited"
