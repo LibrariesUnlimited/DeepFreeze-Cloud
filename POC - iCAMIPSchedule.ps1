@@ -1,6 +1,6 @@
 # POC - iCAMSiteSpecificIP script as startup 
 # Will need to be added to other "in scheduled task" scripts to make one big script
-
+# Also need to change Terms and Conditions (and possibly adverts but I think they are all the same now) based on Devon/Torbay
 
 $script = @'
 $printRegistryPath = "HKLM:\SOFTWARE\Insight Media\Print Client"
