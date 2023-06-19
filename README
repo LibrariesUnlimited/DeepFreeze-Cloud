@@ -10,7 +10,6 @@ Proof of Concept scripts that will require correct usernames or file locations b
 UNTESTED
 POC Scripts which have not been fully tested for either Imaging or Maintenance Scripting
 ImportFilterCertificate - A working script when run manually, untested from Cloud
-UpdateOffice.bat - A script that cannot be tested until Office 2019 receives an update
 
 FAIL
 Scripts that didn't work for whatever reason, included as learning resource
