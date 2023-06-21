@@ -527,8 +527,10 @@ Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(2).cer" -Force
 $script = @'
 # Sets Proxy Settings
 $registryLocation = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
-$null = New-ItemProperty -Name "ProxyEnable" -Path $registryLocation -PropertyType DWord -Value "1" -Force -EA Stop
-$null = New-ItemProperty -Name "ProxyServer" -Path $registryLocation -PropertyType string -Value "172.18.20.9:8080" -Force -EA Stop
+#$null = New-ItemProperty -Name "ProxyEnable" -Path $registryLocation -PropertyType DWord -Value "1" -Force -EA Stop
+#$null = New-ItemProperty -Name "ProxyServer" -Path $registryLocation -PropertyType string -Value "172.18.20.9:8080" -Force -EA Stop
+Set-ItemProperty -Name "ProxyEnable" -Path $registryLocation -Type DWord -Value "1" -Force
+Set-ItemProperty -Name "ProxyServer" -Path $registryLocation -Type string -Value "172.18.20.9:8080" -Force
 
 # Sets Windows 11 Application Startup Delay to 0 from Default of 10 Seconds
 $registryLocation = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize"
