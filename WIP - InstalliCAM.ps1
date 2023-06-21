@@ -9,6 +9,7 @@ if(-not(Test-Path "C:\Program Files (x86)\iCAM\")) {
 
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAM Workstation Control Client 5.9.1.msi" -OutFile "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAM Print Client 4.7.0.1000.msi" -OutFile "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAMAllUsers.mst" -OutFile "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst"
 
 # Start-Process -Wait means the MSIExec.exe task will be required to finished before moving on to the next line of the Powershell Script
 #need to test quotes work
@@ -16,8 +17,13 @@ Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAM Print Client 4.7.0.10
 
 $msiFile = "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi"
 $logFile = "C:\Program Files (x86)\iCAM\msi_install_log.txt"
+$trnsfrmFile = "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst"
 
-$arguments = "/i ""$msiFile"" ADDLOCAL=iCAMWorkstationControlClient,Services,iCAMSCR,KeyboardFilter /qn /norestart /log ""$logFile"""
+Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"):" | Out-File -FilePath "C:\Program Files (x86)\iCAM\msi_error_log.txt" -Append
+$msiFile | Out-File -FilePath "C:\Program Files (x86)\iCAM\msi_error_log.txt" -Append
+Test-Path $msiFile -PathType Leaf | Out-File -FilePath "C:\Program Files (x86)\iCAM\msi_error_log.txt" -Append
+
+$arguments = "/i ""$msiFile"" ADDLOCAL=iCAMWorkstationControlClient,Services,iCAMSCR,KeyboardFilter /qn /norestart /l*V ""$logFile"" TRANSFORMS=""$trnsfrmFile"""
 $processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
 $processStartInfo.FileName = "msiexec.exe"
 $processStartInfo.Arguments = $arguments
@@ -36,6 +42,7 @@ $exitCode = $process.ExitCode
 
 Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): $($exitCode)" | Out-File -FilePath "C:\Program Files (x86)\iCAM\msi_error_log.txt" -Append
 $exitCode | Out-File -FilePath "C:\Program Files (x86)\iCAM\msi_error_log.txt" -Append
+
 
 $msiFile = "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
 $logFile = "C:\Program Files (x86)\iCAM\msi_print_install_log.txt"
