@@ -12,6 +12,11 @@ Password in AutoLogin
 iCAM Settings!
 #>
 
+<#
+Still to do:
+launchurl.bat file to copy and find a place for
+#>
+
 #region AutoLogin
 # Automatic Login of Public user after imaging
 $registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
@@ -815,6 +820,21 @@ switch ($computerPrefix) {
         Set-ItemProperty -Path $cafeRegistryPath -Name "Server Address" -Value "99.99.99.99"   
     }
 }
+
+# Set Mailto to use bat file and go to website instead of opening Outlook
+# Currently will not work as Outlook not installed but also need to get launchurl.bat file from current public PCs and decide where to put them.
+<#
+switch ($computerPrefix) {
+    {($_ -eq "BRI") -or ($_ -eq "CHU") -or ($_ -eq "PAI") -or ($_ -eq "TQY")}
+        {
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\xxxxxxxxx\launchurl.bat https://www.torbaylibraries.org.uk/web/arena/webmaillinks %1"
+        }
+    Default
+        {
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\xxxxxxxxx\launchurl.bat https://www.devonlibraries.org.uk/web/arena/webmaillinks %1"
+        }
+}
+#>
 '@
 
 $path = "C:\Program Files\Libraries Unlimited"
@@ -865,23 +885,6 @@ if(-not(Test-Path $registryLocation)){
 	New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\" -Name "Windows Search"
 }
 Set-ItemProperty -Path $registryLocation -Name "AllowCortana" -Value "0"
-
-# Set Mailto to use bat file and go to website instead of opening Outlook
-# Currently will not work as Outlook not installed but also need to get launchurl.bat file from current public PCs and decide where to put them.
-
-$computerPrefix = $env:COMPUTERNAME.Substring(0,3)
-<#
-switch ($computerPrefix) {
-    {($_ -eq "BRI") -or ($_ -eq "CHU") -or ($_ -eq "PAI") -or ($_ -eq "TQY")}
-        {
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\xxxxxxxxx\launchurl.bat https://www.torbaylibraries.org.uk/web/arena/webmaillinks %1"
-        }
-    Default
-        {
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\xxxxxxxxx\launchurl.bat https://www.devonlibraries.org.uk/web/arena/webmaillinks %1"
-        }
-}
-#>
 
 # Disable Firewall for printing (can we improve this and not have the firewall completely off?)
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
