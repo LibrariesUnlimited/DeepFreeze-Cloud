@@ -824,19 +824,17 @@ switch ($computerPrefix) {
 }
 
 # Set Mailto to use bat file and go to website instead of opening Outlook
-# Currently will not work as Outlook not installed but also need to get launchurl.bat file from current public PCs and decide where to put them.
-<#
 switch ($computerPrefix) {
     {($_ -eq "BRI") -or ($_ -eq "CHU") -or ($_ -eq "PAI") -or ($_ -eq "TQY")}
         {
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\xxxxxxxxx\launchurl.bat https://www.torbaylibraries.org.uk/web/arena/webmaillinks %1"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\Windows\launchurl.bat https://www.torbaylibraries.org.uk/web/arena/webmaillinks %1"
         }
     Default
         {
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\xxxxxxxxx\launchurl.bat https://www.devonlibraries.org.uk/web/arena/webmaillinks %1"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\Windows\launchurl.bat https://www.devonlibraries.org.uk/web/arena/webmaillinks %1"
         }
 }
-#>
+
 '@
 
 $path = "C:\Program Files\Libraries Unlimited"
@@ -869,6 +867,9 @@ Invoke-WebRequest "https://devon.imil.uk/adverts/test/Newspapers.ico" -OutFile "
 # Download Backgrounds from iCAM Server
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1280x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1280x984.jpg"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1280x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1280x984.jpg"
+
+# Download launchurl.bat from iCAM Server
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/launchurl.bat" -OutFile "C:\Windows\launchurl.bat"
 #endregion CopyFiles
 
 #region WindowsRegistrySettings

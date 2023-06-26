@@ -1,4 +1,4 @@
-#Imaging script to set Public User account to automatically log on after imaging.
+#Imaging script to set Public User account to automatically log on after maintenance.
 
 $registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
 $null = New-ItemProperty -Name "DefaultUserName" -Path $registryLocation -PropertyType string -Value "LUTestUser" -Force -EA Stop
