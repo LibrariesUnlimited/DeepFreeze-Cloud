@@ -33,6 +33,12 @@ Set-ItemProperty -Path $registryLocation -Name "DefaultPassword" -Value "Faronic
 Set-ItemProperty -Path $registryLocation -Name "ForceAutoLogon" -Value "1" -Type String
 #endregion AutoLogin
 
+#region ActivateOffice
+# Activating Office over the internet with key it was installed with
+# This should remove the need for IT to choose the activate over internet > Next option at startup while thawed
+cscript.exe "C:\Program Files\Microsoft Office\Office16\ospp.vbs" /act
+#endregion ActivateOffice
+
 #region InstalliCAM
 # Installing iCAM Workstation and Print Client
 
