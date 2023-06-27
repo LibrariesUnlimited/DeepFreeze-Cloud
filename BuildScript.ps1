@@ -840,7 +840,7 @@ switch ($computerPrefix) {
 $path = "C:\Program Files\Libraries Unlimited"
 
 if(-not(Test-Path $path)) {
-    New-Item -path $path -itemType Directory
+    New-Item -path $path -ItemType Directory
 }
 
 $script | Out-File -FilePath "$path\Startup.ps1" -Encoding ascii
@@ -854,6 +854,9 @@ Register-ScheduledTask -TaskName "LU Startup" -User $user -Trigger $trigger -Act
 
 #region CopyFiles
 # Download required icon and other files from iCAM Server
+if(-not(Test-Path "C:\Program Files (x86)\iCAM\Workstation Control\CPL")) {
+    New-Item -path "C:\Program Files (x86)\iCAM\Workstation Control\CPL" -ItemType Directory
+}
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/email2.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\email2.ico"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/Sound.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/Sound.exe" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe"
