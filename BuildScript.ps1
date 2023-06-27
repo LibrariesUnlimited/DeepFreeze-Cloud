@@ -211,7 +211,7 @@ $adultValues = @{
     "Proxy Server Host" = "172.18.20.81"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1280x984.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x984.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -292,7 +292,7 @@ $filteredValues = @{
     "Proxy Server Host" = "172.18.20.9"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1280x984.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x984.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -373,7 +373,7 @@ $childValues = @{
     "Proxy Server Host" = "172.18.20.9"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1280x984.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x984.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -872,8 +872,8 @@ Invoke-WebRequest "https://devon.imil.uk/adverts/test/Books.ico" -OutFile "C:\Pr
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/Newspapers.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico"
 
 # Download Backgrounds from iCAM Server
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1280x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1280x984.jpg"
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1280x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1280x984.jpg"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1920x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x984.jpg"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1920x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x984.jpg"
 
 # Download launchurl.bat from iCAM Server
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/launchurl.bat" -OutFile "C:\Windows\launchurl.bat"
