@@ -869,6 +869,18 @@ $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-Executio
 Register-ScheduledTask -TaskName "LU Startup" -User $user -Trigger $trigger -Action $action
 #endregion CreateStartupScheduledTask
 
+#region CreateAssociationScheduledTask
+$path = "C:\Program Files\Libraries Unlimited"
+
+Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/SetFileAssociations.ps1" -OutFile "C:\Program Files\Libraries Unlimited\SetFileAssociations.ps1"
+
+$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LUTestUser"
+$user = "$env:computername\LUTestUser"
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File ""$path\SetFileAssociations.ps1"""
+
+Register-ScheduledTask -TaskName "LU File Associations" -User $user -Trigger $trigger -Action $action
+#endregion CreateAssociationScheduledTask
+
 #region CopyFiles
 # Download required icon and other files from iCAM Server
 if(-not(Test-Path "C:\Program Files (x86)\iCAM\Workstation Control\CPL")) {
