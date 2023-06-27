@@ -824,6 +824,10 @@ switch ($computerPrefix) {
 }
 
 # Set Mailto to use bat file and go to website instead of opening Outlook
+<#
+Does not work because user does not have permissions to Registry Path ... could permissions be changed without an update overwriting it?
+Alternatively have the launchurl.bat file in a location where it can be modified and update that with URL already in?
+Or do we even need devonlibraries/torbaylibraries websites anymore .... check that first!!
 switch ($computerPrefix) {
     {($_ -eq "BRI") -or ($_ -eq "CHU") -or ($_ -eq "PAI") -or ($_ -eq "TQY")}
         {
@@ -834,7 +838,7 @@ switch ($computerPrefix) {
             Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\Windows\launchurl.bat https://www.devonlibraries.org.uk/web/arena/webmaillinks %1"
         }
 }
-
+#>
 '@
 
 $path = "C:\Program Files\Libraries Unlimited"
