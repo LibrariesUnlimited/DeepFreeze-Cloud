@@ -3,6 +3,64 @@
 
 $profiles = @('ADC','ADU','CHC','CHI','Default','OOH','STC','STU')
 
+
+# Registry key/values for Adult Profiles
+$adultValues = @{
+    "Use Proxy Server" = 1
+    "Proxy Server Port" = 8080
+    "Proxy Server Host" = "172.18.20.81"
+    "Terms and Conditions" = ""
+    "Run on Unlock" = ""
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x984.jpg"
+    "Environment Profile" = "LU User"
+    "RunMinimised" = 0
+    "RunTaskBarOnly" = 0
+    "Allow Windows Shutdown" = 0
+    "Run Full Screen" = 1
+    "HideMissingApps" = 1
+    "Allow Extend Request" = 0
+    "Allow Session Pause" = 0
+    "Allow Help Request" = 0
+    "Allow Request Help" = 0
+    "Shortcut Font Name" = "Arial"
+    "Shortcut Font Size" = 12
+    "Shortcut Font Colour" = 16777215
+    "Shortcut Font Style" = "fsBold"
+    "Timer Position Left" = 10
+    "Timer Position Top" = 8
+    "Pause Session Postion Left" = 8
+    "Pause Session Postion Top" = 96
+    "End Session Position Left" = 8
+    "End Session Position Top" = 55
+    "Request Time Postion Left" = 8
+    "Request Time Postion Right" = 64
+    "Background Colour" = 2147483663
+    "Request Help Position Left" = 8
+    "Request Help Position Top" = 128
+    "End Session Caption" = "END SESSION"
+    "End Session Width" = 210
+    "End Session Height" = 72
+    "Pause Session Caption" = "Pause"
+    "Pause Session Width" = 121
+    "Pause Session Height" = 24
+    "Request Time Caption" = "Request More Time"
+    "Request Time Width" = 121
+    "Request Time Height" = 24
+    "Request Help Caption" = "Request Help"
+    "Request Help Height" = 24
+    "Request Help Width" = 121
+    "End Session Font Size" = 18
+    "Pause Session Font Size" = 8
+    "Request Time Font Size" = 8
+    "Request Help Font Size" = 8
+    "Embedded Web Browser Visible" = 0
+    "Embedded Web Browser XPos" = 0
+    "Embedded Web Browser YPos" = 0
+    "Embedded Web Browser Height" = 100
+    "Embedded Web Browser Width" = 100
+    "Embedded Web Browser URL" = ""
+}
+
 # Registry key/values for Adult Applications
 $adultApplicationsValues = @{
     "Internet"="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,https://www.google.co.uk,,130,295,2"
@@ -27,6 +85,63 @@ $adultApplicationsValues = @{
     "Support Us"="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,https://www.librariesunlimited.org.uk/support-us/,C:\Program Files (x86)\iCAM\Workstation Control\CPL\libraries.ico,870,925,0"
 }
 
+# Registry key/values for Filtered Profiles
+$filteredValues = @{
+    "Use Proxy Server" = 1
+    "Proxy Server Port" = 8080
+    "Proxy Server Host" = "172.18.20.9"
+    "Terms and Conditions" = ""
+    "Run on Unlock" = ""
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x984.jpg"
+    "Environment Profile" = "LU User"
+    "RunMinimised" = 0
+    "RunTaskBarOnly" = 0
+    "Allow Windows Shutdown" = 0
+    "Run Full Screen" = 1
+    "HideMissingApps" = 1
+    "Allow Extend Request" = 0
+    "Allow Session Pause" = 0
+    "Allow Help Request" = 0
+    "Allow Request Help" = 0
+    "Shortcut Font Name" = "Arial"
+    "Shortcut Font Size" = 12
+    "Shortcut Font Colour" = 16777215
+    "Shortcut Font Style" = "fsBold"
+    "Timer Position Left" = 10
+    "Timer Position Top" = 8
+    "Pause Session Postion Left" = 8
+    "Pause Session Postion Top" = 96
+    "End Session Position Left" = 8
+    "End Session Position Top" = 55
+    "Request Time Postion Left" = 8
+    "Request Time Postion Right" = 64
+    "Background Colour" = 2147483663
+    "Request Help Position Left" = 8
+    "Request Help Position Top" = 128
+    "End Session Caption" = "END SESSION"
+    "End Session Width" = 210
+    "End Session Height" = 72
+    "Pause Session Caption" = "Pause"
+    "Pause Session Width" = 121
+    "Pause Session Height" = 24
+    "Request Time Caption" = "Request More Time"
+    "Request Time Width" = 121
+    "Request Time Height" = 24
+    "Request Help Caption" = "Request Help"
+    "Request Help Height" = 24
+    "Request Help Width" = 121
+    "End Session Font Size" = 18
+    "Pause Session Font Size" = 8
+    "Request Time Font Size" = 8
+    "Request Help Font Size" = 8
+    "Embedded Web Browser Visible" = 0
+    "Embedded Web Browser XPos" = 0
+    "Embedded Web Browser YPos" = 0
+    "Embedded Web Browser Height" = 100
+    "Embedded Web Browser Width" = 100
+    "Embedded Web Browser URL" = ""
+}
+
 # Registry key/values for Filtered Applications (Currently the same as Adult)
 $filteredApplicationsValues = @{
     "Internet"="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,https://www.google.co.uk,,130,295,2"
@@ -49,6 +164,63 @@ $filteredApplicationsValues = @{
     "Events"="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/events,C:\Program Files (x86)\iCAM\Workstation Control\CPL\calendar2.ico,945,710,0"
     "Online Services"="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/webresources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1080,710,0"
     "Support Us"="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,https://www.librariesunlimited.org.uk/support-us/,C:\Program Files (x86)\iCAM\Workstation Control\CPL\libraries.ico,870,925,0"
+}
+
+# Registry key/values for Child Profiles
+$childValues = @{
+    "Use Proxy Server" = 1
+    "Proxy Server Port" = 8080
+    "Proxy Server Host" = "172.18.20.9"
+    "Terms and Conditions" = ""
+    "Run on Unlock" = ""
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x984.jpg"
+    "Environment Profile" = "LU User"
+    "RunMinimised" = 0
+    "RunTaskBarOnly" = 0
+    "Allow Windows Shutdown" = 0
+    "Run Full Screen" = 1
+    "HideMissingApps" = 1
+    "Allow Extend Request" = 0
+    "Allow Session Pause" = 0
+    "Allow Help Request" = 0
+    "Allow Request Help" = 0
+    "Shortcut Font Name" = "Arial"
+    "Shortcut Font Size" = 12
+    "Shortcut Font Colour" = 16777215
+    "Shortcut Font Style" = "fsBold"
+    "Timer Position Left" = 10
+    "Timer Position Top" = 8
+    "Pause Session Postion Left" = 8
+    "Pause Session Postion Top" = 96
+    "End Session Position Left" = 8
+    "End Session Position Top" = 55
+    "Request Time Postion Left" = 8
+    "Request Time Postion Right" = 64
+    "Background Colour" = 2147483663
+    "Request Help Position Left" = 8
+    "Request Help Position Top" = 128
+    "End Session Caption" = "END SESSION"
+    "End Session Width" = 210
+    "End Session Height" = 72
+    "Pause Session Caption" = "Pause"
+    "Pause Session Width" = 121
+    "Pause Session Height" = 24
+    "Request Time Caption" = "Request More Time"
+    "Request Time Width" = 121
+    "Request Time Height" = 24
+    "Request Help Caption" = "Request Help"
+    "Request Help Height" = 24
+    "Request Help Width" = 121
+    "End Session Font Size" = 18
+    "Pause Session Font Size" = 8
+    "Request Time Font Size" = 8
+    "Request Help Font Size" = 8
+    "Embedded Web Browser Visible" = 0
+    "Embedded Web Browser XPos" = 0
+    "Embedded Web Browser YPos" = 0
+    "Embedded Web Browser Height" = 100
+    "Embedded Web Browser Width" = 100
+    "Embedded Web Browser URL" = ""
 }
 
 # Registry key/values for Child Applications

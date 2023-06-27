@@ -298,7 +298,7 @@ $adultApplicationsValues = @{
     "Support Us"="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,https://www.librariesunlimited.org.uk/support-us/,C:\Program Files (x86)\iCAM\Workstation Control\CPL\libraries.ico,870,925,0"
 }
 
-# Registry key/values for Adult Profiles
+# Registry key/values for Filtered Profiles
 $filteredValues = @{
     "Use Proxy Server" = 1
     "Proxy Server Port" = 8080
