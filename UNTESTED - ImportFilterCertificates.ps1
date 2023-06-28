@@ -5,17 +5,14 @@
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/Fortinet_CA_SSL(1).cer" -OutFile "C:\Windows\Temp\Fortinet_CA_SSL(1).cer"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/Fortinet_CA_SSL(2).cer" -OutFile "C:\Windows\Temp\Fortinet_CA_SSL(2).cer"
 
-#Import Certificate(1)
-$params = @{
-    FilePath = 'C:\Windows\Temp\Fortinet_CA_SSL(1).cer'
-    CertStoreLocations = 'Cert:\LocalMachine\Root'
-}
-Import-Certificate $params
 
+$certFile1 = "C:\Windows\Temp\Fortinet_CA_SSL(1).cer"
+$certFile2 = "C:\Windows\Temp\Fortinet_CA_SSL(2).cer"
+$certStoreLocation = "Cert:\LocalMachine\Root"
+
+#Import Certificate(1)
+Import-Certificate -FilePath $certFile1 -CertStoreLocation $certStoreLocation
 #Import Certificate(2)
-$params = @{
-    FilePath = 'C:\Windows\Temp\Fortinet_CA_SSL(2).cer'
-    CertStoreLocations = 'Cert:\LocalMachine\Root'
-}
-Import-Certificate $params
+Import-Certificate -FilePath $certFile2 -CertStoreLocation $certStoreLocation
+
 
