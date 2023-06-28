@@ -57,4 +57,4 @@ $trigger = New-ScheduledTaskTrigger -AtStartup
 $user = "$env:computername\LUTestUser"
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File ""$path\AutoLog.ps1"""
 
-Register-ScheduledTask -TaskName "LU Startup" -User $user -Trigger $trigger -Action $action
+Register-ScheduledTask -TaskName "LU Auto Startup" -User $user -Trigger $trigger -Action $action
