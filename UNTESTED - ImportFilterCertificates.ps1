@@ -10,12 +10,12 @@ $params = @{
     FilePath = 'C:\Windows\Temp\Fortinet_CA_SSL(1).cer'
     CertStoreLocations = 'Cert:\LocalMachine\Root'
 }
-Import-Certificate @params
+Import-Certificate $params
 
 #Import Certificate(2)
 $params = @{
     FilePath = 'C:\Windows\Temp\Fortinet_CA_SSL(2).cer'
     CertStoreLocations = 'Cert:\LocalMachine\Root'
 }
-Import-Certificate @params
+Import-Certificate $params
 

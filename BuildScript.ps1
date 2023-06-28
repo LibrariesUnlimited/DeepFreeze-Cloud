@@ -520,14 +520,14 @@ $params = @{
     FilePath = 'C:\Windows\Temp\Fortinet_CA_SSL(1).cer'
     CertStoreLocations = 'Cert:\LocalMachine\Root'
 }
-Import-Certificate @params
+Import-Certificate $params
 
 #Import Certificate(2)
 $params = @{
     FilePath = 'C:\Windows\Temp\Fortinet_CA_SSL(2).cer'
     CertStoreLocations = 'Cert:\LocalMachine\Root'
 }
-Import-Certificate @params
+Import-Certificate $params
 
 # Clean up temp files (removed temporarily as it isn't working)
 #Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(1).cer" -Force
@@ -540,8 +540,7 @@ Import-Certificate @params
 $script = @'
 # Sets Proxy Settings
 $registryLocation = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
-#$null = New-ItemProperty -Name "ProxyEnable" -Path $registryLocation -PropertyType DWord -Value "1" -Force -EA Stop
-#$null = New-ItemProperty -Name "ProxyServer" -Path $registryLocation -PropertyType string -Value "172.18.20.9:8080" -Force -EA Stop
+
 Set-ItemProperty -Name "ProxyEnable" -Path $registryLocation -Type DWord -Value "1" -Force
 Set-ItemProperty -Name "ProxyServer" -Path $registryLocation -Type string -Value "172.18.20.9:8080" -Force
 
@@ -852,6 +851,28 @@ switch ($computerPrefix) {
         }
 }
 #>
+$torbay = @"
+@echo off
+start chrome https://www.torbaylibraries.org.uk/web/arena/webmaillinks
+"@
+
+$devon = @"
+@echo off
+start chrome https://www.devonlibraries.org.uk/web/arena/webmaillinks
+"@
+
+$path = "C:\Program Files\Libraries Unlimited"
+
+switch ($computerPrefix) {
+    {($_ -eq "BRI") -or ($_ -eq "CHU") -or ($_ -eq "PAI") -or ($_ -eq "TQY")}
+        {
+            $torbay | Out-File -FilePath "$path\launchurl.bat" -Encoding ascii
+        }
+    Default
+        {
+            $devon | Out-File -FilePath "$path\launchurl.bat" -Encoding ascii
+        }
+}
 '@
 
 $path = "C:\Program Files\Libraries Unlimited"
@@ -859,6 +880,14 @@ $path = "C:\Program Files\Libraries Unlimited"
 if(-not(Test-Path $path)) {
     New-Item -path $path -ItemType Directory
 }
+
+# Set Permissions for Libraries Unlimited directory as Full Control for everyone for launchurl.bat tweaks during startup
+$InheritanceFlag = [System.Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [System.Security.AccessControl.InheritanceFlags]::ObjectInherit
+$PropagationFlag = [System.Security.AccessControl.PropagationFlags]::None
+$fileACL = Get-ACL -Path $path -EA SilentlyContinue
+$accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("BUILTIN\Users","FullControl",$InheritanceFlag,$PropagationFlag,"Allow")
+$fileACL.SetAccessRule($accessRule)
+$fileACL | Set-ACL -Path $path
 
 $script | Out-File -FilePath "$path\Startup.ps1" -Encoding ascii
 
@@ -900,8 +929,8 @@ Invoke-WebRequest "https://devon.imil.uk/adverts/test/Newspapers.ico" -OutFile "
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1920x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x984.jpg"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1920x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x984.jpg"
 
-# Download launchurl.bat from iCAM Server
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/launchurl.bat" -OutFile "C:\Windows\launchurl.bat"
+# Download launchurl.bat from iCAM Server (not needed in new way, created by startup script, hopefully)
+# Invoke-WebRequest "https://devon.imil.uk/adverts/test/launchurl.bat" -OutFile "C:\Windows\launchurl.bat"
 #endregion CopyFiles
 
 #region WindowsRegistrySettings
@@ -913,6 +942,9 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\Hid
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "Enabled" -Value "0"
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "EnabledBootId" -Value "0"
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "WasEnabledBy" -Value "0"
+
+# Setup Mailto Registry (this might need tweaking to get the quotes around the value correctly)
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\Program Files\Libraries Unlimited\launchurl.bat"
 
 # Disable Cortana
 $registryLocation = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"
