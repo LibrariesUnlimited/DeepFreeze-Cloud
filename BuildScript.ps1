@@ -529,9 +529,9 @@ $params = @{
 }
 Import-Certificate @params
 
-# Clean up temp files
-Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(1).cer" -Force
-Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(2).cer" -Force
+# Clean up temp files (removed temporarily as it isn't working)
+#Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(1).cer" -Force
+#Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(2).cer" -Force
 #endregion ImportCertificates
 
 #region CreateStartupScheduledTask
