@@ -1,14 +1,9 @@
 #Imaging script to set Public User account to automatically log on after maintenance.
-Start-Transcript "C:\Program Files\Libraries Unlimited\autologontranscript.txt"
 
-Write-Host "Is Frozen?"
-& "C:\Windows\SysWOW64\DFC.exe" get /isfrozen
-Write-Host "Version?"
-& "C:\Windows\SysWOW64\DFC.exe" get /version
 $registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
 
 #debugging
-$debugLog = "C:\Program Files\Libraries Unlimited\autologondebug.log"
+$debugLog = "C:\Program Files\Libraries Unlimited\autologondebug2.log"
 
 Write-Output "Starting script at $(Get-Date -Format "dd-MM-yyyy HH:mm:ss")..." | Out-File -FilePath $debugLog -Append
 Get-ItemProperty -Path $registryLocation | Out-File -FilePath $debugLog -Append
@@ -30,7 +25,6 @@ Get-ItemProperty -Path $registryLocation | Out-File -FilePath $debugLog -Append
 Write-Output "Ending script at $(Get-Date -Format "dd-MM-yyyy HH:mm:ss")..." | Out-File -FilePath $debugLog -Append
 Write-Output "---------------------------------------------------------" | Out-File -FilePath $debugLog -Append
 
-Stop-Transcript
 
 $path = "C:\Program Files\Libraries Unlimited"
 
@@ -54,7 +48,8 @@ $fileACL | Set-ACL -Path $path
 $script | Out-File -FilePath "$path\AutoLog.ps1" -Encoding ascii
 
 $trigger = New-ScheduledTaskTrigger -AtStartup
-$user = "$env:computername\LUTestUser"
+$principal = New-ScheduledTaskPrincipal -UserId "NT AUTHORITY\SYSTEM" -LogonType ServiceAccount -RunLevel Highest
+#$user = "$env:computername\LUTestUser"
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File ""$path\AutoLog.ps1"""
 
-Register-ScheduledTask -TaskName "LU Auto Startup" -User $user -Trigger $trigger -Action $action
+Register-ScheduledTask -TaskName "LU Auto Startup" -Principal $principal -Trigger $trigger -Action $action
