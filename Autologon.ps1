@@ -11,11 +11,11 @@ Get-ItemProperty -Path $registryLocation | Out-File -FilePath $debugLog -Append
 Write-Output "Changing Registry Settings" | Out-File -FilePath $debugLog -Append
 Write-Output "---------------------------------------------------------" | Out-File -FilePath $debugLog -Append
 
-Set-ItemProperty -Path $registryLocation -Name "LastUsedUsername" -Value "LUTestUser"
-Set-ItemProperty -Path $registryLocation -Name "DefaultUserName" -Value "LUTestUser"
-Set-ItemProperty -Path $registryLocation -Name "AutoAdminLogon" -Value "1" -Type String
-Set-ItemProperty -Path $registryLocation -Name "DefaultPassword" -Value "FaronicsTest45!"
-Set-ItemProperty -Path $registryLocation -Name "ForceAutoLogon" -Value "1" -Type String
+#Set-ItemProperty -Path $registryLocation -Name "LastUsedUsername" -Value "LUTestUser"
+#Set-ItemProperty -Path $registryLocation -Name "DefaultUserName" -Value "LUTestUser"
+#Set-ItemProperty -Path $registryLocation -Name "AutoAdminLogon" -Value "1" -Type String
+#Set-ItemProperty -Path $registryLocation -Name "DefaultPassword" -Value "FaronicsTest45!"
+#Set-ItemProperty -Path $registryLocation -Name "ForceAutoLogon" -Value "1" -Type String
 
 
 Write-Output "Registry Settings Changed" | Out-File -FilePath $debugLog -Append
