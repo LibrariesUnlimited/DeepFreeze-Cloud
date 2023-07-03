@@ -546,6 +546,9 @@ if(-not(Test-Path $registryLocation)){
 }
 Set-ItemProperty -Path $registryLocation -Name "StartupDelayInMSec" -Value "0"
 
+# Turn off notifications
+Set-ItemProperty -Name "ToastEnabled" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Type DWord -Value "0"
+
 # Sets IP Address based on Computer Name
 $printRegistryPath = "HKLM:\SOFTWARE\Insight Media\Print Client"
 $cafeRegistryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client"
