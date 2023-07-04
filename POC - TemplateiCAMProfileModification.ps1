@@ -76,7 +76,7 @@ $adultApplicationsValues = @{
     "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,685,370,0"
     "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,550,600,0"
     "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,550,710,0"
-    "Paint - Graphics"="C:\WINDOWS\system32\mspaint.exe,,,685,710,0"
+    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,,685,710,0"
     "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,685,600,0"
     "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/referenceonline,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1080,600,0"
     "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/advanced-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,945,600,0"
@@ -157,7 +157,7 @@ $filteredApplicationsValues = @{
     "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,685,370,0"
     "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,550,600,0"
     "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,550,710,0"
-    "Paint - Graphics"="C:\WINDOWS\system32\mspaint.exe,,,685,710,0"
+    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,,685,710,0"
     "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,685,600,0"
     "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/referenceonline,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1080,600,0"
     "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/advanced-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,945,600,0"
@@ -235,7 +235,7 @@ $childApplicationsValues = @{
     "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,550,260,0"
     "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,155,600,0"
     "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,155,710,0"
-    "Paint - Graphics"="C:\WINDOWS\system32\mspaint.exe,,,290,710,0"
+    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,,290,710,0"
     "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,290,600,0"
 }
 
