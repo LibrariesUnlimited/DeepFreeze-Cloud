@@ -14,7 +14,7 @@ iCAM Settings!
 
 <#
 Still to do:
-
+ Mailto Registry Settings didn't work
 #>
 
 #region AutoLogin
@@ -939,7 +939,8 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scena
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "WasEnabledBy" -Value "0"
 
 # Setup Mailto Registry (this might need tweaking to get the quotes around the value correctly)
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\Program Files\Libraries Unlimited\launchurl.bat"
+# Did not work ... could it be because the "Default" value should be changed?
+#Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\Program Files\Libraries Unlimited\launchurl.bat"
 
 # Disable Cortana
 $registryLocation = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"
