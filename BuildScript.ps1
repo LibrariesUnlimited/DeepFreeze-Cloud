@@ -14,7 +14,7 @@ iCAM Settings!
 
 <#
 Still to do:
- Mailto Registry Settings didn't work
+
 #>
 
 #region AutoLogin
