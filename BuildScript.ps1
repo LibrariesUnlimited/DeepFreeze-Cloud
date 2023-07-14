@@ -939,7 +939,7 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scena
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "WasEnabledBy" -Value "0"
 
 # Setup Mailto Registry (this might need tweaking to get the quotes around the value correctly)
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Name "(Default)" -Value "C:\Windows\System32\cmd.exe /c C:\Program Files\Libraries Unlimited\launchurl.bat"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Name "(Default)" -Value "C:\Windows\System32\cmd.exe /c ""C:\Program Files\Libraries Unlimited\launchurl.bat"""
 
 # Disable Cortana
 $registryLocation = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"
