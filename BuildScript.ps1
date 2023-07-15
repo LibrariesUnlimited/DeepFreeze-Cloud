@@ -100,9 +100,11 @@ if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\")){
     New-Item -Path "HKLM:\SOFTWARE\" -Name "Insight Media"
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\" -Name "Cafe Client"
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\" -Name "Print Client"
+    New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\" -Name "Monitor"
 }
 if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\")){
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\" -Name "Cafe Client"
+    New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\" -Name "Monitor"
 }
 if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Print Client\")){
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\" -Name "Print Client"
@@ -186,6 +188,14 @@ Set-ItemProperty -Path $registryPath -Name "Temporary Folder" -Value "C:\Program
 Set-ItemProperty -Path $registryPath -Name "Zip Print Jobs" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Visuals Enabled" -Value 1 -Type DWord
 
+# Create Monitor Settings
+$registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Monitor"
+
+Set-ItemProperty -Path $registryPath -Name "Monitor Users" -Value "LUAdmin"
+Set-ItemProperty -Path $registryPath -Name "Monitor Force LogOff" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Monitor User Category" -Value 2 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Moniter Interval" -Value 320 -Type DWord
+
 #endregion ConfigureiCAMSettings
 
 #region CreateiCAMProfiles
@@ -207,9 +217,6 @@ Set-ItemProperty -Path $registryPath -Name "Disable System Tray" -Value 1 -Type 
 Set-ItemProperty -Path $registryPath -Name "Disable Quick Launch" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Disable Windows Keys" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Disable Mouse Right Click" -Value 0 -Type DWord
-
-# Create Monitor Settings (maybe)
-# don't know if we need to do this yet
 
 # List of Profiles, remember if a profile is added here it needs to be added to the switch statement below
 $profiles = @('ADC','ADU','CHC','CHI','Default','OOH','STC','STU')
