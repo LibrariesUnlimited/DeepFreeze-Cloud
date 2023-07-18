@@ -109,6 +109,9 @@ if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\")){
 if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Print Client\")){
 	New-Item -Path "HKLM:\SOFTWARE\Insight Media\" -Name "Print Client"
 }
+if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Monitor\")){
+    New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\" -Name "Monitor"
+}
 
 # Registry key/values for iCAM autorun
 $autorunValues = @{
