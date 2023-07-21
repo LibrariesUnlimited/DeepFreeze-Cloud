@@ -197,7 +197,7 @@ $registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Monitor"
 Set-ItemProperty -Path $registryPath -Name "Monitor Users" -Value "LUAdmin"
 Set-ItemProperty -Path $registryPath -Name "Monitor Force LogOff" -Value 1 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Monitor User Category" -Value 2 -Type DWord
-Set-ItemProperty -Path $registryPath -Name "Moniter Interval" -Value 320 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Monitor Interval" -Value 320 -Type DWord
 
 #endregion ConfigureiCAMSettings
 
