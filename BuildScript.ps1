@@ -833,6 +833,11 @@ switch ($computerPrefix) {
         Set-ItemProperty -Path $printRegistryPath -Name "Server IP" -Value "10.0.154.10"
         Set-ItemProperty -Path $cafeRegistryPath -Name "Server Address" -Value "10.0.154.10"
     }
+    Pha
+    {
+        Set-ItemProperty -Path $printRegistryPath -Name "Server IP" -Value "10.0.132.10"
+        Set-ItemProperty -Path $cafeRegistryPath -Name "Server Address" -Value "10.0.132.10"
+    }
     Default 
     {
         Set-ItemProperty -Path $printRegistryPath -Name "Server IP" -Value "99.99.99.99"
