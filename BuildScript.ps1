@@ -27,6 +27,7 @@ $registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
 Set-ItemProperty -Path $registryLocation -Name "DefaultUserName" -Value "LUTestUser"
 Set-ItemProperty -Path $registryLocation -Name "AutoAdminLogon" -Value "1" -Type String
 Set-ItemProperty -Path $registryLocation -Name "DefaultPassword" -Value "FaronicsTest45!"
+Set-ItemProperty -Path $registryLocation -Name "DefaultDomainName" -Value "LOCAL"
 #Set-ItemProperty -Path $registryLocation -Name "ForceAutoLogon" -Value "1" -Type String
 #endregion AutoLogin
 
@@ -171,7 +172,7 @@ Set-ItemProperty -Path $registryPath -Name "Pause Adverts When Login Visible" -V
 Set-ItemProperty -Path $registryPath -Name "Show Shutdown On Login Box" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Login Box Shutdown Button Caption" -Value "Shutdown"
 Set-ItemProperty -Path $registryPath -Name "LDAP Server Address" -Value ""
-Set-ItemProperty -Path $registryPath -Name "Virtual Desktop Monitor Enabled" -Value "0"
+Set-ItemProperty -Path $registryPath -Name "Virtual Desktop Monitor Enabled" -Value "-1" -Type String
 Set-ItemProperty -Path $registryPath -Name "Bold Launcher Tabs" -Value 0 -Type DWord
 
 $registryPath = "HKLM:\SOFTWARE\Insight Media\Print Client"
@@ -194,7 +195,7 @@ Set-ItemProperty -Path $registryPath -Name "Visuals Enabled" -Value 1 -Type DWor
 # Create Monitor Settings
 $registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Monitor"
 
-Set-ItemProperty -Path $registryPath -Name "Monitor Users" -Value "LUAdmin,LUTestUser"
+Set-ItemProperty -Path $registryPath -Name "Monitor Users" -Value "LUAdmin"
 Set-ItemProperty -Path $registryPath -Name "Monitor Force LogOff" -Value 1 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Monitor User Category" -Value 2 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Monitor Interval" -Value 320 -Type DWord
