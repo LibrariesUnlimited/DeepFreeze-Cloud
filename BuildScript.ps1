@@ -14,7 +14,7 @@ iCAM Settings!
 
 <#
 Still to do:
-
+icon for Paint is missing
 #>
 
 #region AutoLogin
