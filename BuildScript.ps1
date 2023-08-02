@@ -216,7 +216,7 @@ Set-ItemProperty -Path $registryPath -Name "Disable Ctrl Esc" -Value 0 -Type DWo
 Set-ItemProperty -Path $registryPath -Name "Disable Desktop" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Disable Start Button" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 0 -Type DWord
-Set-ItemProperty -Path $registryPath -Name "Disable System Tray" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable System Tray" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Disable Quick Launch" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Disable Windows Keys" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Disable Mouse Right Click" -Value 0 -Type DWord
