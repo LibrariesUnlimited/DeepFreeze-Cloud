@@ -554,6 +554,33 @@ if(-not(Test-Path $registryLocation)){
 }
 Set-ItemProperty -Path $registryLocation -Name "StartupDelayInMSec" -Value "0"
 
+# Hide unwanted Task Bar icons
+Set-ItemProperty -Name "TaskbarDa" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
+Set-ItemProperty -Name "ShowTaskViewButton" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
+Set-ItemProperty -Name "StartShownOnUpgrade" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
+Set-ItemProperty -Name "TaskBarMn" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
+
+# Remove Edge and MS Store from Task Bar
+$apps = ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items())
+foreach ($app in $apps) {
+    $appname = $app.Name
+    if ($appname -like "*store*") {
+        $finalname = $app.Name
+    }
+}
+
+((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() | ?{$_.Name -eq $finalname}).Verbs() | ?{$_.Name.replace('&','') -match 'Unpin from taskbar'} | %{$_.DoIt(); $exec = $true}
+
+$apps = ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items())
+foreach ($app in $apps) {
+    $appname = $app.Name
+    if ($appname -like "*edge*") {
+        $finalname = $app.Name
+    }
+}
+
+((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() | ?{$_.Name -eq $finalname}).Verbs() | ?{$_.Name.replace('&','') -match 'Unpin from taskbar'} | %{$_.DoIt(); $exec = $true}
+
 # Turn off notifications
 Set-ItemProperty -Name "ToastEnabled" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Type DWord -Value "0"
 
@@ -948,6 +975,10 @@ Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1920x984.jpg" 
 # Hiding Sleep and Shutdown from Start Menu
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideShutDown" -Name "value" -Value "1"
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideSleep" -Name "value" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideLock" -Name "value" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideChangeAccountSettings" -Name "value" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideSignOut" -Name "value" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideSwitchAccount" -Name "value" -Value "1"
 
 # Disable Device Management warning
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "Enabled" -Value "0"
