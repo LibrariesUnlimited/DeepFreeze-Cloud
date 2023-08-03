@@ -73,7 +73,7 @@ $process.WaitForExit()
 $msiFile = "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
 $logFile = "C:\Program Files (x86)\iCAM\printclient_install_log.txt"
 
-$arguments = "/i ""$msiFile"" /qn /norestart /log ""$logFile"""
+$arguments = "/i ""$msiFile"" /qn /norestart /l*V ""$logFile"""
 $processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
 $processStartInfo.FileName = "msiexec.exe"
 $processStartInfo.Arguments = $arguments
