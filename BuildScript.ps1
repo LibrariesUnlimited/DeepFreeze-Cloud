@@ -14,7 +14,7 @@ iCAM Settings!
 
 <#
 Still to do:
-icon for Paint is missing
+
 #>
 
 #region AutoLogin
@@ -557,7 +557,7 @@ Set-ItemProperty -Path $registryLocation -Name "StartupDelayInMSec" -Value "0"
 # Hide unwanted Task Bar icons
 Set-ItemProperty -Name "TaskbarDa" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 Set-ItemProperty -Name "ShowTaskViewButton" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
-Set-ItemProperty -Name "StartShownOnUpgrade" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
+#Set-ItemProperty -Name "StartShownOnUpgrade" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 Set-ItemProperty -Name "TaskBarMn" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 
 # Remove Edge and MS Store from Task Bar
