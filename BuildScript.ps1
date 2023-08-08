@@ -985,6 +985,10 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\Hid
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideRecentlyAddedApps" -Name "value" -Value "1"
 
 # Disable OneDrive
+$registryLocation = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive"
+if(-not(Test-Path $registryLocation)){
+	New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\" -Name "OneDrive"
+}
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Value "1"
 
 # Disable Device Management warning
