@@ -232,7 +232,7 @@ $adultValues = @{
     "Proxy Server Host" = "172.18.20.81"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x984.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -313,7 +313,7 @@ $filteredValues = @{
     "Proxy Server Host" = "172.18.20.9"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x984.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -967,7 +967,7 @@ Invoke-WebRequest "https://devon.imil.uk/adverts/test/mspaint.ico" -OutFile "C:\
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/WBDBT32I.DLL" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\WBDBT32I.DLL"
 
 # Download Backgrounds from iCAM Server
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1920x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x984.jpg"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1920x1032.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1920x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x984.jpg"
 
 # Download launchurl.bat from iCAM Server (not needed in new way, created by startup script, hopefully)
