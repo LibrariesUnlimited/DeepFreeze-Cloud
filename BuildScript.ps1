@@ -989,7 +989,7 @@ $registryLocation = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive"
 if(-not(Test-Path $registryLocation)){
 	New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\" -Name "OneDrive"
 }
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Value 1 -Type DWord
 
 # Disable Device Management warning
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "Enabled" -Value "0"
