@@ -991,6 +991,13 @@ if(-not(Test-Path $registryLocation)){
 }
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Value 1 -Type DWord
 
+# Remove Recently Added Apps from Start Menu
+$registryLocation = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer"
+if(-not(Test-Path $registryLocation)){
+	New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\" -Name "Explorer"
+}
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "HideRecentlyAddedApps" -Value 1 -Type DWord
+
 # Disable Device Management warning
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "Enabled" -Value "0"
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "EnabledBootId" -Value "0"
