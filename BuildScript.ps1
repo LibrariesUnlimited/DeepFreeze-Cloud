@@ -547,6 +547,9 @@ $registryLocation = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Se
 Set-ItemProperty -Name "ProxyEnable" -Path $registryLocation -Type DWord -Value "1" -Force
 Set-ItemProperty -Name "ProxyServer" -Path $registryLocation -Type string -Value "172.18.20.9:8080" -Force
 
+# Uninstall Teams each login as it reinstalls itself with updates and we can't stop it
+Get-AppxPackage -Name "*teams" | Remove-AppxPackage
+
 # Sets Windows 11 Application Startup Delay to 0 from Default of 10 Seconds
 $registryLocation = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize"
 if(-not(Test-Path $registryLocation)){
@@ -868,21 +871,6 @@ switch ($computerPrefix) {
 }
 
 # Set Mailto to use bat file and go to website instead of opening Outlook
-<#
-Does not work because user does not have permissions to Registry Path ... could permissions be changed without an update overwriting it?
-Alternatively have the launchurl.bat file in a location where it can be modified and update that with URL already in?
-Or do we even need devonlibraries/torbaylibraries websites anymore .... check that first!!
-switch ($computerPrefix) {
-    {($_ -eq "BRI") -or ($_ -eq "CHU") -or ($_ -eq "PAI") -or ($_ -eq "TQY")}
-        {
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\Windows\launchurl.bat https://www.torbaylibraries.org.uk/web/arena/webmaillinks %1"
-        }
-    Default
-        {
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Outlook.URL.mailto.15\shell\open\command" -Value "C:\Windows\System32\cmd.exe /c C:\Windows\launchurl.bat https://www.devonlibraries.org.uk/web/arena/webmaillinks %1"
-        }
-}
-#>
 $torbay = @"
 @echo off
 start chrome https://www.torbaylibraries.org.uk/web/arena/webmaillinks
