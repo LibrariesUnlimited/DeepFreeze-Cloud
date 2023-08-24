@@ -1,3 +1,5 @@
+# Does not work as permissions aren't correct even though I can do it from RegEdit ... makes no sense
+
 Start-Transcript -Path "C:\Program Files\Libraries Unlimited\AudioTranscript.txt"
 Write-Output "Transcript Started"
 
