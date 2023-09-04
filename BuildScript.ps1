@@ -14,7 +14,7 @@ iCAM Settings!
 
 <#
 Still to do:
-
+ Child text and button size has not been corrected and child background image may need updating
 #>
 
 #region AutoLogin
@@ -89,9 +89,9 @@ $process.Start() | Out-Null
 $process.WaitForExit()
 
 # Clearing temp files
-# Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi" -Force
-# Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi" -Force
-# Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst" -Force
+Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi" -Force
+Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi" -Force
+Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst" -Force
 
 #endregion InstalliCAM
 
@@ -240,17 +240,17 @@ $adultValues = @{
     "Run Full Screen" = 1
     "HideMissingApps" = 1
     "Allow Extend Request" = 0
-    "Allow Session Pause" = 0
+    "Allow Session Pause" = 1
     "Allow Help Request" = 0
     "Allow Request Help" = 0
-    "Shortcut Font Name" = "Arial"
+    "Shortcut Font Name" = "Arial Narrow"
     "Shortcut Font Size" = 12
     "Shortcut Font Colour" = 16777215
     "Shortcut Font Style" = "fsBold"
     "Timer Position Left" = 10
     "Timer Position Top" = 8
     "Pause Session Postion Left" = 8
-    "Pause Session Postion Top" = 96
+    "Pause Session Postion Top" = 129
     "End Session Position Left" = 8
     "End Session Position Top" = 55
     "Request Time Postion Left" = 8
@@ -263,7 +263,7 @@ $adultValues = @{
     "End Session Height" = 72
     "Pause Session Caption" = "Pause"
     "Pause Session Width" = 121
-    "Pause Session Height" = 24
+    "Pause Session Height" = 36
     "Request Time Caption" = "Request More Time"
     "Request Time Width" = 121
     "Request Time Height" = 24
@@ -275,35 +275,35 @@ $adultValues = @{
     "Request Time Font Size" = 8
     "Request Help Font Size" = 8
     "Embedded Web Browser Visible" = 0
-    "Embedded Web Browser XPos" = 0
-    "Embedded Web Browser YPos" = 0
-    "Embedded Web Browser Height" = 100
-    "Embedded Web Browser Width" = 100
+    "Embedded Web Browser XPos" = 476
+    "Embedded Web Browser YPos" = 211
+    "Embedded Web Browser Height" = 257
+    "Embedded Web Browser Width" = 720
     "Embedded Web Browser URL" = ""
 }
 
 # Registry key/values for Adult Applications
+# "Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
 $adultApplicationsValues = @{
     "Internet"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.google.co.uk,,130,295,2"
     "Email"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/webmaillinks,C:\Program Files (x86)\iCAM\Workstation Control\CPL\email2.ico,280,295,2"
-    "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,125,600,0"
-    "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,225,710,0"
-    "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,225,600,0"
-    "Publisher"="C:\Program Files\Microsoft Office\root\Office16\MSPUB.EXE,,,125,710,0"
-    "File Explorer"="C:\WINDOWS\explorer.exe,,C:\WINDOWS\explorer.exe,325,600,0"
-    "Computer Help"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/computer-help,C:\Windows\HelpPane.exe,550,260,0"
-    "Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
-    "Accessibility"="C:\Windows\explorer.exe,shell:::{D555645E-D4F8-4c29-A827-D93C859C4F2A},C:\Program Files (x86)\iCAM\Workstation Control\CPL\Ease of Access.ico,685,260,0"
-    "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,685,370,0"
-    "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,550,600,0"
-    "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,550,710,0"
-    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,685,710,0"
-    "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,685,600,0"
-    "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/referenceonline,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1080,600,0"
-    "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/advanced-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,945,600,0"
-    "Events"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/events,C:\Program Files (x86)\iCAM\Workstation Control\CPL\calendar2.ico,945,710,0"
-    "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/webresources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1080,710,0"
-    "Support Us"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.librariesunlimited.org.uk/support-us/,C:\Program Files (x86)\iCAM\Workstation Control\CPL\libraries.ico,870,925,0"
+    "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,110,587,1"
+    "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,210,697,1"
+    "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,210,587,1"
+    "Publisher"="C:\Program Files\Microsoft Office\root\Office16\MSPUB.EXE,,,110,697,1"
+    "File Explorer"="C:\WINDOWS\explorer.exe,,C:\WINDOWS\explorer.exe,310,587,1"
+    "Computer Help"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/computer-help,C:\Windows\HelpPane.exe,1658,520,2"
+    "Accessibility"="C:\Windows\explorer.exe,shell:::{D555645E-D4F8-4c29-A827-D93C859C4F2A},C:\Program Files (x86)\iCAM\Workstation Control\CPL\Ease of Access.ico,1658,385,2"
+    "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,1658,655,2"
+    "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,542,587,1"
+    "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,542,697,1"
+    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,677,697,1"
+    "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,677,587,1"
+    "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/referenceonline,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1072,587,1"
+    "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/advanced-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
+    "Events"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/events,C:\Program Files (x86)\iCAM\Workstation Control\CPL\calendar2.ico,937,697,1"
+    "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/webresources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
+    "Support Us"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.librariesunlimited.org.uk/support-us/,C:\Program Files (x86)\iCAM\Workstation Control\CPL\libraries.ico,1170,925,1"
 }
 
 # Registry key/values for Filtered Profiles
@@ -321,17 +321,17 @@ $filteredValues = @{
     "Run Full Screen" = 1
     "HideMissingApps" = 1
     "Allow Extend Request" = 0
-    "Allow Session Pause" = 0
+    "Allow Session Pause" = 1
     "Allow Help Request" = 0
     "Allow Request Help" = 0
-    "Shortcut Font Name" = "Arial"
+    "Shortcut Font Name" = "Arial Narrow"
     "Shortcut Font Size" = 12
     "Shortcut Font Colour" = 16777215
     "Shortcut Font Style" = "fsBold"
     "Timer Position Left" = 10
     "Timer Position Top" = 8
     "Pause Session Postion Left" = 8
-    "Pause Session Postion Top" = 96
+    "Pause Session Postion Top" = 129
     "End Session Position Left" = 8
     "End Session Position Top" = 55
     "Request Time Postion Left" = 8
@@ -344,7 +344,7 @@ $filteredValues = @{
     "End Session Height" = 72
     "Pause Session Caption" = "Pause"
     "Pause Session Width" = 121
-    "Pause Session Height" = 24
+    "Pause Session Height" = 36
     "Request Time Caption" = "Request More Time"
     "Request Time Width" = 121
     "Request Time Height" = 24
@@ -356,10 +356,10 @@ $filteredValues = @{
     "Request Time Font Size" = 8
     "Request Help Font Size" = 8
     "Embedded Web Browser Visible" = 0
-    "Embedded Web Browser XPos" = 0
-    "Embedded Web Browser YPos" = 0
-    "Embedded Web Browser Height" = 100
-    "Embedded Web Browser Width" = 100
+    "Embedded Web Browser XPos" = 476
+    "Embedded Web Browser YPos" = 211
+    "Embedded Web Browser Height" = 257
+    "Embedded Web Browser Width" = 720
     "Embedded Web Browser URL" = ""
 }
 
@@ -367,27 +367,27 @@ $filteredValues = @{
 $filteredApplicationsValues = @{
     "Internet"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.google.co.uk,,130,295,2"
     "Email"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/webmaillinks,C:\Program Files (x86)\iCAM\Workstation Control\CPL\email2.ico,280,295,2"
-    "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,125,600,0"
-    "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,225,710,0"
-    "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,225,600,0"
-    "Publisher"="C:\Program Files\Microsoft Office\root\Office16\MSPUB.EXE,,,125,710,0"
-    "File Explorer"="C:\WINDOWS\explorer.exe,,C:\WINDOWS\explorer.exe,325,600,0"
-    "Computer Help"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/computer-help,C:\Windows\HelpPane.exe,550,260,0"
-    "Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
-    "Accessibility"="C:\Windows\explorer.exe,shell:::{D555645E-D4F8-4c29-A827-D93C859C4F2A},C:\Program Files (x86)\iCAM\Workstation Control\CPL\Ease of Access.ico,685,260,0"
-    "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,685,370,0"
-    "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,550,600,0"
-    "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,550,710,0"
-    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,685,710,0"
-    "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,685,600,0"
-    "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/referenceonline,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1080,600,0"
-    "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/advanced-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,945,600,0"
-    "Events"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/events,C:\Program Files (x86)\iCAM\Workstation Control\CPL\calendar2.ico,945,710,0"
-    "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/webresources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1080,710,0"
-    "Support Us"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.librariesunlimited.org.uk/support-us/,C:\Program Files (x86)\iCAM\Workstation Control\CPL\libraries.ico,870,925,0"
+    "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,110,587,1"
+    "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,210,697,1"
+    "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,210,587,1"
+    "Publisher"="C:\Program Files\Microsoft Office\root\Office16\MSPUB.EXE,,,110,697,1"
+    "File Explorer"="C:\WINDOWS\explorer.exe,,C:\WINDOWS\explorer.exe,310,587,1"
+    "Computer Help"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/computer-help,C:\Windows\HelpPane.exe,1658,520,2"
+    "Accessibility"="C:\Windows\explorer.exe,shell:::{D555645E-D4F8-4c29-A827-D93C859C4F2A},C:\Program Files (x86)\iCAM\Workstation Control\CPL\Ease of Access.ico,1658,385,2"
+    "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,1658,655,2"
+    "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,542,587,1"
+    "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,542,697,1"
+    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,677,697,1"
+    "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,677,587,1"
+    "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/referenceonline,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1072,587,1"
+    "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/advanced-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
+    "Events"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/events,C:\Program Files (x86)\iCAM\Workstation Control\CPL\calendar2.ico,937,697,1"
+    "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/webresources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
+    "Support Us"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.librariesunlimited.org.uk/support-us/,C:\Program Files (x86)\iCAM\Workstation Control\CPL\libraries.ico,1170,925,1"
 }
 
 # Registry key/values for Child Profiles
+# not changed yet to make text correct
 $childValues = @{
     "Use Proxy Server" = 1
     "Proxy Server Port" = 8080
@@ -445,6 +445,7 @@ $childValues = @{
 }
 
 # Registry key/values for Child Applications
+# not changed yet to make text correct
 $childApplicationsValues = @{
     "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,125,260,0"
     "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,225,370,0"
@@ -1004,3 +1005,8 @@ Set-ItemProperty -Path $registryLocation -Name "AllowCortana" -Value "0"
 # Disable Firewall for printing (can we improve this and not have the firewall completely off?)
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 #endregion WindowsRegistrySettings
+
+#region InstallDeepFreezeCloud
+# Only need to do this because Faronics no longer automatically installs as part of the image.
+Start-Process -FilePath "C:\Windows\Temp\BSInstaller.exe" -ArgumentList "-force"
+#endregion InstallDeepFreezeCloud
