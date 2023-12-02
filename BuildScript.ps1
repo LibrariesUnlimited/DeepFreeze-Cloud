@@ -28,6 +28,11 @@ Set-ItemProperty -Path $registryLocation -Name "DefaultDomainName" -Value "LOCAL
 Remove-ItemProperty -Path $registryLocation -Name "AutoLogonCount" -Force
 #endregion AutoLogin
 
+#region Accounts
+Set-LocalUser -Name "LUAdmin" -PasswordNeverExpires 1
+Set-LocalUser -Name "LUTestUser" -PasswordNeverExpires 1
+#endregion Accounts
+
 #region ActivateOffice
 # Activating Office over the internet with key it was installed with
 # This should remove the need for IT to choose the activate over internet > Next option at startup while thawed
