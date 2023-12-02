@@ -1,5 +1,5 @@
 <# 
-Live Build Script for Public PCs
+Live Build Script for Public PCs for Old Machines using Windows 10
 Script to be a single script which runs in order rather than multiple scripts which all run at the same time and require extra folder validation
 #>
 
@@ -7,7 +7,7 @@ Script to be a single script which runs in order rather than multiple scripts wh
 <# 
 Settings to be changed for Go Live: 
 Source location for all files from devon.imil.uk
-Account name (in all locations): LUTestUser including MSPaint Windows App link
+Account name (in all locations): LUTestUser including MSPaint Windows App link (MSPaint may not be the same with the old machines)
 Password in AutoLogin
 iCAM Settings!
 #>
@@ -15,6 +15,7 @@ iCAM Settings!
 <#
 Still to do:
  Child text and button size has not been corrected and child background image may need updating
+ Desktop Images and iCAM Profiles are still on the new machines instead of old machines.
 #>
 
 #region AutoLogin
@@ -535,7 +536,7 @@ Import-Certificate -FilePath $certFile1 -CertStoreLocation $certStoreLocation
 # Import Certificate(2)
 Import-Certificate -FilePath $certFile2 -CertStoreLocation $certStoreLocation
 
-# Clean up temp files
+# Clean up temp files 
 Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(1).cer" -Force
 Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(2).cer" -Force
 #endregion ImportCertificates
@@ -553,14 +554,14 @@ Set-ItemProperty -Name "ProxyServer" -Path $registryLocation -Type string -Value
 # Uninstall Teams each login as it reinstalls itself with updates and we can't stop it
 Get-AppxPackage -Name "*teams" | Remove-AppxPackage
 
-# Sets Windows 11 Application Startup Delay to 0 from Default of 10 Seconds
-$registryLocation = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize"
-if(-not(Test-Path $registryLocation)){
-	New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\" -Name "Serialize"
-}
-Set-ItemProperty -Path $registryLocation -Name "StartupDelayInMSec" -Value "0"
+# Sets Windows 11 Application Startup Delay to 0 from Default of 10 Seconds (removed for Windows 10 build)
+#$registryLocation = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize"
+#if(-not(Test-Path $registryLocation)){
+#	New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\" -Name "Serialize"
+#}
+#Set-ItemProperty -Path $registryLocation -Name "StartupDelayInMSec" -Value "0"
 
-# Remove Edge and MS Store from Task Bar
+# Remove Edge and MS Store from Task Bar (no idea if this will do anything on Windows 10 or if it is needed)
 $apps = ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items())
 foreach ($app in $apps) {
     $appname = $app.Name
@@ -581,7 +582,7 @@ foreach ($app in $apps) {
 
 ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() | ?{$_.Name -eq $finalname}).Verbs() | ?{$_.Name.replace('&','') -match 'Unpin from taskbar'} | %{$_.DoIt(); $exec = $true}
 
-# Turn off notifications
+# Turn off notifications (may not be needed Windows 10)
 Set-ItemProperty -Name "ToastEnabled" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Type DWord -Value "0"
 
 # Sets IP Address based on Computer Name
@@ -897,7 +898,7 @@ switch ($computerPrefix) {
         }
 }
 
-# Hide unwanted Task Bar icons
+# Hide unwanted Task Bar icons (may be Windows 11 only)
 Set-ItemProperty -Name "TaskbarDa" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 Set-ItemProperty -Name "ShowTaskViewButton" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 #Set-ItemProperty -Name "StartShownOnUpgrade" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
@@ -957,12 +958,10 @@ Invoke-WebRequest "https://devon.imil.uk/adverts/test/Newspapers.ico" -OutFile "
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/mspaint.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/WBDBT32I.DLL" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\WBDBT32I.DLL"
 
-# Download Backgrounds from iCAM Server
+# Download Backgrounds from iCAM Server (not correct backgrounds for Old Machines)
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1920x1032.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1920x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x984.jpg"
 
-# Download launchurl.bat from iCAM Server (not needed in new way, created by startup script, hopefully)
-# Invoke-WebRequest "https://devon.imil.uk/adverts/test/launchurl.bat" -OutFile "C:\Windows\launchurl.bat"
 #endregion CopyFiles
 
 #region WindowsRegistrySettings
