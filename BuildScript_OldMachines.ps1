@@ -92,9 +92,9 @@ $process.Start() | Out-Null
 $process.WaitForExit()
 
 # Clearing temp files
-Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi" -Force
-Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi" -Force
-Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst" -Force
+#Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi" -Force
+#Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi" -Force
+#Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst" -Force
 
 #endregion InstalliCAM
 
