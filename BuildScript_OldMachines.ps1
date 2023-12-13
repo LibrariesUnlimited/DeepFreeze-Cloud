@@ -57,9 +57,11 @@ $msiFile = "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.ms
 $logFile = "C:\Program Files (x86)\iCAM\workstationcontrol_install_log.txt"
 $trnsfrmFile = "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst"
 
-$timeout = (Get-Date).AddMinutes(10)
+$timeout = (Get-Date).AddMinutes(3)
 
 while ((Get-Process -Name msiexec -ErrorAction SilentlyContinue) -and ((Get-Date) -lt $timeout)) {
+    write-host "MSIEXEC Running at $(Get-Date)"
+    get-process -name msiexec -ErrorAction SilentlyContinue
     Start-Sleep -Seconds 30
 }
 
@@ -86,7 +88,7 @@ if ((get-date) -ge $timeout) {
 $msiFile = "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
 $logFile = "C:\Program Files (x86)\iCAM\printclient_install_log.txt"
 
-$timeout = (Get-Date).AddMinutes(10)
+$timeout = (Get-Date).AddMinutes(3)
 
 while ((Get-Process -Name msiexec -ErrorAction SilentlyContinue) -and ((Get-Date) -lt $timeout)) {
     Start-Sleep -Seconds 30
