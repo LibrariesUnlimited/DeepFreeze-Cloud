@@ -259,7 +259,7 @@ $adultValues = @{
     "Proxy Server Host" = "172.18.20.81"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1280x984.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -340,7 +340,7 @@ $filteredValues = @{
     "Proxy Server Host" = "172.18.20.9"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1280x984.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -421,7 +421,7 @@ $childValues = @{
     "Proxy Server Host" = "172.18.20.9"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x984.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktopchild1280x984.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -429,17 +429,17 @@ $childValues = @{
     "Run Full Screen" = 1
     "HideMissingApps" = 1
     "Allow Extend Request" = 0
-    "Allow Session Pause" = 0
+    "Allow Session Pause" = 1
     "Allow Help Request" = 0
     "Allow Request Help" = 0
-    "Shortcut Font Name" = "Arial"
+    "Shortcut Font Name" = "Arial Narrow"
     "Shortcut Font Size" = 12
     "Shortcut Font Colour" = 16777215
     "Shortcut Font Style" = "fsBold"
     "Timer Position Left" = 10
     "Timer Position Top" = 8
     "Pause Session Postion Left" = 8
-    "Pause Session Postion Top" = 96
+    "Pause Session Postion Top" = 129
     "End Session Position Left" = 8
     "End Session Position Top" = 55
     "Request Time Postion Left" = 8
@@ -452,7 +452,7 @@ $childValues = @{
     "End Session Height" = 72
     "Pause Session Caption" = "Pause"
     "Pause Session Width" = 121
-    "Pause Session Height" = 24
+    "Pause Session Height" = 36
     "Request Time Caption" = "Request More Time"
     "Request Time Width" = 121
     "Request Time Height" = 24
@@ -982,9 +982,9 @@ Invoke-WebRequest "https://devon.imil.uk/adverts/test/Newspapers.ico" -OutFile "
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/mspaint.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/WBDBT32I.DLL" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\WBDBT32I.DLL"
 
-# Download Backgrounds from iCAM Server (not correct backgrounds for Old Machines)
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1920x1032.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1920x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x984.jpg"
+# Download Backgrounds from iCAM Server (not uploaded to server yet)
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1280x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1280x984.jpg"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktopchild1280x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktopchild1280x984.jpg"
 
 #endregion CopyFiles
 
