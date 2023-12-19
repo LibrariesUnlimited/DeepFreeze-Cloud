@@ -56,59 +56,42 @@ $msiFile = "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.ms
 $logFile = "C:\Program Files (x86)\iCAM\workstationcontrol_install_log.txt"
 $trnsfrmFile = "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst"
 
-#$timeout = (Get-Date).AddMinutes(5)
+$arguments = "/i ""$msiFile"" ADDLOCAL=iCAMWorkstationControlClient,Services,iCAMSCR,KeyboardFilter /qn /norestart /l*V ""$logFile"" TRANSFORMS=""$trnsfrmFile"""
+$processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
+$processStartInfo.FileName = "msiexec.exe"
+$processStartInfo.Arguments = $arguments
+$processStartInfo.RedirectStandardOutput = $true
+$processStartInfo.RedirectStandardError = $true
+$processStartInfo.UseShellExecute = $false
+$processStartInfo.CreateNoWindow = $true
 
-#while ((Get-Process -Name msiexec -ErrorAction SilentlyContinue) -and ((Get-Date) -lt $timeout)) {
-#    Start-Sleep -Seconds 30
-#}
+$process = New-Object System.Diagnostics.Process
+$process.StartInfo = $processStartInfo
 
-#if ((get-date) -ge $timeout) {
-#    write-host "Out of time, continuing script without iCAM"
-#} else {
-    $arguments = "/i ""$msiFile"" ADDLOCAL=iCAMWorkstationControlClient,Services,iCAMSCR,KeyboardFilter /qn /norestart /l*V ""$logFile"" TRANSFORMS=""$trnsfrmFile"""
-    $processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
-    $processStartInfo.FileName = "msiexec.exe"
-    $processStartInfo.Arguments = $arguments
-    $processStartInfo.RedirectStandardOutput = $true
-    $processStartInfo.RedirectStandardError = $true
-    $processStartInfo.UseShellExecute = $false
-    $processStartInfo.CreateNoWindow = $true
+$process.Start() | Out-Null
+$process.WaitForExit()
 
-    $process = New-Object System.Diagnostics.Process
-    $process.StartInfo = $processStartInfo
-
-    $process.Start() | Out-Null
-    $process.WaitForExit()
-#}
 
 # Installing Print Client
 $msiFile = "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
 $logFile = "C:\Program Files (x86)\iCAM\printclient_install_log.txt"
 
-#$timeout = (Get-Date).AddMinutes(5)
 
-#while ((Get-Process -Name msiexec -ErrorAction SilentlyContinue) -and ((Get-Date) -lt $timeout)) {
-#    Start-Sleep -Seconds 30
-#}
+$arguments = "/i ""$msiFile"" /qn /norestart /l*V ""$logFile"""
+$processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
+$processStartInfo.FileName = "msiexec.exe"
+$processStartInfo.Arguments = $arguments
+$processStartInfo.RedirectStandardOutput = $true
+$processStartInfo.RedirectStandardError = $true
+$processStartInfo.UseShellExecute = $false
+$processStartInfo.CreateNoWindow = $true
 
-#if ((get-date) -ge $timeout) {
-#    write-host "Out of time, continuing script without iCAM"
-#} else {
-    $arguments = "/i ""$msiFile"" /qn /norestart /l*V ""$logFile"""
-    $processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
-    $processStartInfo.FileName = "msiexec.exe"
-    $processStartInfo.Arguments = $arguments
-    $processStartInfo.RedirectStandardOutput = $true
-    $processStartInfo.RedirectStandardError = $true
-    $processStartInfo.UseShellExecute = $false
-    $processStartInfo.CreateNoWindow = $true
+$process = New-Object System.Diagnostics.Process
+$process.StartInfo = $processStartInfo
 
-    $process = New-Object System.Diagnostics.Process
-    $process.StartInfo = $processStartInfo
+$process.Start() | Out-Null
+$process.WaitForExit()
 
-    $process.Start() | Out-Null
-    $process.WaitForExit()
-#}
 
 # Clearing temp files
 Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi" -Force
