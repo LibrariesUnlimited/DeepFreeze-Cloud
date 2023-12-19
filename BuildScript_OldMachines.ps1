@@ -578,6 +578,9 @@ Set-ItemProperty -Name "ProxyServer" -Path $registryLocation -Type string -Value
 # Uninstall Teams each login as it reinstalls itself with updates and we can't stop it
 Get-AppxPackage -Name "*teams" | Remove-AppxPackage
 
+#Update Display Settings
+Set-DisplayResolution -Width 1280 -Height 1024
+
 # Sets Windows 11 Application Startup Delay to 0 from Default of 10 Seconds (removed for Windows 10 build)
 #$registryLocation = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize"
 #if(-not(Test-Path $registryLocation)){
@@ -1029,6 +1032,9 @@ Set-ItemProperty -Path $registryLocation -Name "AllowCortana" -Value "0"
 
 # Disable Firewall for printing (can we improve this and not have the firewall completely off?)
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+
+#Prepare DisplaySettings
+Install-Module DisplaySettings -AllowClobber -Scope AllUsers -Force
 #endregion WindowsRegistrySettings
 
 #region InstallDeepFreezeCloud
