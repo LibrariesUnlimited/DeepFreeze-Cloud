@@ -14,7 +14,7 @@ iCAM Settings!
 
 <#
 Still to do:
- Child text and button size has not been corrected and child background image may need updating
+ Child text and button size has now been corrected but will need to be checked as pixel locations might not be 100% accurate.
 #>
 
 #region AutoLogin
@@ -399,7 +399,7 @@ $childValues = @{
     "Proxy Server Host" = "172.18.20.9"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x984.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x1032.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -407,17 +407,17 @@ $childValues = @{
     "Run Full Screen" = 1
     "HideMissingApps" = 1
     "Allow Extend Request" = 0
-    "Allow Session Pause" = 0
+    "Allow Session Pause" = 1
     "Allow Help Request" = 0
     "Allow Request Help" = 0
-    "Shortcut Font Name" = "Arial"
+    "Shortcut Font Name" = "Arial Narrow"
     "Shortcut Font Size" = 12
     "Shortcut Font Colour" = 16777215
     "Shortcut Font Style" = "fsBold"
     "Timer Position Left" = 10
     "Timer Position Top" = 8
     "Pause Session Postion Left" = 8
-    "Pause Session Postion Top" = 96
+    "Pause Session Postion Top" = 129
     "End Session Position Left" = 8
     "End Session Position Top" = 55
     "Request Time Postion Left" = 8
@@ -430,7 +430,7 @@ $childValues = @{
     "End Session Height" = 72
     "Pause Session Caption" = "Pause"
     "Pause Session Width" = 121
-    "Pause Session Height" = 24
+    "Pause Session Height" = 36
     "Request Time Caption" = "Request More Time"
     "Request Time Width" = 121
     "Request Time Height" = 24
@@ -451,19 +451,19 @@ $childValues = @{
 
 # Registry key/values for Child Applications
 # not changed yet to make text correct
+#"Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
 $childApplicationsValues = @{
-    "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,125,260,0"
-    "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,225,370,0"
-    "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,225,260,0"
-    "Publisher"="C:\Program Files\Microsoft Office\root\Office16\MSPUB.EXE,,,125,370,0"
-    "File Explorer"="C:\WINDOWS\explorer.exe,,C:\WINDOWS\explorer.exe,325,260,0"
-    "Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
-    "Accessibility"="C:\Windows\explorer.exe,shell:::{D555645E-D4F8-4c29-A827-D93C859C4F2A},C:\Program Files (x86)\iCAM\Workstation Control\CPL\Ease of Access.ico,685,260,0"
-    "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,550,260,0"
-    "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,155,600,0"
-    "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,155,710,0"
-    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,290,710,0"
-    "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,290,600,0"
+    "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,110,260,1"
+    "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,210,370,1"
+    "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,210,260,1"
+    "Publisher"="C:\Program Files\Microsoft Office\root\Office16\MSPUB.EXE,,,110,370,1"
+    "File Explorer"="C:\WINDOWS\explorer.exe,,C:\WINDOWS\explorer.exe,310,260,1"
+    "Accessibility"="C:\Windows\explorer.exe,shell:::{D555645E-D4F8-4c29-A827-D93C859C4F2A},C:\Program Files (x86)\iCAM\Workstation Control\CPL\Ease of Access.ico,1658,385,2"
+    "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,1658,655,2"
+    "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,140,587,1"
+    "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,140,697,1"
+    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,275,697,1"
+    "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,275,587,1"
 }
 
 # check for Application Launcher registry key and create if missing
@@ -962,7 +962,7 @@ Invoke-WebRequest "https://devon.imil.uk/adverts/test/WBDBT32I.DLL" -OutFile "C:
 
 # Download Backgrounds from iCAM Server
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1920x1032.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1920x984.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x984.jpg"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1920x1032.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x1032.jpg"
 
 # Download launchurl.bat from iCAM Server (not needed in new way, created by startup script, hopefully)
 # Invoke-WebRequest "https://devon.imil.uk/adverts/test/launchurl.bat" -OutFile "C:\Windows\launchurl.bat"
