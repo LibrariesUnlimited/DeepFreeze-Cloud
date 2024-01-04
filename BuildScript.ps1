@@ -284,7 +284,7 @@ $adultValues = @{
     "Embedded Web Browser YPos" = 211
     "Embedded Web Browser Height" = 257
     "Embedded Web Browser Width" = 720
-    "Embedded Web Browser URL" = ""
+    "Embedded Web Browser URL" = "https://devon.imil.uk/adverts/test/EmbeddedAdvert700x227.jpg"
 }
 
 # Registry key/values for Adult Applications
