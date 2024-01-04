@@ -39,64 +39,64 @@ Set-LocalUser -Name "LUTestUser" -PasswordNeverExpires 1
 cscript.exe "C:\Program Files\Microsoft Office\Office16\ospp.vbs" /act
 #endregion ActivateOffice
 
-#region InstalliCAM
+#region InstalliCAM - disabling as might need to do it through Faronics now
 # Installing iCAM Workstation and Print Client
 
 # Downloading Files
-if(-not(Test-Path "C:\Program Files (x86)\iCAM\")) {
-	New-Item "C:\Program Files (x86)\iCAM\" -ItemType Directory -Force
-}
+#if(-not(Test-Path "C:\Program Files (x86)\iCAM\")) {
+#	New-Item "C:\Program Files (x86)\iCAM\" -ItemType Directory -Force
+#}
 
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAM Workstation Control Client 5.9.1.msi" -OutFile "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi"
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAM Print Client 4.7.0.1000.msi" -OutFile "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAMAllUsers.mst" -OutFile "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst"
+#Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAM Workstation Control Client 5.9.1.msi" -OutFile "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi"
+#Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAM Print Client 4.7.0.1000.msi" -OutFile "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
+#Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAMAllUsers.mst" -OutFile "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst"
 
 # Installing Workstation Client
-$msiFile = "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi"
-$logFile = "C:\Program Files (x86)\iCAM\workstationcontrol_install_log.txt"
-$trnsfrmFile = "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst"
+#$msiFile = "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi"
+#$logFile = "C:\Program Files (x86)\iCAM\workstationcontrol_install_log.txt"
+#$trnsfrmFile = "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst"
 
-$arguments = "/i ""$msiFile"" ADDLOCAL=iCAMWorkstationControlClient,Services,iCAMSCR,KeyboardFilter /qn /norestart /l*V ""$logFile"" TRANSFORMS=""$trnsfrmFile"""
-$processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
-$processStartInfo.FileName = "msiexec.exe"
-$processStartInfo.Arguments = $arguments
-$processStartInfo.RedirectStandardOutput = $true
-$processStartInfo.RedirectStandardError = $true
-$processStartInfo.UseShellExecute = $false
-$processStartInfo.CreateNoWindow = $true
+#$arguments = "/i ""$msiFile"" ADDLOCAL=iCAMWorkstationControlClient,Services,iCAMSCR,KeyboardFilter /qn /norestart /l*V ""$logFile"" TRANSFORMS=""$trnsfrmFile"""
+#$processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
+#$processStartInfo.FileName = "msiexec.exe"
+#$processStartInfo.Arguments = $arguments
+#$processStartInfo.RedirectStandardOutput = $true
+#$processStartInfo.RedirectStandardError = $true
+#$processStartInfo.UseShellExecute = $false
+#$processStartInfo.CreateNoWindow = $true
 
-$process = New-Object System.Diagnostics.Process
-$process.StartInfo = $processStartInfo
+#$process = New-Object System.Diagnostics.Process
+#$process.StartInfo = $processStartInfo
 
-$process.Start() | Out-Null
-$process.WaitForExit()
+#$process.Start() | Out-Null
+#$process.WaitForExit()
 
 
 # Installing Print Client
-$msiFile = "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
-$logFile = "C:\Program Files (x86)\iCAM\printclient_install_log.txt"
+#$msiFile = "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
+#$logFile = "C:\Program Files (x86)\iCAM\printclient_install_log.txt"
 
 
-$arguments = "/i ""$msiFile"" /qn /norestart /l*V ""$logFile"""
-$processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
-$processStartInfo.FileName = "msiexec.exe"
-$processStartInfo.Arguments = $arguments
-$processStartInfo.RedirectStandardOutput = $true
-$processStartInfo.RedirectStandardError = $true
-$processStartInfo.UseShellExecute = $false
-$processStartInfo.CreateNoWindow = $true
+#$arguments = "/i ""$msiFile"" /qn /norestart /l*V ""$logFile"""
+#$processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
+#$processStartInfo.FileName = "msiexec.exe"
+#$processStartInfo.Arguments = $arguments
+#$processStartInfo.RedirectStandardOutput = $true
+#$processStartInfo.RedirectStandardError = $true
+#$processStartInfo.UseShellExecute = $false
+#$processStartInfo.CreateNoWindow = $true
 
-$process = New-Object System.Diagnostics.Process
-$process.StartInfo = $processStartInfo
+#$process = New-Object System.Diagnostics.Process
+#$process.StartInfo = $processStartInfo
 
-$process.Start() | Out-Null
-$process.WaitForExit()
+#$process.Start() | Out-Null
+#$process.WaitForExit()
 
 
 # Clearing temp files
-Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi" -Force
-Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi" -Force
-Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst" -Force
+#Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi" -Force
+#Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi" -Force
+#Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst" -Force
 
 #endregion InstalliCAM
 
@@ -1012,6 +1012,6 @@ Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 #endregion WindowsRegistrySettings
 
 #region InstallDeepFreezeCloud
-# Only need to do this because Faronics no longer automatically installs as part of the image.
+# Only need to do this because Faronics no longer automatically installs as part of the image.. which was because this script installed iCAM so now trying that with Faronics
 #Start-Process -FilePath "C:\Windows\Temp\BSInstaller.exe" -ArgumentList "-force"
 #endregion InstallDeepFreezeCloud
