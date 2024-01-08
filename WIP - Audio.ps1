@@ -148,7 +148,7 @@ function Take-Ownership {
     }
   }
   
-#Take-Ownership -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render" -User "LUAdmin" -Recurse -Verbose
+Take-Ownership -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render" -User "NT AUTHORITY\SYSTEM" -Recurse -Verbose
 
 Write-Verbose "Executing User is"
 [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
