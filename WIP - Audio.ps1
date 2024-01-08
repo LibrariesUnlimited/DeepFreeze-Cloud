@@ -148,40 +148,40 @@ function Take-Ownership {
     }
   }
   
-Take-Ownership -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render" -User "NT AUTHORITY\SYSTEM" -Recurse -Verbose
+#Take-Ownership -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render" -User "NT AUTHORITY\SYSTEM" -Recurse -Verbose
 
-Write-Host "Executing User is"
+#Write-Host "Executing User is"
 
-[System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+#[System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
-
+$script = @'
 $registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\"
 $audio = Get-ChildItem -Path $registryLocation | ForEach-Object {Get-ItemProperty -Path $_.PsPath | Where-Object {$_.DeviceState -eq 1} | Select-Object PSChildName }
 
 $derivedRegistryLocation = $registryLocation + $audio.PSChildName
 
-$acl = get-acl $derivedRegistryLocation
-
-$idRef = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
-$regRights = [System.Security.AccessControl.RegistryRights]::FullControl
-$InheritanceFlag = [System.Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [System.Security.AccessControl.InheritanceFlags]::ObjectInherit
-$PropagationFlag = [System.Security.AccessControl.PropagationFlags]::None
-$acType = [System.Security.AccessControl.AccessControlType]::Allow
-$rule = New-Object System.Security.AccessControl.RegistryAccessRule ($idRef,$regRights,$InheritanceFlag,$PropagationFlag,$acType)
-$acl.AddAccessRule($rule)
-
-$acl | Set-Acl -Path $derivedRegistryLocation
-
 Set-ItemProperty -Path $derivedRegistryLocation -Name "DeviceState" -Value 268435457 -Type DWord
+'@
+$path = "C:\Program Files\Libraries Unlimited"
+$script | Out-File -FilePath "$path\Audio.ps1" -Encoding ascii
 
-Write-Host "trying as local LUTESTUSER"
-$username = '.\LUTestUser'
-$password = 'FaronicsTest45!'
-$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
-$cred = New-Object System.Management.Automation.PSCredential ($username, $securePassword)
+$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LUTestUser"
+$user = "NT SERVICE\TrustedInstaller"
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File ""$path\Startup.ps1"""
+$p = New-ScheduledTaskPrincipal -GroupId "BUILTIN\Administrators"
 
-Invoke-Command -ComputerName localhost -Credential $cred -ScriptBlock {
-    Set-ItemProperty -Path $derivedRegistryLocation -Name "DeviceState" -Value 268435457 -Type DWord
-}
+Register-ScheduledTask -TaskName "LU Startup" -User $user -Trigger $trigger -Action $action -Principal $p
 
+
+#region invoke
+#Write-Host "trying as local LUTESTUSER"
+#$username = '.\LUTestUser'
+#$password = 'FaronicsTest45!'
+#$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+#$cred = New-Object System.Management.Automation.PSCredential ($username, $securePassword)
+
+#Invoke-Command -ComputerName localhost -Credential $cred -ScriptBlock {
+#    Set-ItemProperty -Path $derivedRegistryLocation -Name "DeviceState" -Value 268435457 -Type DWord
+#}
+#endregion invoke
 Stop-Transcript
