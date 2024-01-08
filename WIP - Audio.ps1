@@ -173,4 +173,14 @@ $acl | Set-Acl -Path $derivedRegistryLocation
 
 Set-ItemProperty -Path $derivedRegistryLocation -Name "DeviceState" -Value 268435457 -Type DWord
 
+Write-Verbose "trying as local LUTESTUSER"
+$username = '.\LUTestUser'
+$password = 'FaronicsTest45!'
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential ($username, $securePassword)
+
+Invoke-Command -ComputerName localhost -Credential $cred -ScriptBlock {
+    Set-ItemProperty -Path $derivedRegistryLocation -Name "DeviceState" -Value 268435457 -Type DWord
+}
+
 Stop-Transcript
