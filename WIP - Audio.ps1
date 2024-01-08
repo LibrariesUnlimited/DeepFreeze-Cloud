@@ -170,7 +170,7 @@ $user = "NT SERVICE\TrustedInstaller"
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File ""$path\Audio.ps1"""
 $p = New-ScheduledTaskPrincipal -GroupId "BUILTIN\Administrators"
 
-Register-ScheduledTask -TaskName "LU Startup" -User $user -Trigger $trigger -Action $action -Principal $p
+Register-ScheduledTask -TaskName "LU Audio Startup" -User $user -Trigger $trigger -Action $action -Principal $p
 
 
 #region invoke
