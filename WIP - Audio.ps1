@@ -167,7 +167,7 @@ $script | Out-File -FilePath "$path\Audio.ps1" -Encoding ascii
 
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LUTestUser"
 $user = "NT SERVICE\TrustedInstaller"
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File ""$path\Startup.ps1"""
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File ""$path\Audio.ps1"""
 $p = New-ScheduledTaskPrincipal -GroupId "BUILTIN\Administrators"
 
 Register-ScheduledTask -TaskName "LU Startup" -User $user -Trigger $trigger -Action $action -Principal $p
