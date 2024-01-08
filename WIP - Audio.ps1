@@ -150,7 +150,8 @@ function Take-Ownership {
   
 Take-Ownership -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render" -User "NT AUTHORITY\SYSTEM" -Recurse -Verbose
 
-Write-Verbose "Executing User is"
+Write-Host "Executing User is"
+
 [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
 
@@ -173,7 +174,7 @@ $acl | Set-Acl -Path $derivedRegistryLocation
 
 Set-ItemProperty -Path $derivedRegistryLocation -Name "DeviceState" -Value 268435457 -Type DWord
 
-Write-Verbose "trying as local LUTESTUSER"
+Write-Host "trying as local LUTESTUSER"
 $username = '.\LUTestUser'
 $password = 'FaronicsTest45!'
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
