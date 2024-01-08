@@ -148,7 +148,7 @@ function Take-Ownership {
     }
   }
   
-Take-Ownership -Path "Registry::HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render" -User "LUAdmin" -Recurse -Verbose
+Take-Ownership -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render" -User "LUAdmin" -Recurse -Verbose
 
 $registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\"
 $audio = Get-ChildItem -Path $registryLocation | ForEach-Object {Get-ItemProperty -Path $_.PsPath | Where-Object {$_.DeviceState -eq 1} | Select-Object PSChildName }
