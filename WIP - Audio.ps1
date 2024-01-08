@@ -148,15 +148,28 @@ function Take-Ownership {
     }
   }
   
-Take-Ownership -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render" -User "LUAdmin" -Recurse -Verbose
+#Take-Ownership -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render" -User "LUAdmin" -Recurse -Verbose
 
 Write-Verbose "Executing User is"
 [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+
 
 $registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\"
 $audio = Get-ChildItem -Path $registryLocation | ForEach-Object {Get-ItemProperty -Path $_.PsPath | Where-Object {$_.DeviceState -eq 1} | Select-Object PSChildName }
 
 $derivedRegistryLocation = $registryLocation + $audio.PSChildName
+
+$acl = get-acl $derivedRegistryLocation
+
+$idRef = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+$regRights = [System.Security.AccessControl.RegistryRights]::FullControl
+$InheritanceFlag = [System.Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [System.Security.AccessControl.InheritanceFlags]::ObjectInherit
+$PropagationFlag = [System.Security.AccessControl.PropagationFlags]::None
+$acType = [System.Security.AccessControl.AccessControlType]::Allow
+$rule = New-Object System.Security.AccessControl.RegistryAccessRule ($idRef,$regRights,$InheritanceFlag,$PropagationFlag,$acType)
+$acl.AddAccessRule($rule)
+
+$acl | Set-Acl -Path $derivedRegistryLocation
 
 Set-ItemProperty -Path $derivedRegistryLocation -Name "DeviceState" -Value 268435457 -Type DWord
 
