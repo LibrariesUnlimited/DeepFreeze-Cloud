@@ -3,18 +3,20 @@ Live Build Script for Public PCs
 Script to be a single script which runs in order rather than multiple scripts which all run at the same time and require extra folder validation
 #>
 
-
 <# 
 Settings to be changed for Go Live: 
 Source location for all files from devon.imil.uk
-Account name (in all locations): LUTestUser including MSPaint Windows App link to LibraryPublicUser
-Password in AutoLogin
-iCAM Settings!
 #>
 
 <#
-Still to do:
+Still to do/check:
  Child text and button size has now been corrected but will need to be checked as pixel locations might not be 100% accurate.
+#>
+
+<# DONE FOR GO LIVE
+Account name (in all locations): LUTestUser including MSPaint Windows App link to LibraryPublicUser
+Password in AutoLogin
+iCAM Settings!
 #>
 
 #region AutoLogin
@@ -452,11 +454,11 @@ $childValues = @{
 # Registry key/values for Child Applications
 #"Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
 $childApplicationsValues = @{
-    "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,110,245,1"
-    "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,210,355,1"
-    "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,210,245,1"
-    "Publisher"="C:\Program Files\Microsoft Office\root\Office16\MSPUB.EXE,,,110,355,1"
-    "File Explorer"="C:\WINDOWS\explorer.exe,,C:\WINDOWS\explorer.exe,310,245,1"
+    "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,110,248,1"
+    "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,210,358,1"
+    "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,210,248,1"
+    "Publisher"="C:\Program Files\Microsoft Office\root\Office16\MSPUB.EXE,,,110,358,1"
+    "File Explorer"="C:\WINDOWS\explorer.exe,,C:\WINDOWS\explorer.exe,310,248,1"
     "Accessibility"="C:\Windows\explorer.exe,shell:::{D555645E-D4F8-4c29-A827-D93C859C4F2A},C:\Program Files (x86)\iCAM\Workstation Control\CPL\Ease of Access.ico,1658,385,2"
     "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,1658,655,2"
     "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,140,587,1"
