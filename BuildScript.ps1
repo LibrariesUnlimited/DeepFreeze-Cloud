@@ -7,7 +7,7 @@ Script to be a single script which runs in order rather than multiple scripts wh
 <# 
 Settings to be changed for Go Live: 
 Source location for all files from devon.imil.uk
-Account name (in all locations): LUTestUser including MSPaint Windows App link
+Account name (in all locations): LUTestUser including MSPaint Windows App link to LibraryPublicUser
 Password in AutoLogin
 iCAM Settings!
 #>
@@ -20,9 +20,9 @@ Still to do:
 #region AutoLogin
 # Automatic Login of Public user after imaging
 $registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
-Set-ItemProperty -Path $registryLocation -Name "DefaultUserName" -Value "LUTestUser"
+Set-ItemProperty -Path $registryLocation -Name "DefaultUserName" -Value "LibraryPublicUser"
 Set-ItemProperty -Path $registryLocation -Name "AutoAdminLogon" -Value "1" -Type String
-Set-ItemProperty -Path $registryLocation -Name "DefaultPassword" -Value "FaronicsTest45!"
+Set-ItemProperty -Path $registryLocation -Name "DefaultPassword" -Value "dits-pub-dwsp"
 Set-ItemProperty -Path $registryLocation -Name "DefaultDomainName" -Value "LOCAL"
 #Set-ItemProperty -Path $registryLocation -Name "ForceAutoLogon" -Value "1" -Type String
 Remove-ItemProperty -Path $registryLocation -Name "AutoLogonCount" -Force
@@ -30,7 +30,7 @@ Remove-ItemProperty -Path $registryLocation -Name "AutoLogonCount" -Force
 
 #region Accounts
 Set-LocalUser -Name "LUAdmin" -PasswordNeverExpires 1
-Set-LocalUser -Name "LUTestUser" -PasswordNeverExpires 1
+Set-LocalUser -Name "LibraryPublicUser" -PasswordNeverExpires 1
 #endregion Accounts
 
 #region ActivateOffice
@@ -144,7 +144,7 @@ Set-ItemProperty -Path $registryPath -Name "Application Data Path" -Value "C:\Pr
 Set-ItemProperty -Path $registryPath -Name "Adverts Environment Profile" -Value "Adverts"
 Set-ItemProperty -Path $registryPath -Name "Show Exit Button Delay" -Value 60 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Require Exit Password" -Value 1 -Type DWord
-Set-ItemProperty -Path $registryPath -Name "Exit Password" -Value "90!80: !"
+Set-ItemProperty -Path $registryPath -Name "Exit Password" -Value "!='ff79t;18t60"
 Set-ItemProperty -Path $registryPath -Name "Windows Default Username" -Value ""
 Set-ItemProperty -Path $registryPath -Name "Windows Default Password" -Value ""
 Set-ItemProperty -Path $registryPath -Name "Windows Default Domain" -Value ""
@@ -302,7 +302,7 @@ $adultApplicationsValues = @{
     "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,1658,655,2"
     "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,542,587,1"
     "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,542,697,1"
-    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,677,697,1"
+    "Paint - Graphics"="C:\Users\LibraryPublicUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,677,697,1"
     "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,677,587,1"
     "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/referenceonline,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1072,587,1"
     "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/advanced-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
@@ -382,7 +382,7 @@ $filteredApplicationsValues = @{
     "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,1658,655,2"
     "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,542,587,1"
     "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,542,697,1"
-    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,677,697,1"
+    "Paint - Graphics"="C:\Users\LibraryPublicUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,677,697,1"
     "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,677,587,1"
     "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/referenceonline,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1072,587,1"
     "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.devonlibraries.org.uk/web/arena/advanced-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
@@ -450,7 +450,6 @@ $childValues = @{
 }
 
 # Registry key/values for Child Applications
-# not changed yet to make text correct
 #"Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
 $childApplicationsValues = @{
     "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,110,245,1"
@@ -462,7 +461,7 @@ $childApplicationsValues = @{
     "Sound"="C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Sound.ico,1658,655,2"
     "VLC - Media Player"="C:\Program Files\VideoLAN\VLC\vlc.exe,,,140,587,1"
     "GIMP - Graphics"="C:\Program Files\GIMP 2\bin\gimp-2.10.exe,,,140,697,1"
-    "Paint - Graphics"="C:\Users\LUTestUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,275,697,1"
+    "Paint - Graphics"="C:\Users\LibraryPublicUser\AppData\Local\Microsoft\WindowsApps\Microsoft.Paint_8wekyb3d8bbwe\mspaint.exe,,C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico,275,697,1"
     "Audacity - Audio"="C:\Program Files\Audacity\audacity.exe,,,275,587,1"
 }
 
@@ -924,8 +923,8 @@ $fileACL | Set-ACL -Path $path
 
 $script | Out-File -FilePath "$path\Startup.ps1" -Encoding ascii
 
-$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LUTestUser"
-$user = "$env:computername\LUTestUser"
+$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
+$user = "$env:computername\LibraryPublicUser"
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File ""$path\Startup.ps1"""
 
 Register-ScheduledTask -TaskName "LU Startup" -User $user -Trigger $trigger -Action $action
@@ -936,8 +935,8 @@ $path = "C:\Program Files\Libraries Unlimited"
 
 Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/SetFileAssociations.ps1" -OutFile "C:\Program Files\Libraries Unlimited\SetFileAssociations.ps1"
 
-$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LUTestUser"
-$user = "$env:computername\LUTestUser"
+$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
+$user = "$env:computername\LibraryPublicUser"
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File ""$path\SetFileAssociations.ps1"""
 
 Register-ScheduledTask -TaskName "LU File Associations" -User $user -Trigger $trigger -Action $action
