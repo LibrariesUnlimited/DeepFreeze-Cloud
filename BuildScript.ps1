@@ -979,6 +979,10 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\Hid
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideSwitchAccount" -Name "value" -Value "1"
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideRecentlyAddedApps" -Name "value" -Value "1"
 
+# Set Power Management for NIC
+$registryLocation = "HKLM:\System\CurrentControlSet\Control\Power"
+Set-ItemProperty -Path $registryLocation -Name "PlatformAoAcOverride" -Value 0 -Type DWord
+
 # Disable OneDrive
 $registryLocation = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive"
 if(-not(Test-Path $registryLocation)){
