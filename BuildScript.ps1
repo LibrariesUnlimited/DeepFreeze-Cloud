@@ -554,6 +554,12 @@ $registryLocation = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Se
 Set-ItemProperty -Name "ProxyEnable" -Path $registryLocation -Type DWord -Value "1" -Force
 Set-ItemProperty -Name "ProxyServer" -Path $registryLocation -Type string -Value "172.18.20.9:8080" -Force
 
+# Set ICAMIDLE Screensaver
+$registryLocation = "HKCU:\Control Panel\Desktop"
+Set-ItemProperty -Name "ScreenSaveActive" -Path $registryLocation -Value 1
+Set-ItemProperty -Name "ScreenSaveTimeOut" -Path $registryLocation -Value 60
+Set-ItemProperty -Name "scrnsave.exe" -Path $registryLocation -Value "C:\Windows\SysWOW64\ICAMIDLE.scr"
+
 # Uninstall Teams each login as it reinstalls itself with updates and we can't stop it
 Get-AppxPackage -Name "*teams" | Remove-AppxPackage
 
