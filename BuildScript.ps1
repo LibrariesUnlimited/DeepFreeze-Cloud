@@ -933,7 +933,7 @@ $script | Out-File -FilePath "$path\Startup.ps1" -Encoding ascii
 
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
 $user = "$env:computername\LibraryPublicUser"
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File ""$path\Startup.ps1"""
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle hidden -File ""$path\Startup.ps1"""
 
 Register-ScheduledTask -TaskName "LU Startup" -User $user -Trigger $trigger -Action $action
 #endregion CreateStartupScheduledTask
