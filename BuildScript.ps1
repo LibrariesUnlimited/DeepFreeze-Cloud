@@ -3,21 +3,11 @@ Live Build Script for Public PCs
 Script to be a single script which runs in order rather than multiple scripts which all run at the same time and require extra folder validation
 #>
 
-<# 
-Settings to be changed for Go Live: 
-Source location for all files from devon.imil.uk
-#>
-
 <#
 Still to do/check:
- Child text and button size has now been corrected but will need to be checked as pixel locations might not be 100% accurate.
+ Disable Copilot completely in HKCU script might not work as no permissions to create key, need to confirm.
 #>
 
-<# DONE FOR GO LIVE
-Account name (in all locations): LUTestUser including MSPaint Windows App link to LibraryPublicUser
-Password in AutoLogin
-iCAM Settings!
-#>
 
 #region AutoLogin
 # Automatic Login of Public user after imaging
@@ -912,6 +902,14 @@ Set-ItemProperty -Name "TaskbarDa" -Path "HKCU:\Software\Microsoft\Windows\Curre
 Set-ItemProperty -Name "ShowTaskViewButton" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 #Set-ItemProperty -Name "StartShownOnUpgrade" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 Set-ItemProperty -Name "TaskBarMn" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
+Set-ItemProperty -Name "ShowCopilotButton" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
+
+# Disable Copilot Completely (no permissions to create key so probably won't work commenting out for now)
+#$registryLocation = "HKCU:\Software\Policies\Microsoft\Windows\WindowsCopilot"
+#if(-not(Test-Path $registryLocation)){
+#	New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows" -Name "WindowsCopilot"
+#}
+#Set-ItemProperty -Path $registryLocation -Name "TurnOffWindowsCopilot" -Type DWord -Value "1"
 
 '@
 
@@ -988,6 +986,9 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\Hid
 # Set Power Management for NIC
 $registryLocation = "HKLM:\System\CurrentControlSet\Control\Power"
 Set-ItemProperty -Path $registryLocation -Name "PlatformAoAcOverride" -Value 0 -Type DWord
+
+# Disable access to Windows Screensaver from Control Panel (can still be accessed via changing Registry Settings)
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "NoDispScrSavPage" -Type DWord -Value 1
 
 # Disable OneDrive
 $registryLocation = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive"
