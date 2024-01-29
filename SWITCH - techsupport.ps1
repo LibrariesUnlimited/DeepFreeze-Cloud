@@ -12,11 +12,11 @@ $tempArray = $content.Content.Split("- System Log -")
 # (($array[1].Trim()).TrimEnd("</pre>")).Trim()
 
 # splits each line into an object with three headers, ID, Date and Status (`t is TAB)
-$objects = (($array[1].Trim()).TrimEnd("</pre>")).Trim() | ConvertFrom-Csv -Delimiter "`t" -Header "ID", "Date", "Status"
+$objects = (($tempArray[1].Trim()).TrimEnd("</pre>")).Trim() | ConvertFrom-Csv -Delimiter "`t" -Header "ID", "Date", "Status"
 $sObjects = $objects | Sort-Object -Property ID
 
 # The System restared abnormally
-$abnormal = $sObjects | Where-Object {$_.Status -eq "The System restared abnormally"} | Select ID
+$abnormal = $sObjects | Where-Object {$_.Status -eq "The System restared abnormally"} | Select-Object ID
 
 #326 restarted abnormally so looking for time from ID 327
 ForEach ($a in $abnormal) {
