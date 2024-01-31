@@ -990,6 +990,16 @@ Set-ItemProperty -Path $registryLocation -Name "PlatformAoAcOverride" -Value 0 -
 # Disable access to Windows Screensaver from Control Panel (can still be accessed via changing Registry Settings, possibly causing an iCAM problem)
 #Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "NoDispScrSavPage" -Type DWord -Value 1
 
+# Set Power Settings for default power profile
+powercfg.exe /X monitor-timeout-ac 0
+powercfg.exe /X monitor-timeout-dc 0
+powercfg.exe /X disk-timeout-ac 0
+powercfg.exe /X disk-timeout-dc 0
+powercfg.exe /X standby-timeout-ac 0
+powercfg.exe /X standby-timeout-dc 0
+powercfg.exe /X hibernate-timeout-ac 0
+powercfg.exe /X hibernate-timeout-dc 0
+
 # Disable OneDrive
 $registryLocation = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive"
 if(-not(Test-Path $registryLocation)){
