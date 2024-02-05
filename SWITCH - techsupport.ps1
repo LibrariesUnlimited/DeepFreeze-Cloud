@@ -18,7 +18,7 @@ $sObjects = $objects | Sort-Object -Property ID
 # The System restared abnormally
 $abnormal = $sObjects | Where-Object {$_.Status -eq "The System restared abnormally"} | Select-Object ID
 
-#326 restarted abnormally so looking for time from ID 327
+#326 restarted abnormally so looking for time from ID 328
 ForEach ($a in $abnormal) {
     $sObjects[([int]$a.ID) + 1]
 }
