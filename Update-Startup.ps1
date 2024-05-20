@@ -1,4 +1,6 @@
 # Update Startup Script to contain new build instructions for all PCs
+# Contains the full Startup Script that is included in BuildScript
+# If a change is made in the build it should be duplicated here and the powershell script on public PCs will be updated by Maintenance
 
 $script = @'
 #create C# Code
