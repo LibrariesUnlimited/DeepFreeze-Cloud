@@ -717,6 +717,16 @@ if(-not(Test-Path $registryLocation)){
 }
 Set-ItemProperty -Path $registryLocation -Name "StartupDelayInMSec" -Value "0"
 
+# Disable Chrome Full-Tab Promotional Content
+$registryLocation = "HKCU:\Software\Policies\Google\Chrome"
+if(-not(Test-Path "HKCU:\Software\Policies\Google")){
+    New-Item -Path "HKCU:\Software\Policies\" -Name "Google"
+}
+if(-not(Test-Path "HKCU:\Software\Policies\Google\Chrome")){
+    New-Item -Path "HKCU:\Software\Policies\Google\" -Name "Chrome"
+}
+Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
+
 # Remove Edge and MS Store from Task Bar
 $apps = ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items())
 foreach ($app in $apps) {
