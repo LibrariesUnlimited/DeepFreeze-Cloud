@@ -4,7 +4,6 @@
 # HOWEVER ... this script should check to see if changes are required to speed processing and restrict errors
 # Eventually all machines will have updates from this script applied so in theory it could be stopped but will be left running to have changes made at next Maintenance Period
 # rather than waiting a week to change the DeepFreeze Cloud Policy
-Start-Transcript -path "C:\Program Files\Libraries Unlimited\Update-Build.Log"
 
 Function Test-RegistryValue {
     param(
@@ -47,16 +46,16 @@ Function Test-RegistryValue {
 # Disable Copilot Completely
 $registryLocation = "HKLM:\Software\Policies\Microsoft\Windows\WindowsCopilot"
 $registryName = "TurnOffWindowsCopilot"
+# checks to see if the value already exists, if it doesn't then create it
 if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
 {
-    write-host "registry value missing copilot"
     if(-not(Test-Path $registryLocation)){
 	    New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows" -Name "WindowsCopilot"
     }
     Set-ItemProperty -Path $registryLocation -Name $registryName -Type DWord -Value "1"
 }
-if ((Get-ItemProperty -Path $registryLocation -Name $registryName).TurnOffWindowsCopilot -ne 0) {
-    write-host "registry value wrong copilot"
+# checks to see if the value is correct, if not correct it
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).TurnOffWindowsCopilot -ne 1) {
     Set-ItemProperty -Path $registryLocation -Name $registryName -Type DWord -Value "1"
 }
 
@@ -76,14 +75,3 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
 if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTabsEnabled -ne 0) {
     Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
 }
-
-# FAKE VALUE
-$registryLocation = "HKLM:\Software\Policies\Ewen\Chrome"
-$registryName = "PromotionalTabsEnabled"
-if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
-{
- write-host "registry value missing fake"
-}
-
-
-Stop-Transcript
