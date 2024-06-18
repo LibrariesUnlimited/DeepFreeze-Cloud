@@ -1189,9 +1189,26 @@ Set-ItemProperty -Path $registryLocation -Name "AllowCortana" -Value "0"
 
 # Disable Firewall for printing (can we improve this and not have the firewall completely off?)
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+
+# Disable Copilot Completely
+$registryLocation = "HKLM:\Software\Policies\Microsoft\Windows\WindowsCopilot"
+$registryName = "TurnOffWindowsCopilot"
+if(-not(Test-Path $registryLocation)){
+    New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows" -Name "WindowsCopilot"
+}
+Set-ItemProperty -Path $registryLocation -Name $registryName -Type DWord -Value "1"
+
+# Disable Chrome Full-Tab Promotional Content
+$registryLocation = "HKLM:\Software\Policies\Google\Chrome"
+$registryName = "PromotionalTabsEnabled"
+if(-not(Test-Path "HKLM:\Software\Policies\Google")){
+    New-Item -Path "HKLM:\Software\Policies\" -Name "Google"
+}
+if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome")){
+    New-Item -Path "HKLM:\Software\Policies\Google\" -Name "Chrome"
+}
+Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
+
 #endregion WindowsRegistrySettings
 
-#region InstallDeepFreezeCloud
-# Only need to do this because Faronics no longer automatically installs as part of the image.. which was because this script installed iCAM so now trying that with Faronics
-#Start-Process -FilePath "C:\Windows\Temp\BSInstaller.exe" -ArgumentList "-force"
-#endregion InstallDeepFreezeCloud
+
