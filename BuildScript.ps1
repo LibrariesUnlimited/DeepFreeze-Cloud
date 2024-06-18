@@ -717,16 +717,6 @@ if(-not(Test-Path $registryLocation)){
 }
 Set-ItemProperty -Path $registryLocation -Name "StartupDelayInMSec" -Value "0"
 
-# Disable Chrome Full-Tab Promotional Content
-#$registryLocation = "HKCU:\Software\Policies\Google\Chrome"
-#if(-not(Test-Path "HKCU:\Software\Policies\Google")){
-#    New-Item -Path "HKCU:\Software\Policies\" -Name "Google"
-#}
-#if(-not(Test-Path "HKCU:\Software\Policies\Google\Chrome")){
-#    New-Item -Path "HKCU:\Software\Policies\Google\" -Name "Chrome"
-#}
-#Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
-
 # Set Default Printer and enable Legacy Printer Mode (to stop Acrobat Reader using the wrong printer)
 $registryLocation = "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Windows"
 Set-ItemProperty -Path $registryLocation -Name "LegacyDefaultPrinterMode" -Type DWord -Value "1" -Force
@@ -1078,13 +1068,6 @@ Set-ItemProperty -Name "ShowTaskViewButton" -Path "HKCU:\Software\Microsoft\Wind
 #Set-ItemProperty -Name "StartShownOnUpgrade" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 Set-ItemProperty -Name "TaskBarMn" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 Set-ItemProperty -Name "ShowCopilotButton" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
-
-# Disable Copilot Completely (no permissions to create key so probably won't work commenting out for now)
-#$registryLocation = "HKCU:\Software\Policies\Microsoft\Windows\WindowsCopilot"
-#if(-not(Test-Path $registryLocation)){
-#	New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows" -Name "WindowsCopilot"
-#}
-#Set-ItemProperty -Path $registryLocation -Name "TurnOffWindowsCopilot" -Type DWord -Value "1"
 
 '@
 
