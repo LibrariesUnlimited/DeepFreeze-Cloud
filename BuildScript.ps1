@@ -718,14 +718,19 @@ if(-not(Test-Path $registryLocation)){
 Set-ItemProperty -Path $registryLocation -Name "StartupDelayInMSec" -Value "0"
 
 # Disable Chrome Full-Tab Promotional Content
-$registryLocation = "HKCU:\Software\Policies\Google\Chrome"
-if(-not(Test-Path "HKCU:\Software\Policies\Google")){
-    New-Item -Path "HKCU:\Software\Policies\" -Name "Google"
-}
-if(-not(Test-Path "HKCU:\Software\Policies\Google\Chrome")){
-    New-Item -Path "HKCU:\Software\Policies\Google\" -Name "Chrome"
-}
-Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
+#$registryLocation = "HKCU:\Software\Policies\Google\Chrome"
+#if(-not(Test-Path "HKCU:\Software\Policies\Google")){
+#    New-Item -Path "HKCU:\Software\Policies\" -Name "Google"
+#}
+#if(-not(Test-Path "HKCU:\Software\Policies\Google\Chrome")){
+#    New-Item -Path "HKCU:\Software\Policies\Google\" -Name "Chrome"
+#}
+#Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
+
+# Set Default Printer and enable Legacy Printer Mode (to stop Acrobat Reader using the wrong printer)
+$registryLocation = "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Windows"
+Set-ItemProperty -Path $registryLocation -Name "LegacyDefaultPrinterMode" -Type DWord -Value "1" -Force
+Set-ItemProperty -Path $registryLocation -Name "Device" -Value "iCAM Printer,winspool,NUL"
 
 # Remove Edge and MS Store from Task Bar
 $apps = ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items())
