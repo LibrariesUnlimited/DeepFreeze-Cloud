@@ -75,3 +75,20 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
 if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTabsEnabled -ne 0) {
     Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
 }
+
+# Disable Chrome ZstdContentEncodingEnabled
+$registryLocation = "HKLM:\Software\Policies\Google\Chrome"
+$registryName = "ZstdContentEncodingEnabled"
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Google")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Google"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome")){
+        New-Item -Path "HKLM:\Software\Policies\Google\" -Name "Chrome"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+}
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+}
