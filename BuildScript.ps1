@@ -31,67 +31,6 @@ Set-LocalUser -Name "LibraryPublicUser" -PasswordNeverExpires 1
 cscript.exe "C:\Program Files\Microsoft Office\Office16\ospp.vbs" /act
 #endregion ActivateOffice
 
-#region InstalliCAM - disabling as might need to do it through Faronics now
-# Installing iCAM Workstation and Print Client
-
-# Downloading Files
-#if(-not(Test-Path "C:\Program Files (x86)\iCAM\")) {
-#	New-Item "C:\Program Files (x86)\iCAM\" -ItemType Directory -Force
-#}
-
-#Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAM Workstation Control Client 5.9.1.msi" -OutFile "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi"
-#Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAM Print Client 4.7.0.1000.msi" -OutFile "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
-#Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAMAllUsers.mst" -OutFile "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst"
-
-# Installing Workstation Client
-#$msiFile = "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi"
-#$logFile = "C:\Program Files (x86)\iCAM\workstationcontrol_install_log.txt"
-#$trnsfrmFile = "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst"
-
-#$arguments = "/i ""$msiFile"" ADDLOCAL=iCAMWorkstationControlClient,Services,iCAMSCR,KeyboardFilter /qn /norestart /l*V ""$logFile"" TRANSFORMS=""$trnsfrmFile"""
-#$processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
-#$processStartInfo.FileName = "msiexec.exe"
-#$processStartInfo.Arguments = $arguments
-#$processStartInfo.RedirectStandardOutput = $true
-#$processStartInfo.RedirectStandardError = $true
-#$processStartInfo.UseShellExecute = $false
-#$processStartInfo.CreateNoWindow = $true
-
-#$process = New-Object System.Diagnostics.Process
-#$process.StartInfo = $processStartInfo
-
-#$process.Start() | Out-Null
-#$process.WaitForExit()
-
-
-# Installing Print Client
-#$msiFile = "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi"
-#$logFile = "C:\Program Files (x86)\iCAM\printclient_install_log.txt"
-
-
-#$arguments = "/i ""$msiFile"" /qn /norestart /l*V ""$logFile"""
-#$processStartInfo = New-Object System.Diagnostics.ProcessStartInfo
-#$processStartInfo.FileName = "msiexec.exe"
-#$processStartInfo.Arguments = $arguments
-#$processStartInfo.RedirectStandardOutput = $true
-#$processStartInfo.RedirectStandardError = $true
-#$processStartInfo.UseShellExecute = $false
-#$processStartInfo.CreateNoWindow = $true
-
-#$process = New-Object System.Diagnostics.Process
-#$process.StartInfo = $processStartInfo
-
-#$process.Start() | Out-Null
-#$process.WaitForExit()
-
-
-# Clearing temp files
-#Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi" -Force
-#Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAM Print Client 4.7.0.1000.msi" -Force
-#Remove-Item -Path "C:\Program Files (x86)\iCAM\iCAMAllUsers.mst" -Force
-
-#endregion InstalliCAM
-
 #region ConfigureiCAMSettings
 # checking Registry Keys are in place
 if(-not(Test-Path "HKLM:\SOFTWARE\Insight Media\")){
@@ -1059,6 +998,21 @@ switch ($computerPrefix) {
         }
 }
 
+# Disable Audacity Alpha Update screen
+$audacity = @"
+[Locale]
+Language=en
+[Update]
+DefaultUpdatesChecking=0
+UpdateNoticeShown=1
+"@
+
+$path = "C:\Users\LibraryPublicUser\AppData\Roaming\audacity"
+if(-not(Test-Path $path)) {
+    New-Item -path $path -ItemType Directory
+}
+$audacity | Out-File -FilePath "$path\audacity.cfg" -Encoding ascii
+
 # Disable "Minimize windows when a monitor is disconnected" option to stop iCAM being hidden when someone turns off the monitor
 Set-ItemProperty -Name "MonitorRemovalRecalcBehavior" -Path "HKCU:\Control Panel\Desktop" -Type DWord -Value "1"
 
@@ -1242,6 +1196,22 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
 if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
     Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
 }
+
+# Disable Firefox Zstd Encoding
+$registryLocation = "HKLM:\Software\Policies\Mozilla\Firefox"
+$registryName = "Preferences"
+$value = @('{','"network.http.accept-encoding.secure": {','"Value": "gzip, deflate, br",','"Status": "default"','}','}')
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Mozilla")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Mozilla"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Mozilla\Firefox")){
+        New-Item -Path "HKLM:\Software\Policies\Mozilla\" -Name "Firefox"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
+}
+Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
 
 #endregion WindowsRegistrySettings
 
