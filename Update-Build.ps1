@@ -76,6 +76,23 @@ if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTa
     Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
 }
 
+# Disable Edge Full-Tab Promotional Content
+$registryLocation = "HKLM:\Software\Policies\Microsoft\Edge"
+$registryName = "PromotionalTabsEnabled"
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Microsoft"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft\Edge")){
+        New-Item -Path "HKLM:\Software\Policies\Microsoft\" -Name "Edge"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
+}
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTabsEnabled -ne 0) {
+    Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
+}
+
 # Disable Chrome ZstdContentEncodingEnabled
 $registryLocation = "HKLM:\Software\Policies\Google\Chrome"
 $registryName = "ZstdContentEncodingEnabled"
