@@ -1209,6 +1209,40 @@ if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome")){
 }
 Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
 
+# Disable Chrome ZstdContentEncodingEnabled
+$registryLocation = "HKLM:\Software\Policies\Google\Chrome"
+$registryName = "ZstdContentEncodingEnabled"
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Google")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Google"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome")){
+        New-Item -Path "HKLM:\Software\Policies\Google\" -Name "Chrome"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+}
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+}
+
+# Disable Edge ZstdContentEncodingEnabled
+$registryLocation = "HKLM:\Software\Policies\Microsoft\Edge"
+$registryName = "ZstdContentEncodingEnabled"
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Microsoft"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft\Edge")){
+        New-Item -Path "HKLM:\Software\Policies\Microsoft\" -Name "Edge"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+}
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+}
+
 #endregion WindowsRegistrySettings
 
 

@@ -92,3 +92,20 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
 if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
     Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
 }
+
+# Disable Edge ZstdContentEncodingEnabled
+$registryLocation = "HKLM:\Software\Policies\Microsoft\Edge"
+$registryName = "ZstdContentEncodingEnabled"
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Microsoft"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft\Edge")){
+        New-Item -Path "HKLM:\Software\Policies\Microsoft\" -Name "Edge"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+}
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+}
