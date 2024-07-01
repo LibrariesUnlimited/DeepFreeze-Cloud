@@ -524,6 +524,21 @@ switch ($computerPrefix) {
         }
 }
 
+# Disable Audacity Alpha Update screen
+$audacity = @"
+[Locale]
+Language=en
+[Update]
+DefaultUpdatesChecking=0
+UpdateNoticeShown=1
+"@
+
+$path = "C:\Users\LibraryPublicUser\AppData\Roaming\audacity"
+if(-not(Test-Path $path)) {
+    New-Item -path $path -ItemType Directory
+}
+$audacity | Out-File -FilePath "$path\audacity.cfg" -Encoding ascii
+
 # Disable "Minimize windows when a monitor is disconnected" option to stop iCAM being hidden when someone turns off the monitor
 Set-ItemProperty -Name "MonitorRemovalRecalcBehavior" -Path "HKCU:\Control Panel\Desktop" -Type DWord -Value "1"
 
