@@ -126,3 +126,19 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
 if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
     Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
 }
+
+# Disable Firefox Zstd Encoding
+$registryLocation = "HKLM:\Software\Policies\Mozilla\Firefox"
+$registryName = "Preferences"
+$value = @('{','  "network.http.accept-encoding.secure": {','    "Value": "gzip, deflate, br",','    "Status": "default",','    "Type": "string"','}')
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Mozilla")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Mozilla"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Mozilla\Firefox")){
+        New-Item -Path "HKLM:\Software\Policies\Mozilla\" -Name "Firefox"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
+}
+Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
