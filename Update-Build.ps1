@@ -142,3 +142,16 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
     Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
 }
 Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
+
+# Download files to local machine
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/Fortinet_CA_SSL(1).cer" -OutFile "C:\Windows\Temp\Fortinet_CA_SSL(1).cer"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/Fortinet_CA_SSL(2).cer" -OutFile "C:\Windows\Temp\Fortinet_CA_SSL(2).cer"
+
+$certFile1 = "C:\Windows\Temp\Fortinet_CA_SSL(1).cer"
+$certFile2 = "C:\Windows\Temp\Fortinet_CA_SSL(2).cer"
+$certStoreLocation = "Cert:\LocalMachine\Root"
+
+# Import Certificate(1)
+Import-Certificate -FilePath $certFile1 -CertStoreLocation $certStoreLocation
+# Import Certificate(2)
+Import-Certificate -FilePath $certFile2 -CertStoreLocation $certStoreLocation
