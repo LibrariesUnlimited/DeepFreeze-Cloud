@@ -2,6 +2,13 @@
 # Contains the full Startup Script that is included in BuildScript
 # If a change is made in the build it should be duplicated here and the powershell script on public PCs will be updated by Maintenance
 
+# I don't fully understand how the C# code works however the gist is:
+# STDMETHODCALLTYPE SetEndpointVisibility(PCWSTR, INT) accepts the device ID and either a true/false
+# This then either enables or disables the audio device
+# As I don't know how the public method SetEndpointVisibility can be redesigned to accept the boolean parameter I've taken the easy way out and
+# duplicated it as SetEndpointVisibility2 and changed the public function to enable instead of disable.
+# This code could obviously be improved by someone capable in C#!
+
 $script = @'
 #create C# Code
 $cSharpSourceCode = @"
@@ -110,6 +117,21 @@ public class PolicyConfigClient
             return 1;
         }
     }
+
+        public static int SetEndpointVisibility2(string deviceID)
+    {
+        IPolicyConfig _policyConfigClient = (new _CPolicyConfigClient() as IPolicyConfig);
+
+	try
+        {
+            Marshal.ThrowExceptionForHR(_policyConfigClient.SetEndpointVisibility(deviceID, true));
+		    return 0;
+        }
+        catch
+        {
+            return 1;
+        }
+    }
 }
 "@
 
@@ -152,12 +174,43 @@ function Set-EndpointVisibility
         Write-Host "ERROR: There has been a problem disabling the audio device."
     }
 }
+
+function Set-EndpointVisibilityEnable
+{
+    Param
+    (
+        [parameter(Mandatory=$true)]
+        [string[]]
+        $deviceId
+    )
+
+    If ([PolicyConfigClient]::SetEndpointVisibility2("{0.0.0.00000000}.$deviceId") -eq 0)
+    {
+        Write-Host "SUCCESS: The audio device has been enabled."
+    }
+    Else
+    {
+        Write-Host "ERROR: There has been a problem enabling the audio device."
+    }
+}
 # Runs CSharp code to disable audio
 $registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\"
 $audio = Get-ChildItem -Path $registryLocation | ForEach-Object {Get-ItemProperty -Path $_.PsPath | Where-Object {$_.DeviceState -eq 1} | Select-Object PSChildName}
 
 if ($audio.PSChildName -ne $null) {
-    Set-EndpointVisibility $audio.PSChildName
+    ForEach ($a in $audio) {
+        Set-EndpointVisibility $a.PSChildName
+    }
+}
+
+# Runs C# code to enable headphones audio
+$audioList = Get-ChildItem -Path $registryLocation | ForEach-Object {Get-ItemProperty -Path $_.PsPath | Select-Object PSChildName}
+$result = $audioList | ForEach-Object { Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\$($_.PSChildName)\Properties\" | Where-Object {$_."{a45c254e-df1c-4efd-8020-67d146a850e0},2" -eq "Headphones"} | Select-Object PSParentPath }
+
+If ($result.PSParentPath -ne $null) {
+    ForEach ($r in $result) {
+        Set-EndpointVisibilityEnable $r.PSParentPath.split('\')[9]
+    }
 }
 
 # Sets Proxy Settings
