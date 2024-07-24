@@ -5,7 +5,7 @@ Script to be a single script which runs in order rather than multiple scripts wh
 
 <#
 Still to do/check:
- Disable Copilot completely in HKCU script might not work as no permissions to create key, need to confirm.
+ 
 #>
 
 
