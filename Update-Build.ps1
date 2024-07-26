@@ -143,3 +143,12 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
 }
 Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
 
+
+# Force restart if client killed
+$registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Monitor"
+if ((Get-ItemProperty -Path $registryLocation -Name "Monitor Force LogOff")."Monitor Force LogOff" -ne 1) {
+    Set-ItemProperty -Path $registryLocation -Name "Monitor Force LogOff" -Type DWord -Value 1 -Force
+}
+if ((Get-ItemProperty -Path $registryLocation -Name "Monitor Interval")."Monitor Interval" -ne 60) {
+    Set-ItemProperty -Path $registryLocation -Name "Monitor Interval" -Type DWord -Value 60 -Force
+}
