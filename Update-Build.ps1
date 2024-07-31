@@ -152,3 +152,8 @@ if ((Get-ItemProperty -Path $registryLocation -Name "Monitor Force LogOff")."Mon
 if ((Get-ItemProperty -Path $registryLocation -Name "Monitor Interval")."Monitor Interval" -ne 60) {
     Set-ItemProperty -Path $registryLocation -Name "Monitor Interval" -Type DWord -Value 60 -Force
 }
+
+$registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU User"
+if ((Get-ItemProperty -Path $registryLocation -Name "Disable Ctrl Alt Del")."Disable Ctrl Alt Del" -ne 1) {
+    Set-ItemProperty -Path $registryLocation -Name "Disable Ctrl Alt Del" -Type DWord -Value 1 -Force
+}
