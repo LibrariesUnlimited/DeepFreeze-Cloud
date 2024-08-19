@@ -157,3 +157,37 @@ $registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profil
 if ((Get-ItemProperty -Path $registryLocation -Name "Disable Ctrl Alt Del")."Disable Ctrl Alt Del" -ne 1) {
     Set-ItemProperty -Path $registryLocation -Name "Disable Ctrl Alt Del" -Type DWord -Value 1 -Force
 }
+
+# List of Profiles, remember if a profile is added here it needs to be added to the switch statement below
+$profiles = @('ADC','ADU','Default','OOH','STC','STU')
+
+# Registry key/values for Adult Applications
+# "Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
+$adultApplicationsValues = @{
+    "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/extended-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
+    "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/web-resources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
+}
+
+# Registry key/values for Filtered Applications (Currently the same as Adult)
+$filteredApplicationsValues = @{
+    "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/extended-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
+    "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/web-resources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
+}
+
+#  ADC and ADU and Default and OOH the same (all adult), CHC and CHI the same (all child), STC and STU the same (child filter) 
+switch ( $profiles ) {
+    {($_ -eq "ADC") -or ($_ -eq "ADU") -or ($_ -eq "Default") -or ($_ -eq "OOH")} 
+        {
+            $profileName = $_
+            $adultApplicationsValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
+            }
+        }
+    {($_ -eq "STC") -or ($_ -eq "STU")} 
+        {
+            $profileName = $_
+            $filteredApplicationsValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
+            }              
+        }
+}
