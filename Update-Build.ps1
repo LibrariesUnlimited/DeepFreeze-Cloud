@@ -5,6 +5,11 @@
 # Eventually all machines will have updates from this script applied so in theory it could be stopped but will be left running to have changes made at next Maintenance Period
 # rather than waiting a week to change the DeepFreeze Cloud Policy
 
+$logFile = "C:\Program Files\Libraries Unlimited\Update-Build.log"
+Start-Transcript $logFile
+Write-Output "Logging to $logFile"
+Write-Output "###### START $(get-date) ##### "
+
 Function Test-RegistryValue {
     param(
         [Alias("PSPath")]
@@ -35,128 +40,154 @@ Function Test-RegistryValue {
     }
 }
 
-# Example ... this didn't work so need to do an HKLM version in this script
-# Disable Copilot Completely (no permissions to create key so probably won't work commenting out for now)
-#$registryLocation = "HKCU:\Software\Policies\Microsoft\Windows\WindowsCopilot"
-#if(-not(Test-Path $registryLocation)){
-#	New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows" -Name "WindowsCopilot"
-#}
-#Set-ItemProperty -Path $registryLocation -Name "TurnOffWindowsCopilot" -Type DWord -Value "1"
 
 # Disable Copilot Completely
-#$registryLocation = "HKLM:\Software\Policies\Microsoft\Windows\WindowsCopilot"
-#$registryName = "TurnOffWindowsCopilot"
+$registryLocation = "HKLM:\Software\Policies\Microsoft\Windows\WindowsCopilot"
+$registryName = "TurnOffWindowsCopilot"
 # checks to see if the value already exists, if it doesn't then create it
-#if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
-#{
-#    if(-not(Test-Path $registryLocation)){
-#	    New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows" -Name "WindowsCopilot"
-#    }
-#    Set-ItemProperty -Path $registryLocation -Name $registryName -Type DWord -Value "1"
-#}
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path $registryLocation)){
+	    New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows" -Name "WindowsCopilot"
+    }
+    Write-Output "Copilot Registry entry did not exist"
+    Write-Output "---------------------"
+    Set-ItemProperty -Path $registryLocation -Name $registryName -Type DWord -Value "1"
+}
 # checks to see if the value is correct, if not correct it
-#if ((Get-ItemProperty -Path $registryLocation -Name $registryName).TurnOffWindowsCopilot -ne 1) {
-#    Set-ItemProperty -Path $registryLocation -Name $registryName -Type DWord -Value "1"
-#}
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).TurnOffWindowsCopilot -ne 1) {
+    Set-ItemProperty -Path $registryLocation -Name $registryName -Type DWord -Value "1"
+    Write-Output "Copilot Registry entry was incorrect"
+    Write-Output "---------------------"
+}
 
 # Disable Chrome Full-Tab Promotional Content
-#$registryLocation = "HKLM:\Software\Policies\Google\Chrome"
-#$registryName = "PromotionalTabsEnabled"
-#if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
-#{
-#    if(-not(Test-Path "HKLM:\Software\Policies\Google")){
-#        New-Item -Path "HKLM:\Software\Policies\" -Name "Google"
-#    }
-#    if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome")){
-#        New-Item -Path "HKLM:\Software\Policies\Google\" -Name "Chrome"
-#    }
-#    Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
-#}
-#if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTabsEnabled -ne 0) {
-#    Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
-#}
+$registryLocation = "HKLM:\Software\Policies\Google\Chrome"
+$registryName = "PromotionalTabsEnabled"
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Google")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Google"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome")){
+        New-Item -Path "HKLM:\Software\Policies\Google\" -Name "Chrome"
+    }
+    Write-Output "Chrome Full-Tab Promotional Content Registry entry did not exist"
+    Write-Output "---------------------"
+    Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
+}
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTabsEnabled -ne 0) {
+    Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
+    Write-Output "Chrome Full-Tab Promotional Content Registry entry was incorrect"
+    Write-Output "---------------------"
+}
 
 # Disable Edge Full-Tab Promotional Content
-#$registryLocation = "HKLM:\Software\Policies\Microsoft\Edge"
-#$registryName = "PromotionalTabsEnabled"
-#if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
-#{
-#    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft")){
-#        New-Item -Path "HKLM:\Software\Policies\" -Name "Microsoft"
-#    }
-#    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft\Edge")){
-#        New-Item -Path "HKLM:\Software\Policies\Microsoft\" -Name "Edge"
-#    }
-#    Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
-#}
-#if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTabsEnabled -ne 0) {
-#    Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
-#}
+$registryLocation = "HKLM:\Software\Policies\Microsoft\Edge"
+$registryName = "PromotionalTabsEnabled"
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Microsoft"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft\Edge")){
+        New-Item -Path "HKLM:\Software\Policies\Microsoft\" -Name "Edge"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
+    Write-Output "Edge Full-Tab Promotional Content Registry entry did not exist"
+    Write-Output "---------------------"
+}
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTabsEnabled -ne 0) {
+    Set-ItemProperty -Path $registryLocation -Name "PromotionalTabsEnabled" -Type DWord -Value "0" -Force
+    Write-Output "Edge Full-Tab Promotional Content Registry entry was incorrect"
+    Write-Output "---------------------"
+}
 
 # Disable Chrome ZstdContentEncodingEnabled
-#$registryLocation = "HKLM:\Software\Policies\Google\Chrome"
-#$registryName = "ZstdContentEncodingEnabled"
-#if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
-#{
-#    if(-not(Test-Path "HKLM:\Software\Policies\Google")){
-#        New-Item -Path "HKLM:\Software\Policies\" -Name "Google"
-#    }
-#    if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome")){
-#        New-Item -Path "HKLM:\Software\Policies\Google\" -Name "Chrome"
-#    }
-#    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
-#}
-#if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
-#    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
-#}
+$registryLocation = "HKLM:\Software\Policies\Google\Chrome"
+$registryName = "ZstdContentEncodingEnabled"
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Google")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Google"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome")){
+        New-Item -Path "HKLM:\Software\Policies\Google\" -Name "Chrome"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+    Write-Output "Chrome ZstdContentEncodingEnabled Registry entry did not exist"
+    Write-Output "---------------------"
+}
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+    Write-Output "Chrome ZstdContentEncodingEnabled Registry entry was incorrect"
+    Write-Output "---------------------"
+}
 
 # Disable Edge ZstdContentEncodingEnabled
-#$registryLocation = "HKLM:\Software\Policies\Microsoft\Edge"
-#$registryName = "ZstdContentEncodingEnabled"
-#if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
-#{
-#    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft")){
-#        New-Item -Path "HKLM:\Software\Policies\" -Name "Microsoft"
-#    }
-#    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft\Edge")){
-#        New-Item -Path "HKLM:\Software\Policies\Microsoft\" -Name "Edge"
-#    }
-#    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
-#}
-#if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
-#    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
-#}
+$registryLocation = "HKLM:\Software\Policies\Microsoft\Edge"
+$registryName = "ZstdContentEncodingEnabled"
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Microsoft"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft\Edge")){
+        New-Item -Path "HKLM:\Software\Policies\Microsoft\" -Name "Edge"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+    Write-Output "Edge ZstdContentEncodingEnabled Registry entry did not exist"
+    Write-Output "---------------------"
+}
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).ZstdContentEncodingEnabled -ne 0) {
+    Set-ItemProperty -Path $registryLocation -Name "ZstdContentEncodingEnabled" -Type DWord -Value "0" -Force
+    Write-Output "Edge ZstdContentEncodingEnabled Registry entry incorrect"
+    Write-Output "---------------------"
+}
 
 # Disable Firefox Zstd Encoding
-#$registryLocation = "HKLM:\Software\Policies\Mozilla\Firefox"
-#$registryName = "Preferences"
-#$value = @('{','"network.http.accept-encoding.secure": {','"Value": "gzip, deflate, br",','"Status": "default"','}','}')
-#if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
-#{
-#    if(-not(Test-Path "HKLM:\Software\Policies\Mozilla")){
-#        New-Item -Path "HKLM:\Software\Policies\" -Name "Mozilla"
-#    }
-#    if(-not(Test-Path "HKLM:\Software\Policies\Mozilla\Firefox")){
-#        New-Item -Path "HKLM:\Software\Policies\Mozilla\" -Name "Firefox"
-#    }
-#    Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
-#}
-#Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
+$registryLocation = "HKLM:\Software\Policies\Mozilla\Firefox"
+$registryName = "Preferences"
+$value = @('{','"network.http.accept-encoding.secure": {','"Value": "gzip, deflate, br",','"Status": "default"','}','}')
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Mozilla")){
+        New-Item -Path "HKLM:\Software\Policies\" -Name "Mozilla"
+    }
+    if(-not(Test-Path "HKLM:\Software\Policies\Mozilla\Firefox")){
+        New-Item -Path "HKLM:\Software\Policies\Mozilla\" -Name "Firefox"
+    }
+    Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
+    Write-Output "Firefox Zstd Encoding Registry entry did not exist"
+    Write-Output "---------------------"
+}
+Set-ItemProperty -Path $registryLocation -Name "Preferences" -Type MultiString -Value $value -Force
+Write-Output "Firefox Zstd Encoding Registry entry incorrect"
+Write-Output "---------------------"
 
 
 # Force restart if client killed
-#$registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Monitor"
-#if ((Get-ItemProperty -Path $registryLocation -Name "Monitor Force LogOff")."Monitor Force LogOff" -ne 1) {
-#    Set-ItemProperty -Path $registryLocation -Name "Monitor Force LogOff" -Type DWord -Value 1 -Force
-#}
-#if ((Get-ItemProperty -Path $registryLocation -Name "Monitor Interval")."Monitor Interval" -ne 60) {
-#    Set-ItemProperty -Path $registryLocation -Name "Monitor Interval" -Type DWord -Value 60 -Force
-#}
+$registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Monitor"
+if ((Get-ItemProperty -Path $registryLocation -Name "Monitor Force LogOff")."Monitor Force LogOff" -ne 1) {
+    Set-ItemProperty -Path $registryLocation -Name "Monitor Force LogOff" -Type DWord -Value 1 -Force
+    Write-Output "iCAM Force Logoff Registry entry incorrect"
+    Write-Output "---------------------"
+}
+if ((Get-ItemProperty -Path $registryLocation -Name "Monitor Interval")."Monitor Interval" -ne 60) {
+    Set-ItemProperty -Path $registryLocation -Name "Monitor Interval" -Type DWord -Value 60 -Force
+    Write-Output "iCAM Monitor Interval Registry entry incorrect"
+    Write-Output "---------------------"
+}
 
-#$registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU User"
-#if ((Get-ItemProperty -Path $registryLocation -Name "Disable Ctrl Alt Del")."Disable Ctrl Alt Del" -ne 1) {
-#    Set-ItemProperty -Path $registryLocation -Name "Disable Ctrl Alt Del" -Type DWord -Value 1 -Force
-#}
+$registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU User"
+if ((Get-ItemProperty -Path $registryLocation -Name "Disable Ctrl Alt Del")."Disable Ctrl Alt Del" -ne 1) {
+    Set-ItemProperty -Path $registryLocation -Name "Disable Ctrl Alt Del" -Type DWord -Value 1 -Force
+    Write-Output "iCAM Disable Ctrl Alt Del Registry entry incorrect"
+    Write-Output "---------------------"
+}
+
+Write-Output "END OF REGISTRY CHANGES"
+Write-Output "---------------------"
 
 # List of Profiles, remember if a profile is added here it needs to be added to the switch statement below
 $profiles = @('ADC','ADU','Default','OOH','STC','STU')
@@ -170,7 +201,6 @@ $adultApplicationsValues = @{
     "Email"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/webmail-services,C:\Program Files (x86)\iCAM\Workstation Control\CPL\email2.ico,280,295,2"
     "Events"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/whats-on,C:\Program Files (x86)\iCAM\Workstation Control\CPL\calendar2.ico,937,697,1"
     "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/-/digital-library,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1072,587,1"
-    
 }
 
 # Registry key/values for Filtered Applications (Currently the same as Adult)
@@ -181,7 +211,6 @@ $filteredApplicationsValues = @{
     "Email"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/webmail-services,C:\Program Files (x86)\iCAM\Workstation Control\CPL\email2.ico,280,295,2"
     "Events"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/whats-on,C:\Program Files (x86)\iCAM\Workstation Control\CPL\calendar2.ico,937,697,1"
     "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/-/digital-library,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1072,587,1"
-
 }
 
 #  ADC and ADU and Default and OOH the same (all adult), CHC and CHI the same (all child), STC and STU the same (child filter) 
@@ -191,6 +220,7 @@ switch ( $profiles ) {
             $profileName = $_
             $adultApplicationsValues.GetEnumerator() | ForEach-Object {
                 Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
+                Write-Output "Change made to $profileName"
             }
         }
     {($_ -eq "STC") -or ($_ -eq "STU")} 
@@ -198,6 +228,12 @@ switch ( $profiles ) {
             $profileName = $_
             $filteredApplicationsValues.GetEnumerator() | ForEach-Object {
                 Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
+                Write-Output "Change made to $profileName"
             }              
         }
 }
+
+Write-Output "END OF iCAM CHANGES"
+Write-Output "---------------------"
+
+Stop-Transcript
