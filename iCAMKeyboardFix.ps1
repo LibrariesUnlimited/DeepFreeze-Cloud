@@ -48,8 +48,47 @@ if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\keyboardfixcomplete.txt" -P
     #endregion
 
 } Else {
-    Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): Keyboard Fix Script has already completed" 
+    #Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): Keyboard Fix Script has already completed" 
     #This will be the end of the script
+    if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\keyboardfixcompleteretry.txt" -PathType Leaf)) {
+            
+        # Download File
+        Invoke-WebRequest "https://devon.imil.uk/adverts/test/iCAM Workstation Control Client 5.9.1.msi" -OutFile "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi"
+        $file = "C:\Program Files (x86)\iCAM\iCAM Workstation Control Client 5.9.1.msi"
+    
+        # Checking to see if script has already uninstalled
+        if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\keyboardfixrunningretry.txt" -PathType Leaf)) {
+            #This is where the script will uninstall iCAM
+    
+            #region uninstalliCAM
+            Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): Uninstall iCAM Retry"
+            Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): File Created as about to uninstall iCAM" | Out-File -FilePath "C:\Program Files (x86)\iCAM\keyboardfixrunningretry.txt" -Append
+    
+            $arguments = "/x ""$file"" /qn /norestart /l*V ""$logpath\icamuninstallretry.log"
+            Start-Process -FilePath "msiexec.exe" -ArgumentList $arguments -Wait
+    
+            Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): Finished uninstall iCAM, there should not be a reboot here"
+            #endregion
+    
+        } Else {
+            Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): Keyboard Fix Script has already uninstalled iCAM on the retry" 
+            #iCAM doesn't need to be uninstalled so will just go onto the next step of reinstalling it
+        }
+    
+        #region reinstalliCAM
+        Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): Reinstall iCAM Retry"
+        Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): File Created as about to reinstall iCAM" | Out-File -FilePath "C:\Program Files (x86)\iCAM\keyboardfixcompleteretry.txt" -Append
+    
+        $arguments = "/i ""$file"" ADDLOCAL=iCAMWorkstationControlClient,Services,iCAMSCR,KeyboardFilter /qn /l*V ""$logpath\icamreinstallretry.log"
+        Start-Process -FilePath "msiexec.exe" -ArgumentList $arguments -Wait
+    
+        Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): Finished Reinstall iCAM so maybe rebooting"
+        #endregion
+    
+    } Else {
+        Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): Keyboard Fix Script has already completed twice" 
+        #This will be the end of the script
+    }
 }
 
 Write-Output "###### END $(get-date) #####"
