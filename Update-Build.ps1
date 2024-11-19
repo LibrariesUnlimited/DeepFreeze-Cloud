@@ -40,6 +40,44 @@ Function Test-RegistryValue {
     }
 }
 
+#Add Child Enviroment Profile
+$registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU Child User"
+$registryName = "Disable Alt Escape"
+# checks to see if the value already exists, if it doesn't then create it
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\" -Name "LU Child User"
+    $registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU Child User"
+    Set-ItemProperty -Path $registryPath -Name "Disable Alt Escape" -Value 0 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Alt F4" -Value 1 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Alt Return" -Value 0 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Alt Tab" -Value 0 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Application Key" -Value 1 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Ctrl Alt Del" -Value 1 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Ctrl Esc" -Value 0 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Desktop" -Value 1 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Start Button" -Value 1 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 0 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable System Tray" -Value 1 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Quick Launch" -Value 1 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Windows Keys" -Value 1 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Mouse Right Click" -Value 0 -Type DWord
+
+    $profiles = @('CHC','CHI')
+    $childValues = @{
+        "Environment Profile" = "LU Child User"
+    }
+
+    switch ( $profiles ) {
+        {($_ -eq "CHC") -or ($_ -eq "CHI")} 
+            {
+                $profileName = $_
+                $childValues.GetEnumerator() | ForEach-Object {
+                    Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName" -Name $_.Key -Value $_.Value
+                }
+            }
+    }
+}
 
 # Disable Copilot Completely
 $registryLocation = "HKLM:\Software\Policies\Microsoft\Windows\WindowsCopilot"
