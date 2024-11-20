@@ -47,6 +47,7 @@ $registryName = "Disable Alt Escape"
 if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
 {
     New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\" -Name "LU Child User"
+}
     $registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU Child User"
     Set-ItemProperty -Path $registryPath -Name "Disable Alt Escape" -Value 0 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Alt F4" -Value 1 -Type DWord
@@ -77,7 +78,7 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
                 }
             }
     }
-}
+
 
 # Disable Copilot Completely
 $registryLocation = "HKLM:\Software\Policies\Microsoft\Windows\WindowsCopilot"
