@@ -54,10 +54,10 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
     Set-ItemProperty -Path $registryPath -Name "Disable Alt Tab" -Value 0 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Application Key" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Ctrl Alt Del" -Value 1 -Type DWord
-    Set-ItemProperty -Path $registryPath -Name "Disable Ctrl Esc" -Value 0 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Ctrl Esc" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Desktop" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Start Button" -Value 1 -Type DWord
-    Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 0 -Type DWord
+    Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable System Tray" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Quick Launch" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Windows Keys" -Value 1 -Type DWord
