@@ -10,6 +10,13 @@ Write-Output "Logging to $logFile"
 Write-Output "###### START $(Get-Date -Format "dd-MM-yyyy HH:mm:ss") ##### "
 
 try {
+    Write-Verbose 'Stopping Windows Update & Background Intelligent Transfer services...'
+    Get-Service -Name 'wuauserv', 'bits' | Stop-Service
+}
+catch {
+    Write-Warning $_
+}
+try {
     Write-Verbose 'Clearing SoftwareDistribution\Download folder...'
     # Create (temporary) empty folder
     New-Item -ItemType Directory -Path ".\Empty" -ErrorAction SilentlyContinue
@@ -26,7 +33,15 @@ catch {
 
 #Then remove all the other folders
 Write-Verbose 'Clearing SoftwareDistribution folder...'
-Remove-Item -Path "$env:SystemRoot\SoftwareDistribution\*" -Force -Verbose -Confirm:$false -Recurse -ErrorAction 'SilentlyContinue' -WarningAction 'SilentlyContinue'
+Remove-Item -Path "$env:SystemRoot\SoftwareDistribution\*" -Force -Verbose -Confirm:$false -Recurse -ErrorAction 'Continue' -WarningAction 'Continue'
+
+try {
+    Write-Verbose 'Starting Windows Update & Background Intelligent Transfer services...'
+    Get-Service -Name 'wuauserv', 'bits' | Start-Service
+}
+catch {
+    Write-Warning $_
+}
 
 Write-Output "###### END $(get-date) #####"
 Stop-Transcript
