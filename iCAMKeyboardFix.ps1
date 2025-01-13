@@ -1,7 +1,7 @@
 
 #Start of Real Script
 
-$logFile = "C:\Windows\Temp\icamkeyboardfix_$(Get-Date -Format "dd-MM-yyyy_HH-mm-ss").log"
+$logFile = "C:\Program Files\Libraries Unlimited\icamkeyboardfix.log"
 $logPath = "C:\Windows\Temp"
 
 # Transcript Logging
