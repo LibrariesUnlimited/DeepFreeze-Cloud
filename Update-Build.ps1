@@ -54,6 +54,9 @@ $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("BUI
 $fileACL.SetAccessRule($accessRule)
 $fileACL | Set-ACL -Path $path
 
+# Set Power Management for NIC
+$registryLocation = "HKLM:\System\CurrentControlSet\Control\Power"
+Set-ItemProperty -Path $registryLocation -Name "PlatformAoAcOverride" -Value 0 -Type DWord
 
 #Add Child Enviroment Profile
 $registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU Child User"
