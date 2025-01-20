@@ -43,6 +43,18 @@ Function Test-RegistryValue {
     }
 }
 
+$path = "C:\Windows\System32\spool\PRINTERS"
+
+# Set Permissions for Libraries Unlimited directory as Full Control for everyone for launchurl.bat tweaks during startup
+# Set Permissions for %windir%\system32\spool\PRINTERS as Modify for BUILTIN\Users for printing to work
+$InheritanceFlag = [System.Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [System.Security.AccessControl.InheritanceFlags]::ObjectInherit
+$PropagationFlag = [System.Security.AccessControl.PropagationFlags]::None
+$fileACL = Get-ACL -Path $path -EA SilentlyContinue
+$accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("BUILTIN\Users","Modify",$InheritanceFlag,$PropagationFlag,"Allow")
+$fileACL.SetAccessRule($accessRule)
+$fileACL | Set-ACL -Path $path
+
+
 #Add Child Enviroment Profile
 $registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU Child User"
 $registryName = "Disable Alt Escape"
