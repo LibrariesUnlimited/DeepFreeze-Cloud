@@ -347,8 +347,6 @@ switch ($computerPrefix) {
     #{
         
         #$path = "C:\Program Files\Libraries Unlimited"
-        
-        #Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/SetFileAssociations.ps1" -OutFile "C:\Program Files\Libraries Unlimited\SetFileAssociations.ps1"
 
         #Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/Update-UpdateFix.ps1" -OutFile "C:\Program Files\Libraries Unlimited\Update-UpdateFix.ps1"
 
