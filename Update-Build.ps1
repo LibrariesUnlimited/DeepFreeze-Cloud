@@ -343,22 +343,22 @@ switch ($computerPrefix) {
         Remove-Item -Path "$env:SystemRoot\SoftwareDistribution\*" -Force -Verbose -Confirm:$false -Recurse -ErrorAction 'SilentlyContinue' -WarningAction 'SilentlyContinue'
         
     }
-    PHASEO
-    {
+    #PHASEO
+    #{
         
-        $path = "C:\Program Files\Libraries Unlimited"
+        #$path = "C:\Program Files\Libraries Unlimited"
         
-        Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/SetFileAssociations.ps1" -OutFile "C:\Program Files\Libraries Unlimited\SetFileAssociations.ps1"
+        #Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/SetFileAssociations.ps1" -OutFile "C:\Program Files\Libraries Unlimited\SetFileAssociations.ps1"
 
-        Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/Update-UpdateFix.ps1" -OutFile "C:\Program Files\Libraries Unlimited\Update-UpdateFix.ps1"
+        #Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/Update-UpdateFix.ps1" -OutFile "C:\Program Files\Libraries Unlimited\Update-UpdateFix.ps1"
 
-        $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
-        $user = "NT AUTHORITY\SYSTEM"
-        $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File ""$path\Update-UpdateFix.ps1"""
+        #$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
+        #$user = "NT AUTHORITY\SYSTEM"
+        #$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File ""$path\Update-UpdateFix.ps1"""
 
-        Register-ScheduledTask -TaskName "LU Windows Update Fix" -User $user -Trigger $trigger -Action $action
+        #Register-ScheduledTask -TaskName "LU Windows Update Fix" -User $user -Trigger $trigger -Action $action
         
-    }
+    #}
 }
 
 Write-Output "END OF SOFTWAREDISTRIBUTION DELETION"
