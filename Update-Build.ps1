@@ -293,6 +293,28 @@ switch ( $profiles ) {
 Write-Output "END OF iCAM CHANGES"
 Write-Output "---------------------"
 
+Write-Output "START OF UPDATE FIX"
+Write-Output "---------------------"
+# This section creates a scheduled task that runs under the SYSTEM account which will set the permissions for the spooler so iCAM will print
+# Also it will set the NIC power settings
+# This should then run on each boot so if it is thawed after an update which has broken the settings this will still correct them
+
+if(-not(Test-Path -Path "C:\Program Files\Libraries Unlimited\Update-UpdateFix.ps1" -PathType Leaf)) {
+
+    $path = "C:\Program Files\Libraries Unlimited"
+
+    Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/Update-UpdateFix.ps1" -OutFile "C:\Program Files\Libraries Unlimited\Update-UpdateFix.ps1"
+
+    $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
+    $user = "NT AUTHORITY\SYSTEM"
+    $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File ""$path\Update-UpdateFix.ps1"""
+
+    Register-ScheduledTask -TaskName "LU Windows Update Fix" -User $user -Trigger $trigger -Action $action
+}
+
+Write-Output "END OF UPDATE FIX"
+Write-Output "---------------------"
+
 Write-Output "START OF SOFTWAREDISTRIBUTION DELETION"
 Write-Output "---------------------"
 
@@ -343,31 +365,8 @@ switch ($computerPrefix) {
         Remove-Item -Path "$env:SystemRoot\SoftwareDistribution\*" -Force -Verbose -Confirm:$false -Recurse -ErrorAction 'SilentlyContinue' -WarningAction 'SilentlyContinue'
         
     }
-    CHUPC1
-    {
-        $path = "C:\Program Files\Libraries Unlimited"
-
-        Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/Update-UpdateFix.ps1" -OutFile "C:\Program Files\Libraries Unlimited\Update-UpdateFix.ps1"
-
-        $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
-        $user = "NT AUTHORITY\SYSTEM"
-        $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File ""$path\Update-UpdateFix.ps1"""
-
-        Register-ScheduledTask -TaskName "LU Windows Update Fix" -User $user -Trigger $trigger -Action $action
-    }
-    CHUPC2
-    {
-        $path = "C:\Program Files\Libraries Unlimited"
-
-        Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/Update-UpdateFix.ps1" -OutFile "C:\Program Files\Libraries Unlimited\Update-UpdateFix.ps1"
-
-        $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
-        $user = "NT AUTHORITY\SYSTEM"
-        $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File ""$path\Update-UpdateFix.ps1"""
-
-        Register-ScheduledTask -TaskName "LU Windows Update Fix" -User $user -Trigger $trigger -Action $action    
-    }
 }
+
 
 Write-Output "END OF SOFTWAREDISTRIBUTION DELETION"
 Write-Output "---------------------"
