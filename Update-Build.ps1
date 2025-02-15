@@ -43,6 +43,15 @@ Function Test-RegistryValue {
     }
 }
 
+# Hiding Sleep and Shutdown from Start Menu (Settings Deleted after Update)
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideShutDown" -Name "value" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideSleep" -Name "value" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideLock" -Name "value" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideChangeAccountSettings" -Name "value" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideSignOut" -Name "value" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideSwitchAccount" -Name "value" -Value "1"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideRecentlyAddedApps" -Name "value" -Value "1"
+
 $path = "C:\Windows\System32\spool\PRINTERS"
 
 # Set Permissions for Libraries Unlimited directory as Full Control for everyone for launchurl.bat tweaks during startup
