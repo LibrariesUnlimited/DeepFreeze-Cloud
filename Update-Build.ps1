@@ -255,12 +255,30 @@ if ((Get-ItemProperty -Path $registryLocation -Name "Disable Ctrl Alt Del")."Dis
 Write-Output "END OF REGISTRY CHANGES"
 Write-Output "---------------------"
 
+#region File Copy
+if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico")) {
+    Invoke-WebRequest "https://devon.imil.uk/adverts/test/borrowbox.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico"
+}
+
+# Download Backgrounds from iCAM Server
+if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\Workstation Control\newdesktop1920x1032.jpg")) {
+    Invoke-WebRequest "https://devon.imil.uk/adverts/test/newdesktop1920x1032.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\newdesktop1920x1032.jpg"
+}
+#endregion
+
+
 # List of Profiles, remember if a profile is added here it needs to be added to the switch statement below
 $profiles = @('ADC','ADU','Default','OOH','STC','STU')
+
+# Registry key/values for Adult Profiles
+$adultValues = @{
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\newdesktop1920x1032.jpg"
+}
 
 # Registry key/values for Adult Applications
 # "Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
 $adultApplicationsValues = @{
+    "Borrow Box"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.borrowbox.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico,542,248,1"
     "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/extended-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
     "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/web-resources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
     "Computer Help"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/computer-help,C:\Windows\HelpPane.exe,1658,520,2"
@@ -269,8 +287,14 @@ $adultApplicationsValues = @{
     "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/-/digital-library,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1072,587,1"
 }
 
+# Registry key/values for Filtered Profiles
+$filteredValues = @{
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\newdesktop1920x1032.jpg"
+}
+
 # Registry key/values for Filtered Applications (Currently the same as Adult)
 $filteredApplicationsValues = @{
+    "Borrow Box"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.borrowbox.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico,542,248,1"
     "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/extended-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
     "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/web-resources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
     "Computer Help"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/computer-help,C:\Windows\HelpPane.exe,1658,520,2"
@@ -288,6 +312,10 @@ switch ( $profiles ) {
                 Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
                 Write-Output "Change made to $profileName"
             }
+
+            $adultValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName" -Name $_.Key -Value $_.Value
+            }
         }
     {($_ -eq "STC") -or ($_ -eq "STU")} 
         {
@@ -295,7 +323,11 @@ switch ( $profiles ) {
             $filteredApplicationsValues.GetEnumerator() | ForEach-Object {
                 Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
                 Write-Output "Change made to $profileName"
-            }              
+            }  
+            
+            $filteredValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName" -Name $_.Key -Value $_.Value
+            }
         }
 }
 
@@ -324,60 +356,60 @@ if(-not(Test-Path -Path "C:\Program Files\Libraries Unlimited\Update-UpdateFix.p
 Write-Output "END OF UPDATE FIX"
 Write-Output "---------------------"
 
-Write-Output "START OF SOFTWAREDISTRIBUTION DELETION"
-Write-Output "---------------------"
+#Write-Output "START OF SOFTWAREDISTRIBUTION DELETION"
+#Write-Output "---------------------"
 
-$computerPrefix = $env:COMPUTERNAME.Substring(0,6)
+#$computerPrefix = $env:COMPUTERNAME.Substring(0,6)
 
-switch ($computerPrefix) {
-    EXEPC3 
-    {
-        try {
-            Write-Verbose 'Clearing SoftwareDistribution\Download folder...'
-            # Create (temporary) empty folder
-            New-Item -ItemType Directory -Path ".\Empty" -ErrorAction SilentlyContinue
-            # Mirror the empty directory to the folder to delete; this will effectively empty the folder.
-            robocopy /MIR ".\Empty" "$env:SystemRoot\SoftwareDistribution\Download" /njh /njs /ndl /nc /ns /np /nfl #>nul 2>&1
-            # Delete the folder now that it's empty
-            Remove-Item "$env:SystemRoot\SoftwareDistribution\Download" -Force
-            # Delete our temporary empty folder
-            Remove-Item ".\Empty" -Force
-        }
-        catch {
-            Write-Error $_
-        }
+#switch ($computerPrefix) {
+#    EXEPC3 
+#    {
+#        try {
+#            Write-Verbose 'Clearing SoftwareDistribution\Download folder...'
+#            # Create (temporary) empty folder
+#            New-Item -ItemType Directory -Path ".\Empty" -ErrorAction SilentlyContinue
+#            # Mirror the empty directory to the folder to delete; this will effectively empty the folder.
+#            robocopy /MIR ".\Empty" "$env:SystemRoot\SoftwareDistribution\Download" /njh /njs /ndl /nc /ns /np /nfl #>nul 2>&1
+#            # Delete the folder now that it's empty
+#            Remove-Item "$env:SystemRoot\SoftwareDistribution\Download" -Force
+#            # Delete our temporary empty folder
+#            Remove-Item ".\Empty" -Force
+#        }
+#        catch {
+#            Write-Error $_
+#        }
         
-        #Then remove all the other folders
-        Write-Verbose 'Clearing SoftwareDistribution folder...'
-        Remove-Item -Path "$env:SystemRoot\SoftwareDistribution\*" -Force -Verbose -Confirm:$false -Recurse -ErrorAction 'SilentlyContinue' -WarningAction 'SilentlyContinue'
+#        #Then remove all the other folders
+#        Write-Verbose 'Clearing SoftwareDistribution folder...'
+#        Remove-Item -Path "$env:SystemRoot\SoftwareDistribution\*" -Force -Verbose -Confirm:$false -Recurse -ErrorAction 'SilentlyContinue' -WarningAction 'SilentlyContinue'
         
-    }
-    NEWPC0 
-    {
-        try {
-            Write-Verbose 'Clearing SoftwareDistribution\Download folder...'
-            # Create (temporary) empty folder
-            New-Item -ItemType Directory -Path ".\Empty" -ErrorAction SilentlyContinue
-            # Mirror the empty directory to the folder to delete; this will effectively empty the folder.
-            robocopy /MIR ".\Empty" "$env:SystemRoot\SoftwareDistribution\Download" /njh /njs /ndl /nc /ns /np /nfl #>nul 2>&1
-            # Delete the folder now that it's empty
-            Remove-Item "$env:SystemRoot\SoftwareDistribution\Download" -Force
-            # Delete our temporary empty folder
-            Remove-Item ".\Empty" -Force
-        }
-        catch {
-            Write-Error $_
-        }
+#    }
+#    NEWPC0 
+#    {
+#        try {
+#            Write-Verbose 'Clearing SoftwareDistribution\Download folder...'
+#            # Create (temporary) empty folder
+#            New-Item -ItemType Directory -Path ".\Empty" -ErrorAction SilentlyContinue
+#            # Mirror the empty directory to the folder to delete; this will effectively empty the folder.
+#            robocopy /MIR ".\Empty" "$env:SystemRoot\SoftwareDistribution\Download" /njh /njs /ndl /nc /ns /np /nfl #>nul 2>&1
+#            # Delete the folder now that it's empty
+#            Remove-Item "$env:SystemRoot\SoftwareDistribution\Download" -Force
+#            # Delete our temporary empty folder
+#            Remove-Item ".\Empty" -Force
+#        }
+#        catch {
+#            Write-Error $_
+#        }
         
-        #Then remove all the other folders
-        Write-Verbose 'Clearing SoftwareDistribution folder...'
-        Remove-Item -Path "$env:SystemRoot\SoftwareDistribution\*" -Force -Verbose -Confirm:$false -Recurse -ErrorAction 'SilentlyContinue' -WarningAction 'SilentlyContinue'
+#        #Then remove all the other folders
+#        Write-Verbose 'Clearing SoftwareDistribution folder...'
+#        Remove-Item -Path "$env:SystemRoot\SoftwareDistribution\*" -Force -Verbose -Confirm:$false -Recurse -ErrorAction 'SilentlyContinue' -WarningAction 'SilentlyContinue'
         
-    }
-}
+#    }
+#}
 
 
-Write-Output "END OF SOFTWAREDISTRIBUTION DELETION"
-Write-Output "---------------------"
+#Write-Output "END OF SOFTWAREDISTRIBUTION DELETION"
+#Write-Output "---------------------"
 
 Stop-Transcript
