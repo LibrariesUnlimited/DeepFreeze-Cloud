@@ -276,6 +276,9 @@ if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\Workstation Control\CPL\the
 if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico")) {
     Invoke-WebRequest "https://devon.imil.uk/adverts/test/gocitizen.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico"
 }
+if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\Workstation Control\CPL\ancestry.ico")) {
+    Invoke-WebRequest "https://devon.imil.uk/adverts/test/ancestry.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\ancestry.ico"
+}
 
 # Download Backgrounds from iCAM Server
 if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\Workstation Control\newdesktop1920x1032.jpg")) {
@@ -297,6 +300,7 @@ $adultValues = @{
 $adultApplicationsValues = @{
     "Borrow Box"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.borrowbox.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico,542,248,1"
     "Theory Test Pro"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.theorytestpro.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico,542,358,1"
+    "Ancestry"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://ancestrylibrary.proquest.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\ancestry.ico,677,248,1"    
     "Go Citizen"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.gocitizen.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico,677,358,1"    
     "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/extended-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
     "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/web-resources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
@@ -315,6 +319,7 @@ $filteredValues = @{
 $filteredApplicationsValues = @{
     "Borrow Box"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.borrowbox.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico,542,248,1"
     "Theory Test Pro"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.theorytestpro.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico,542,358,1"
+    "Ancestry"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://ancestrylibrary.proquest.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\ancestry.ico,677,248,1" 
     "Go Citizen"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.gocitizen.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico,677,358,1"    
     "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/extended-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
     "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/web-resources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
