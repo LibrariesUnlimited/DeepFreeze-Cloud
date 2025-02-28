@@ -63,14 +63,14 @@ $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("BUI
 $fileACL.SetAccessRule($accessRule)
 $fileACL | Set-ACL -Path $path
 
-#region CreateAssociationScheduledTask
-$path = "C:\Program Files\Libraries Unlimited"
+#region CreateAssociationScheduledTask  --- Did not work, created the PHASEONETEST\LPU schedule correctly but still didn't have permissions to change registry
+#$path = "C:\Program Files\Libraries Unlimited"
 
-$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
-$user = "$env:computername\LibraryPublicUser"
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File ""$path\SetFileAssociations.ps1"""
+#$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
+#$user = "$env:computername\LibraryPublicUser"
+#$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File ""$path\SetFileAssociations.ps1"""
 
-Register-ScheduledTask -TaskName "Test LU File Associations" -User $user -Trigger $trigger -Action $action
+#Register-ScheduledTask -TaskName "Test LU File Associations" -User $user -Trigger $trigger -Action $action
 #endregion CreateAssociationScheduledTask
 
 # Set Power Management for NIC
@@ -266,8 +266,15 @@ Write-Output "END OF REGISTRY CHANGES"
 Write-Output "---------------------"
 
 #region File Copy
+# Download Icons
 if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico")) {
     Invoke-WebRequest "https://devon.imil.uk/adverts/test/borrowbox.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico"
+}
+if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico")) {
+    Invoke-WebRequest "https://devon.imil.uk/adverts/test/theorytest.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico"
+}
+if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico")) {
+    Invoke-WebRequest "https://devon.imil.uk/adverts/test/gocitizen.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico"
 }
 
 # Download Backgrounds from iCAM Server
@@ -289,6 +296,8 @@ $adultValues = @{
 # "Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
 $adultApplicationsValues = @{
     "Borrow Box"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.borrowbox.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico,542,248,1"
+    "Theory Test Pro"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.theorytestpro.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico,542,358,1"
+    "Go Citizen"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.gocitizen.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico,677,358,1"    
     "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/extended-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
     "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/web-resources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
     "Computer Help"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/computer-help,C:\Windows\HelpPane.exe,1658,520,2"
@@ -305,6 +314,8 @@ $filteredValues = @{
 # Registry key/values for Filtered Applications (Currently the same as Adult)
 $filteredApplicationsValues = @{
     "Borrow Box"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.borrowbox.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico,542,248,1"
+    "Theory Test Pro"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.theorytestpro.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico,542,358,1"
+    "Go Citizen"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.gocitizen.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico,677,358,1"    
     "Catalogue Search"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/extended-search,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Books.ico,937,587,1"
     "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/web-resources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
     "Computer Help"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/computer-help,C:\Windows\HelpPane.exe,1658,520,2"
