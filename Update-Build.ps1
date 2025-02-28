@@ -63,6 +63,16 @@ $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("BUI
 $fileACL.SetAccessRule($accessRule)
 $fileACL | Set-ACL -Path $path
 
+#region CreateAssociationScheduledTask
+$path = "C:\Program Files\Libraries Unlimited"
+
+$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
+$user = "$env:computername\LibraryPublicUser"
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File ""$path\SetFileAssociations.ps1"""
+
+Register-ScheduledTask -TaskName "Test LU File Associations" -User $user -Trigger $trigger -Action $action
+#endregion CreateAssociationScheduledTask
+
 # Set Power Management for NIC
 $registryLocation = "HKLM:\System\CurrentControlSet\Control\Power"
 Set-ItemProperty -Path $registryLocation -Name "PlatformAoAcOverride" -Value 0 -Type DWord
