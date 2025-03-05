@@ -182,9 +182,15 @@
   
       
       try {
-        $keyPath = "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$Extension\UserChoice"
-        Write-Verbose "Remove Extension UserChoice Key If Exist: $keyPath"
-        Remove-UserChoiceKey $keyPath
+        #$keyPath = "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$Extension\UserChoice"
+        #Write-Verbose "Remove Extension UserChoice Key If Exist: $keyPath"
+        #Remove-UserChoiceKey $keyPath
+        Write-Verbose "Remove Extension UserChoice Deny Permissions: $Extension"
+        $key = [Microsoft.Win32.Registry]::CurrentUser.OpenSubKey("Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$Extension\UserChoice",[Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree,[System.Security.AccessControl.RegistryRights]::ChangePermissions)
+        $acl = $key.GetAccessControl()
+        $rule = New-Object System.Security.AccessControl.RegistryAccessRule ("$env:computername\$env:username","SetValue","Deny")
+        $acl.RemoveAccessRule($rule)	
+        $key.SetAccessControl($acl)
       }
       catch {
         Write-Verbose "Extension UserChoice Key No Exist: $keyPath"
@@ -192,9 +198,11 @@
     
   
       try {
-        $keyPath = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$Extension\UserChoice"
-        [Microsoft.Win32.Registry]::SetValue($keyPath, "Hash", $ProgHash)
-        [Microsoft.Win32.Registry]::SetValue($keyPath, "ProgId", $ProgId)
+        #$keyPath = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$Extension\UserChoice"
+        #[Microsoft.Win32.Registry]::SetValue($keyPath, "Hash", $ProgHash)
+        #[Microsoft.Win32.Registry]::SetValue($keyPath, "ProgId", $ProgId)
+        & "C:\Program Files\Libraries Unlimited\powershell_temp.exe" -Command "& {New-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$Extension\UserChoice' -Name ProgId -PropertyType String -Value $ProgID -Force}"
+		    & "C:\Program Files\Libraries Unlimited\powershell_temp.exe" -Command "& {New-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$Extension\UserChoice' -Name Hash -PropertyType String -Value $ProgHash -Force}"
         Write-Verbose "Write Reg Extension UserChoice OK"
       }
       catch {
@@ -220,10 +228,15 @@
         
   
       try {
-        $keyPath = "HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\$Protocol\UserChoice"
-        Write-Verbose "Remove Protocol UserChoice Key If Exist: $keyPath"
-        Remove-Item -Path $keyPath -Recurse -ErrorAction Stop | Out-Null
-      
+        #$keyPath = "HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\$Protocol\UserChoice"
+        #Write-Verbose "Remove Protocol UserChoice Key If Exist: $keyPath"
+        #Remove-Item -Path $keyPath -Recurse -ErrorAction Stop | Out-Null
+        Write-Verbose "Remove Protocol UserChoice Deny Permissions: $Protocol"
+        $key = [Microsoft.Win32.Registry]::CurrentUser.OpenSubKey("Software\Microsoft\Windows\Shell\Associations\UrlAssociations\$Protocol\UserChoice",[Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree,[System.Security.AccessControl.RegistryRights]::ChangePermissions)
+        $acl = $key.GetAccessControl()
+        $rule = New-Object System.Security.AccessControl.RegistryAccessRule ("$env:computername\$env:username","SetValue","Deny")
+        $acl.RemoveAccessRule($rule)	
+        $key.SetAccessControl($acl)
       }
       catch {
         Write-Verbose "Protocol UserChoice Key No Exist: $keyPath"
@@ -231,9 +244,11 @@
     
   
       try {
-        $keyPath = "HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\$Protocol\UserChoice"
-        [Microsoft.Win32.Registry]::SetValue( $keyPath, "Hash", $ProgHash)
-        [Microsoft.Win32.Registry]::SetValue($keyPath, "ProgId", $ProgId)
+        #$keyPath = "HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\$Protocol\UserChoice"
+        #[Microsoft.Win32.Registry]::SetValue( $keyPath, "Hash", $ProgHash)
+        #[Microsoft.Win32.Registry]::SetValue($keyPath, "ProgId", $ProgId)
+        & "C:\Program Files\Libraries Unlimited\powershell_temp.exe" -Command "& {New-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\$Protocol\UserChoice' -Name ProgId -PropertyType String -Value $ProgID -Force}"
+		    & "C:\Program Files\Libraries Unlimited\powershell_temp.exe" -Command "& {New-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\$Protocol\UserChoice' -Name Hash -PropertyType String -Value $ProgHash -Force}"
         Write-Verbose "Write Reg Protocol UserChoice OK"
       }
       catch {
@@ -484,6 +499,8 @@
   
   }
   
+
+Copy-Item -Path "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -Destination "C:\Program Files\Libraries Unlimited\powershell_temp.exe" -Force
 
 Set-FTA -ProgId "Acrobat.Document.DC" -Protocol ".pdf"
 Set-FTA -ProgId "ChromeHTML" -Protocol ".htm"

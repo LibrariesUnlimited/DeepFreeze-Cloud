@@ -63,15 +63,12 @@ $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("BUI
 $fileACL.SetAccessRule($accessRule)
 $fileACL | Set-ACL -Path $path
 
-#region CreateAssociationScheduledTask  --- Did not work, created the PHASEONETEST\LPU schedule correctly but still didn't have permissions to change registry
-#$path = "C:\Program Files\Libraries Unlimited"
-
-#$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:computername\LibraryPublicUser"
-#$user = "$env:computername\LibraryPublicUser"
-#$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File ""$path\SetFileAssociations.ps1"""
-
-#Register-ScheduledTask -TaskName "Test LU File Associations" -User $user -Trigger $trigger -Action $action
-#endregion CreateAssociationScheduledTask
+#region CorrectFileAssociation
+if(-not(Test-Path -Path "C:\Program Files\Libraries Unlimited\SetFileAssociationsFix.txt" -PathType Leaf)) {
+    Invoke-WebRequest "https://raw.githubusercontent.com/LibrariesUnlimited/DeepFreeze-Cloud/main/SetFileAssociations.ps1" -OutFile "C:\Program Files\Libraries Unlimited\SetFileAssociations.ps1"
+    Write-Output "$(Get-Date -Format "dd-MM-yyyy HH:mm:ss"): File Created as about to download latest SetFileAssociations Update" | Out-File -FilePath "C:\Program Files\Libraries Unlimited\SetFileAssociationsFix.txt" -Append
+}
+#endregion
 
 # Set Power Management for NIC
 $registryLocation = "HKLM:\System\CurrentControlSet\Control\Power"
