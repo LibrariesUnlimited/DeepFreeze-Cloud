@@ -74,6 +74,17 @@ if(-not(Test-Path -Path "C:\Program Files\Libraries Unlimited\SetFileAssociation
 $registryLocation = "HKLM:\System\CurrentControlSet\Control\Power"
 Set-ItemProperty -Path $registryLocation -Name "PlatformAoAcOverride" -Value 0 -Type DWord
 
+#region wallpaper
+if(-not(Test-Path -Path "C:\Program Files\Libraries Unlimited\background.jpg" -PathType Leaf)) {
+    $RegKeyPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP"
+    Invoke-WebRequest "https://devon.imil.uk/adverts/test/background.jpg" -OutFile "C:\Program Files\Libraries Unlimited\background.jpg"
+
+    New-Item -Path $RegKeyPath -Force -ErrorAction SilentlyContinue | Out-Null
+    Set-ItemProperty -Path $RegKeyPath -Name 'DesktopImageStatus' -Value 1 -Type DWord
+    Set-ItemProperty -Path $RegKeyPath -Name 'DesktopImagePath' -Value "C:\Program Files\Libraries Unlimited\background.jpg" -Type String 
+}
+#endregion
+
 #Add Child Enviroment Profile
 $registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU Child User"
 $registryName = "Disable Alt Escape"
@@ -92,7 +103,7 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
     Set-ItemProperty -Path $registryPath -Name "Disable Ctrl Esc" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Desktop" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Start Button" -Value 1 -Type DWord
-    Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 0 -Type DWord #makes things ugly for now
+    Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 1 -Type DWord #no longer makes things ugly but should probably have it not redo it each time.
     Set-ItemProperty -Path $registryPath -Name "Disable System Tray" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Quick Launch" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Windows Keys" -Value 1 -Type DWord
