@@ -86,14 +86,13 @@ if(-not(Test-Path -Path "C:\Program Files\Libraries Unlimited\background.jpg" -P
 #endregion
 
 #Add Child Enviroment Profile
-$registryLocation = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU Child User"
+$registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU Child User"
 $registryName = "Disable Alt Escape"
-# checks to see if the value already exists, if it doesn't then create it
-if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+# checks to see if the profile already exists, if it doesn't then create it and settings
+if(-not(Test-RegistryValue -Path $registryPath -Name $registryName))
 {
     New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\" -Name "LU Child User"
-}
-    $registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU Child User"
+   
     Set-ItemProperty -Path $registryPath -Name "Disable Alt Escape" -Value 0 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Alt F4" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Alt Return" -Value 0 -Type DWord
@@ -103,7 +102,7 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
     Set-ItemProperty -Path $registryPath -Name "Disable Ctrl Esc" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Desktop" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Start Button" -Value 1 -Type DWord
-    Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 1 -Type DWord #no longer makes things ugly but should probably have it not redo it each time.
+    Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable System Tray" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Quick Launch" -Value 1 -Type DWord
     Set-ItemProperty -Path $registryPath -Name "Disable Windows Keys" -Value 1 -Type DWord
@@ -123,7 +122,11 @@ if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
                 }
             }
     }
-
+}
+# Check to see if Disable Taskbar is set correctly for Child Environment Profile, if not correct
+if ((Get-ItemProperty -Path $registryPath -Name "Disable Taskbar")."Disable Taskbar" -ne 1) {
+    Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 1 -Type DWord
+}
 
 # Disable Copilot Completely
 $registryLocation = "HKLM:\Software\Policies\Microsoft\Windows\WindowsCopilot"
