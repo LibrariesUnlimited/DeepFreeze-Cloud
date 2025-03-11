@@ -139,7 +139,7 @@ Set-ItemProperty -Path $registryPath -Name "Monitor Interval" -Value 60 -Type DW
 #endregion ConfigureiCAMSettings
 
 #region CreateiCAMProfiles
-# Create Environment Profile
+# Create Environment Profiles
 New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\" -Name "Environment Profiles"
 New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\" -Name "LU User"
 $registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU User"
@@ -158,6 +158,23 @@ Set-ItemProperty -Path $registryPath -Name "Disable Quick Launch" -Value 0 -Type
 Set-ItemProperty -Path $registryPath -Name "Disable Windows Keys" -Value 0 -Type DWord
 Set-ItemProperty -Path $registryPath -Name "Disable Mouse Right Click" -Value 0 -Type DWord
 
+New-Item -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\" -Name "LU Child User"
+$registryPath = "HKLM:\SOFTWARE\Insight Media\Cafe Client\Environment Profiles\LU Child User"
+Set-ItemProperty -Path $registryPath -Name "Disable Alt Escape" -Value 0 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Alt F4" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Alt Return" -Value 0 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Alt Tab" -Value 0 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Application Key" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Ctrl Alt Del" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Ctrl Esc" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Desktop" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Start Button" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable System Tray" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Quick Launch" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Windows Keys" -Value 1 -Type DWord
+Set-ItemProperty -Path $registryPath -Name "Disable Mouse Right Click" -Value 0 -Type DWord
+
 # List of Profiles, remember if a profile is added here it needs to be added to the switch statement below
 $profiles = @('ADC','ADU','CHC','CHI','Default','OOH','STC','STU')
 
@@ -168,7 +185,7 @@ $adultValues = @{
     "Proxy Server Host" = "172.18.20.81"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\newdesktop1920x1032.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -223,6 +240,10 @@ $adultValues = @{
 $adultApplicationsValues = @{
     "Internet"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.google.co.uk,,130,295,2"
     "Email"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/webmail-services,C:\Program Files (x86)\iCAM\Workstation Control\CPL\email2.ico,280,295,2"
+    "Borrow Box"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.borrowbox.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico,542,248,1"
+    "Theory Test Pro"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.theorytestpro.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico,542,358,1"
+    "Ancestry"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://ancestrylibrary.proquest.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\ancestry.ico,677,248,1"    
+    "Go Citizen"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.gocitizen.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico,677,358,1"    
     "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,110,587,1"
     "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,210,697,1"
     "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,210,587,1"
@@ -249,7 +270,7 @@ $filteredValues = @{
     "Proxy Server Host" = "172.18.20.9"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
-    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
+    "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\newdesktop1920x1032.jpg"
     "Environment Profile" = "LU User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
@@ -303,6 +324,10 @@ $filteredValues = @{
 $filteredApplicationsValues = @{
     "Internet"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.google.co.uk,,130,295,2"
     "Email"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/webmail-services,C:\Program Files (x86)\iCAM\Workstation Control\CPL\email2.ico,280,295,2"
+    "Borrow Box"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.borrowbox.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico,542,248,1"
+    "Theory Test Pro"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.theorytestpro.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico,542,358,1"
+    "Ancestry"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://ancestrylibrary.proquest.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\ancestry.ico,677,248,1"    
+    "Go Citizen"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.gocitizen.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico,677,358,1"    
     "Word"="C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE,,,110,587,1"
     "Powerpoint"="C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE,,,210,697,1"
     "Excel"="C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE,,,210,587,1"
@@ -331,7 +356,7 @@ $childValues = @{
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
     "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x1032.jpg"
-    "Environment Profile" = "LU User"
+    "Environment Profile" = "LU Child User"
     "RunMinimised" = 0
     "RunTaskBarOnly" = 0
     "Allow Windows Shutdown" = 0
@@ -1130,10 +1155,17 @@ Invoke-WebRequest "https://devon.imil.uk/adverts/test/Books.ico" -OutFile "C:\Pr
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/Newspapers.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/mspaint.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\mspaint.ico"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/WBDBT32I.DLL" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\WBDBT32I.DLL"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/borrowbox.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/theorytest.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/gocitizen.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\gocitizen.ico"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/ancestry.ico" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\CPL\ancestry.ico"
+
 
 # Download Backgrounds from iCAM Server
-Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1920x1032.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
+#Invoke-WebRequest "https://devon.imil.uk/adverts/test/desktop1920x1032.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\desktop1920x1032.jpg"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/childdesktop1920x1032.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x1032.jpg"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/newdesktop1920x1032.jpg" -OutFile "C:\Program Files (x86)\iCAM\Workstation Control\newdesktop1920x1032.jpg"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/background.jpg" -OutFile "C:\Program Files\Libraries Unlimited\background.jpg"
 
 # Download launchurl.bat from iCAM Server (not needed in new way, created by startup script, hopefully)
 # Invoke-WebRequest "https://devon.imil.uk/adverts/test/launchurl.bat" -OutFile "C:\Windows\launchurl.bat"
@@ -1165,6 +1197,12 @@ powercfg.exe /X standby-timeout-ac 0
 powercfg.exe /X standby-timeout-dc 0
 powercfg.exe /X hibernate-timeout-ac 0
 powercfg.exe /X hibernate-timeout-dc 0
+
+# Set Wallpaper
+$registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP"
+New-Item -Path $registryLocation -Force -ErrorAction SilentlyContinue | Out-Null
+Set-ItemProperty -Path $registryLocation -Name 'DesktopImageStatus' -Value 1 -Type DWord
+Set-ItemProperty -Path $registryLocation -Name 'DesktopImagePath' -Value "C:\Program Files\Libraries Unlimited\background.jpg" -Type String 
 
 # Disable OneDrive
 $registryLocation = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive"
