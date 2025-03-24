@@ -483,19 +483,24 @@ switch ( $profiles ) {
 # Download files to local machine
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/Fortinet_CA_SSL(1).cer" -OutFile "C:\Windows\Temp\Fortinet_CA_SSL(1).cer"
 Invoke-WebRequest "https://devon.imil.uk/adverts/test/Fortinet_CA_SSL(2).cer" -OutFile "C:\Windows\Temp\Fortinet_CA_SSL(2).cer"
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/Fortinet_CA_SSL(3).cer" -OutFile "C:\Windows\Temp\Fortinet_CA_SSL(3).cer"
 
 $certFile1 = "C:\Windows\Temp\Fortinet_CA_SSL(1).cer"
 $certFile2 = "C:\Windows\Temp\Fortinet_CA_SSL(2).cer"
+$certFile3 = "C:\Windows\Temp\Fortinet_CA_SSL(3).cer"
 $certStoreLocation = "Cert:\LocalMachine\Root"
 
 # Import Certificate(1)
 Import-Certificate -FilePath $certFile1 -CertStoreLocation $certStoreLocation
 # Import Certificate(2)
 Import-Certificate -FilePath $certFile2 -CertStoreLocation $certStoreLocation
+# Import Certificate(3)
+Import-Certificate -FilePath $certFile3 -CertStoreLocation $certStoreLocation
 
 # Clean up temp files
 Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(1).cer" -Force
 Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(2).cer" -Force
+Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(3).cer" -Force
 #endregion ImportCertificates
 
 #region CreateStartupScheduledTask

@@ -70,6 +70,20 @@ if(-not(Test-Path -Path "C:\Program Files\Libraries Unlimited\SetFileAssociation
 }
 #endregion
 
+#region InstallCertificates
+Invoke-WebRequest "https://devon.imil.uk/adverts/test/Fortinet_CA_SSL(3).cer" -OutFile "C:\Windows\Temp\Fortinet_CA_SSL(3).cer"
+
+$certFile3 = "C:\Windows\Temp\Fortinet_CA_SSL(3).cer"
+$certStoreLocation = "Cert:\LocalMachine\Root"
+
+# Import Certificate(3)
+Import-Certificate -FilePath $certFile3 -CertStoreLocation $certStoreLocation
+
+# Clean up temp files
+Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(3).cer" -Force
+#endregion
+
+
 # Set Power Management for NIC
 $registryLocation = "HKLM:\System\CurrentControlSet\Control\Power"
 Set-ItemProperty -Path $registryLocation -Name "PlatformAoAcOverride" -Value 0 -Type DWord
