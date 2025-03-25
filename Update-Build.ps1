@@ -80,7 +80,7 @@ $certStoreLocation = "Cert:\LocalMachine\Root"
 Import-Certificate -FilePath $certFile3 -CertStoreLocation $certStoreLocation
 
 # Clean up temp files
-Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(3).cer" -Force
+#Remove-Item -Path "C:\Windows\Temp\Fortinet_CA_SSL(3).cer" -Force
 #endregion
 
 
