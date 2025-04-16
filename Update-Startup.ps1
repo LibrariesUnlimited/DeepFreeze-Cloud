@@ -602,6 +602,26 @@ Set-ItemProperty -Name "ShowTaskViewButton" -Path "HKCU:\Software\Microsoft\Wind
 Set-ItemProperty -Name "TaskBarMn" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 Set-ItemProperty -Name "ShowCopilotButton" -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type DWord -Value "0"
 
+# Set Cursor to Extra Large as Default
+Set-ItemProperty -Name "AppStarting" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\wait_l.cur"
+Set-ItemProperty -Name "Arrow" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\arrow_l.cur"
+Set-ItemProperty -Name "Crosshair" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\cross_l.cur"
+Set-ItemProperty -Name "Help" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\help_l.cur"
+Set-ItemProperty -Name "IBeam" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\beam_l.cur"
+Set-ItemProperty -Name "No" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\no_l.cur"
+Set-ItemProperty -Name "NWPen" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\pen_l.cur"
+Set-ItemProperty -Name "SizeAll" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\move_l.cur"
+Set-ItemProperty -Name "SizeNESW" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\size1_l.cur"
+Set-ItemProperty -Name "SizeNS" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\size4_l.cur"
+Set-ItemProperty -Name "SizeNWSE" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\size2_l.cur"
+Set-ItemProperty -Name "SizeWE" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\size3_l.cur"
+Set-ItemProperty -Name "UpArrow" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\up_l.cur"
+Set-ItemProperty -Name "Wait" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\busy_l.cur"
+Set-ItemProperty -Name "(default)" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "Windows Standard (extra large)"
+Set-ItemProperty -Name "Pin" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\pin_l.cur"
+Set-ItemProperty -Name "Person" -Path "HKCU:\Control Panel\Cursors" -Type String -Value "C:\Windows\cursors\person_l.cur"
+Set-ItemProperty -Name "Scheme Source" -Path "HKCU:\Control Panel\Cursors" -Type DWord -Value 2
+
 '@
 
 $path = "C:\Program Files\Libraries Unlimited"
