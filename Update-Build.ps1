@@ -185,17 +185,14 @@ if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTa
 
 #Block Specific Chrome Extensions
 $registryLocation = "HKLM:\Software\Policies\Google\Chrome\ExtensionInstallBlocklist"
-$registryName = "1"
-if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
-{
-    if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome\ExtensionInstallBlocklist")){
-        New-Item -Path "HKLM:\Software\Policies\Google\Chrome" -Name "ExtensionInstallBlocklist"
-    }
+if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome\ExtensionInstallBlocklist")){
+    New-Item -Path "HKLM:\Software\Policies\Google\Chrome" -Name "ExtensionInstallBlocklist"
     Write-Output "Chrome ExtensionInstallBlocklist Registry entry did not exist"
     Write-Output "---------------------"
-    #Browsec VPN
-    Set-ItemProperty -Path $registryLocation -Name "1" -Type String -Value "omghfjlpggmjjaagoclmmobgdodcjboh" -Force
 }
+#Browsec VPN
+Set-ItemProperty -Path $registryLocation -Name "1" -Type String -Value "omghfjlpggmjjaagoclmmobgdodcjboh" -Force
+
 
 # Disable Edge Full-Tab Promotional Content
 $registryLocation = "HKLM:\Software\Policies\Microsoft\Edge"
@@ -220,17 +217,14 @@ if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTa
 
 #Block Specific Edge Extensions
 $registryLocation = "HKLM:\Software\Policies\Microsoft\Edge\ExtensionInstallBlocklist"
-$registryName = "1"
-if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
-{
-    if(-not(Test-Path "HKLM:\Software\Policies\Microsoft\Edge\ExtensionInstallBlocklist")){
-        New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "ExtensionInstallBlocklist"
-    }
+if(-not(Test-Path "HKLM:\Software\Policies\Microsoft\Edge\ExtensionInstallBlocklist")){
+    New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "ExtensionInstallBlocklist"
     Write-Output "Edge ExtensionInstallBlocklist Registry entry did not exist"
     Write-Output "---------------------"
-    #Browsec VPN
-    Set-ItemProperty -Path $registryLocation -Name "1" -Type String -Value "fjnehcbecaggobjholekjijaaekbnlgj" -Force
 }
+#Browsec VPN
+Set-ItemProperty -Path $registryLocation -Name "1" -Type String -Value "fjnehcbecaggobjholekjijaaekbnlgj" -Force
+
 
 # Disable Chrome ZstdContentEncodingEnabled
 $registryLocation = "HKLM:\Software\Policies\Google\Chrome"
@@ -296,17 +290,15 @@ Write-Output "---------------------"
 
 #Block Specific FireFox Extensions
 $registryLocation = "HKLM:\Software\Policies\Mozilla\Firefox\ExtensionSettings"
-$registryName = "{649dd38a-e4b8-4dad-b255-ba9dd15fa635}"
-if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
-{
-    if(-not(Test-Path "HKLM:\Software\Policies\Mozilla\Firefox\ExtensionSettings")){
-        New-Item -Path "HKLM:\Software\Policies\Mozilla\Firefox\" -Name "ExtensionSettings"
-    }
+
+if(-not(Test-Path "HKLM:\Software\Policies\Mozilla\Firefox\ExtensionSettings")){
+    New-Item -Path "HKLM:\Software\Policies\Mozilla\Firefox\" -Name "ExtensionSettings"
     Write-Output "FireFox ExtensionSettings Registry entry did not exist"
     Write-Output "---------------------"
-    #Browsec VPN
-    Set-ItemProperty -Path $registryLocation -Name "{649dd38a-e4b8-4dad-b255-ba9dd15fa635}" -Type String -Value "blocked" -Force
 }
+#Browsec VPN
+Set-ItemProperty -Path $registryLocation -Name "browsec@browsec.com" -Type String -Value "blocked" -Force
+
 
 
 # Force restart if client killed
