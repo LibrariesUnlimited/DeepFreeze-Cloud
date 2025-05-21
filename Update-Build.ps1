@@ -183,6 +183,20 @@ if ((Get-ItemProperty -Path $registryLocation -Name $registryName).PromotionalTa
     Write-Output "---------------------"
 }
 
+#Block Specific Chrome Extensions
+$registryLocation = "HKLM:\Software\Policies\Google\Chrome\ExtensionInstallBlocklist"
+$registryName = "1"
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    if(-not(Test-Path "HKLM:\Software\Policies\Google\Chrome\ExtensionInstallBlocklist")){
+        New-Item -Path "HKLM:\Software\Policies\Google\Chrome" -Name "ExtensionInstallBlocklist"
+    }
+    Write-Output "Chrome ExtensionInstallBlocklist Registry entry did not exist"
+    Write-Output "---------------------"
+    #Browsec VPN
+    Set-ItemProperty -Path $registryLocation -Name "1" -Type String -Value "omghfjlpggmjjaagoclmmobgdodcjboh" -Force
+}
+
 # Disable Edge Full-Tab Promotional Content
 $registryLocation = "HKLM:\Software\Policies\Microsoft\Edge"
 $registryName = "PromotionalTabsEnabled"
