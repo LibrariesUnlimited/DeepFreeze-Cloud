@@ -8,6 +8,8 @@ Write-Output "###### START $(Get-Date -Format "dd-MM-yyyy HH:mm:ss") ##### "
 
 Get-ChildItem "HKLM:\SYSTEM\CurrentControlSet\Services\EventLog"
 
+# Checking and Changing Event Log Storage locations so that it works even when frozen
+
 # Expected Locations
 $application = "C:\Windows\EventLogs\Application.evtx"
 $hardwareEvents = "C:\Windows\EventLogs\HardwareEvents.evtx"

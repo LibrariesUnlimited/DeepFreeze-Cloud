@@ -2,8 +2,7 @@
 # For adding changes to the Registry that require SYSTEM / Administrator permissions
 # If a change is made in this script then a corresponding change should be made to the build
 # HOWEVER ... this script should check to see if changes are required to speed processing and restrict errors
-# Eventually all machines will have updates from this script applied so in theory it could be stopped but will be left running to have changes made at next Maintenance Period
-# rather than waiting a week to change the DeepFreeze Cloud Policy
+# This Script also includes fixes for things that might break after a Windows Update
 
 # In addition this script now deletes the SoftwareDistribution folder to clear out corrupted update files each maintenance (for now it will only be on select computers)
 # This section is at the end of the script.
@@ -320,6 +319,52 @@ if ((Get-ItemProperty -Path $registryLocation -Name "Disable Ctrl Alt Del")."Dis
     Write-Output "iCAM Disable Ctrl Alt Del Registry entry incorrect"
     Write-Output "---------------------"
 }
+
+# Checking and Changing Event Log Storage locations so that it works even when frozen
+# Not required in full BuildScript as it is a post Windows Update Fix
+
+# Expected Locations
+$application = "C:\Windows\EventLogs\Application.evtx"
+$hardwareEvents = "C:\Windows\EventLogs\HardwareEvents.evtx"
+$security = "C:\Windows\EventLogs\Security.evtx"
+$system = "C:\Windows\EventLogs\System.evtx"
+
+# Application check and change
+$registryLocation = "HKLM:\SYSTEM\CurrentControlSet\Services\EventLog\Application"
+if ((Get-ItemProperty -Path $registryLocation -Name "File")."File" -ne $application) {
+    Set-ItemProperty -Path $registryLocation -Name "File" -Type ExpandString -Value $application -Force
+    Set-ItemProperty -Path $registryLocation -Name "Flags" -Type DWord -Value 1 -Force
+    Write-Output "Application Eventlog Incorrect"
+    Write-Output "---------------------"
+}
+
+# Hardware Events check and change
+$registryLocation = "HKLM:\SYSTEM\CurrentControlSet\Services\EventLog\HardwareEvents"
+if ((Get-ItemProperty -Path $registryLocation -Name "File")."File" -ne $hardwareEvents) {
+    Set-ItemProperty -Path $registryLocation -Name "File" -Type ExpandString -Value $hardwareEvents -Force
+    Set-ItemProperty -Path $registryLocation -Name "Flags" -Type DWord -Value 1 -Force
+    Write-Output "Hardware Events Eventlog Incorrect"
+    Write-Output "---------------------"
+}
+
+# Security check and change
+$registryLocation = "HKLM:\SYSTEM\CurrentControlSet\Services\EventLog\Security"
+if ((Get-ItemProperty -Path $registryLocation -Name "File")."File" -ne $security) {
+    Set-ItemProperty -Path $registryLocation -Name "File" -Type ExpandString -Value $security -Force
+    Set-ItemProperty -Path $registryLocation -Name "Flags" -Type DWord -Value 1 -Force
+    Write-Output "Security Eventlog Incorrect"
+    Write-Output "---------------------"
+}
+
+# System check and change
+$registryLocation = "HKLM:\SYSTEM\CurrentControlSet\Services\EventLog\System"
+if ((Get-ItemProperty -Path $registryLocation -Name "File")."File" -ne $system) {
+    Set-ItemProperty -Path $registryLocation -Name "File" -Type ExpandString -Value $system -Force
+    Set-ItemProperty -Path $registryLocation -Name "Flags" -Type DWord -Value 1 -Force
+    Write-Output "System Eventlog Incorrect"
+    Write-Output "---------------------"
+}
+
 
 Write-Output "END OF REGISTRY CHANGES"
 Write-Output "---------------------"
