@@ -453,8 +453,9 @@ switch ( $profiles ) {
                 Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName" -Name $_.Key -Value $_.Value
             }
         }
-        {($_ -eq "CHC") -or ($_ -eq "CHI")} 
+    {($_ -eq "CHC") -or ($_ -eq "CHI")} 
         {
+            $profileName = $_
             $childApplicationsValues.GetEnumerator() | ForEach-Object {
                 Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
             }            
