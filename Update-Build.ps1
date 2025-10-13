@@ -392,7 +392,7 @@ if(-not(Test-Path -Path "C:\Program Files (x86)\iCAM\Workstation Control\newdesk
 
 
 # List of Profiles, remember if a profile is added here it needs to be added to the switch statement below
-$profiles = @('ADC','ADU','Default','OOH','STC','STU')
+$profiles = @('ADC','ADU','CHC','CHI','Default','OOH','STC','STU')
 
 # Registry key/values for Adult Profiles
 $adultValues = @{
@@ -410,6 +410,7 @@ $adultApplicationsValues = @{
     "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/web-resources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
     "Computer Help"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/computer-help,C:\Windows\HelpPane.exe,1658,520,2"
     "Email"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/webmail-services,C:\Program Files (x86)\iCAM\Workstation Control\CPL\email2.ico,280,295,2"
+    "GIMP - Graphics"="C:\Program Files\GIMP 3\bin\gimp-3.exe,,,542,697,1"
     "Events"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/whats-on,C:\Program Files (x86)\iCAM\Workstation Control\CPL\calendar2.ico,937,697,1"
     "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/-/digital-library,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1072,587,1"
 }
@@ -429,8 +430,13 @@ $filteredApplicationsValues = @{
     "Online Services"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/web-resources,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Desktop.ico,1072,697,1"
     "Computer Help"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/computer-help,C:\Windows\HelpPane.exe,1658,520,2"
     "Email"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/webmail-services,C:\Program Files (x86)\iCAM\Workstation Control\CPL\email2.ico,280,295,2"
+    "GIMP - Graphics"="C:\Program Files\GIMP 3\bin\gimp-3.exe,,,542,697,1"
     "Events"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/whats-on,C:\Program Files (x86)\iCAM\Workstation Control\CPL\calendar2.ico,937,697,1"
     "Reference Resources"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://discover.librariesunlimited.org.uk/-/digital-library,C:\Program Files (x86)\iCAM\Workstation Control\CPL\Newspapers.ico,1072,587,1"
+}
+
+$childApplicationsValues = @{
+    "GIMP - Graphics"="C:\Program Files\GIMP 3\bin\gimp-3.exe,,,140,697,1"
 }
 
 #  ADC and ADU and Default and OOH the same (all adult), CHC and CHI the same (all child), STC and STU the same (child filter) 
@@ -446,6 +452,12 @@ switch ( $profiles ) {
             $adultValues.GetEnumerator() | ForEach-Object {
                 Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName" -Name $_.Key -Value $_.Value
             }
+        }
+        {($_ -eq "CHC") -or ($_ -eq "CHI")} 
+        {
+            $childApplicationsValues.GetEnumerator() | ForEach-Object {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName\Applications" -Name $_.Key -Value $_.Value
+            }            
         }
     {($_ -eq "STC") -or ($_ -eq "STU")} 
         {
