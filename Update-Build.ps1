@@ -402,7 +402,7 @@ $adultValues = @{
 # Registry key/values for Adult Applications
 # "Calculator"="c:\windows\system32\calc.exe,,,550,370,0"
 $adultApplicationsValues = @{
-    "Internet"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.cc/your-libraries,,130,295,2"
+    "Internet"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.google.co.uk,,130,295,2"
     "Borrow Box"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.borrowbox.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico,542,248,1"
     "Theory Test Pro"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.theorytestpro.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico,542,358,1"
     "Ancestry"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://ancestrylibrary.proquest.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\ancestry.ico,677,248,1"    
@@ -423,7 +423,7 @@ $filteredValues = @{
 
 # Registry key/values for Filtered Applications (Currently the same as Adult)
 $filteredApplicationsValues = @{
-    "Internet"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.cc/your-libraries,,130,295,2"
+    "Internet"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://www.google.co.uk,,130,295,2"
     "Borrow Box"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://devon.borrowbox.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\borrowbox.ico,542,248,1"
     "Theory Test Pro"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://libraries-unlimited-devon-torbay.theorytestpro.co.uk/students/new,C:\Program Files (x86)\iCAM\Workstation Control\CPL\theorytest.ico,542,358,1"
     "Ancestry"="C:\Program Files\Google\Chrome\Application\chrome.exe,https://ancestrylibrary.proquest.com,C:\Program Files (x86)\iCAM\Workstation Control\CPL\ancestry.ico,677,248,1" 
