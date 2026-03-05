@@ -53,8 +53,6 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\Hid
 
 $path = "C:\Windows\System32\spool\PRINTERS"
 
-# Re-activating Office for PEC Test
-cscript.exe "C:\Program Files\Microsoft Office\Office16\ospp.vbs" /act
 
 # Set Permissions for Libraries Unlimited directory as Full Control for everyone for launchurl.bat tweaks during startup
 # Set Permissions for %windir%\system32\spool\PRINTERS as Modify for BUILTIN\Users for printing to work
