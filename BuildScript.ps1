@@ -1190,6 +1190,11 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\Hid
 $registryLocation = "HKLM:\System\CurrentControlSet\Control\Power"
 Set-ItemProperty -Path $registryLocation -Name "PlatformAoAcOverride" -Value 0 -Type DWord
 
+# Set NIC WOL settings
+Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Energy Efficient Ethernet" -DisplayValue Off
+Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Wake on Magic Packet" -DisplayValue Enabled
+Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Wake on Pattern Match" -DisplayValue Disabled
+
 # Disable access to Windows Screensaver from Control Panel (can still be accessed via changing Registry Settings, possibly causing an iCAM problem)
 #Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "NoDispScrSavPage" -Type DWord -Value 1
 
@@ -1202,6 +1207,8 @@ powercfg.exe /X standby-timeout-ac 0
 powercfg.exe /X standby-timeout-dc 0
 powercfg.exe /X hibernate-timeout-ac 0
 powercfg.exe /X hibernate-timeout-dc 0
+
+
 
 # Set Wallpaper
 $registryLocation = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP"
