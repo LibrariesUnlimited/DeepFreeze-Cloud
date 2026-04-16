@@ -505,7 +505,7 @@ Write-Output "---------------------"
 Write-Output "START OF NIC SETTINGS"
 Write-Output "---------------------"
 
-Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Energy Efficient Ethernet" -DisplayValue Off
+Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Energy Efficient Ethernet" -DisplayValue On
 Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Wake on Magic Packet" -DisplayValue Enabled
 Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Wake on Pattern Match" -DisplayValue Disabled
 

@@ -1191,7 +1191,7 @@ $registryLocation = "HKLM:\System\CurrentControlSet\Control\Power"
 Set-ItemProperty -Path $registryLocation -Name "PlatformAoAcOverride" -Value 0 -Type DWord
 
 # Set NIC WOL settings
-Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Energy Efficient Ethernet" -DisplayValue Off
+Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Energy Efficient Ethernet" -DisplayValue On
 Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Wake on Magic Packet" -DisplayValue Enabled
 Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Wake on Pattern Match" -DisplayValue Disabled
 
