@@ -137,6 +137,25 @@ if(-not(Test-RegistryValue -Path $registryPath -Name $registryName))
             }
     }
 }
+
+#black holing proxy, might work.
+$profiles = @('CHC','CHI')
+$childValues = @{
+    "Proxy Server Port" = 8090
+    "Proxy Server Host" = "172.18.20.19"
+}
+
+    switch ( $profiles ) {
+        {($_ -eq "CHC") -or ($_ -eq "CHI")} 
+            {
+                $profileName = $_
+                $childValues.GetEnumerator() | ForEach-Object {
+                    Set-ItemProperty -Path "HKLM:\SOFTWARE\Insight Media\Cafe Client\Application Launcher\$profileName" -Name $_.Key -Value $_.Value
+                }
+            }
+    }
+
+
 # Check to see if Disable Taskbar is set correctly for Child Environment Profile, if not correct
 if ((Get-ItemProperty -Path $registryPath -Name "Disable Taskbar")."Disable Taskbar" -ne 1) {
     Set-ItemProperty -Path $registryPath -Name "Disable Taskbar" -Value 1 -Type DWord
