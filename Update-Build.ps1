@@ -155,9 +155,18 @@ $childValues = @{
             }
     }
 
+#Hide proxy settings from Settings Menu
 $registryLocation = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"
 $registryName = "SettingsPageVisibility"
-Set-ItemProperty -Path $registryLocation -Name $registryName -Type String -Value "hide:network-proxy"
+# checks to see if the value already exists, if it doesn't then create it
+if(-not(Test-RegistryValue -Path $registryLocation -Name $registryName))
+{
+    Set-ItemProperty -Path $registryLocation -Name $registryName -Type String -Value "hide:network-proxy"    
+}
+# checks to see if the value is correct, if not correct it
+if ((Get-ItemProperty -Path $registryLocation -Name $registryName).SettingsPageVisibility -ne "hide:network-proxy") {
+    Set-ItemProperty -Path $registryLocation -Name $registryName -Type String -Value "hide:network-proxy"
+}
 
 # Check to see if Disable Taskbar is set correctly for Child Environment Profile, if not correct
 if ((Get-ItemProperty -Path $registryPath -Name "Disable Taskbar")."Disable Taskbar" -ne 1) {

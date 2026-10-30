@@ -351,8 +351,8 @@ $filteredApplicationsValues = @{
 # not changed yet to make text correct
 $childValues = @{
     "Use Proxy Server" = 1
-    "Proxy Server Port" = 8080
-    "Proxy Server Host" = "172.18.20.9"
+    "Proxy Server Port" = 8090
+    "Proxy Server Host" = "172.18.20.19"
     "Terms and Conditions" = ""
     "Run on Unlock" = ""
     "Desktop Wallpaper" = "C:\Program Files (x86)\iCAM\Workstation Control\childdesktop1920x1032.jpg"
@@ -1189,6 +1189,11 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\Hid
 # Set Power Management for NIC
 $registryLocation = "HKLM:\System\CurrentControlSet\Control\Power"
 Set-ItemProperty -Path $registryLocation -Name "PlatformAoAcOverride" -Value 0 -Type DWord
+
+#Hide proxy settings from Settings Menu
+$registryLocation = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+$registryName = "SettingsPageVisibility"
+Set-ItemProperty -Path $registryLocation -Name $registryName -Type String -Value "hide:network-proxy"
 
 # Set NIC WOL settings
 Set-NetAdapterAdvancedProperty -Name "Ethernet" -DisplayName "Energy Efficient Ethernet" -DisplayValue On
