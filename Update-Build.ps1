@@ -157,7 +157,7 @@ $childValues = @{
 
 $registryLocation = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"
 $registryName = "SettingsPageVisibility"
-Set-ItemProperty -Path $registryLocation -Name $registryName -Type REG_SZ -Value "hide:network-proxy"
+Set-ItemProperty -Path $registryLocation -Name $registryName -Type String -Value "hide:network-proxy"
 
 # Check to see if Disable Taskbar is set correctly for Child Environment Profile, if not correct
 if ((Get-ItemProperty -Path $registryPath -Name "Disable Taskbar")."Disable Taskbar" -ne 1) {
